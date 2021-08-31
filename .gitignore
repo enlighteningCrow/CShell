@@ -8,6 +8,7 @@
 *.moc
 *.o
 *.obj
+*.old
 *.orig
 *.rej
 *.so
@@ -32,6 +33,7 @@ qrc_*.cpp
 Thumbs.db
 *.res
 *.rc
+*.user
 /.qmake.cache
 /.qmake.stash
 
