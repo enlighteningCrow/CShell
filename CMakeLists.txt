@@ -29,6 +29,8 @@ find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
 set(PROJECT_SOURCES
         main.cpp
+        contactor.h
+        contactor.cpp
         display.cpp
         display.h
         display.ui

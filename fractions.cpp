@@ -117,28 +117,214 @@
 //         std::cout << "stderr: " << line << '\n';
 // }
 
-using std::cout;
-using std::endl;
-using std::string;
+// using std::cout;
+// using std::endl;
+// using std::string;
 
 
-int main() {
-    cout << "start" << endl;
-    redi::pstream proc("./echoer");
-    // proc << "a = []\n";
+// int main() {
+//     cout << "start" << endl;
+//     redi::pstream proc("./echoer");
+//     // proc << "a = []\n";
 
-    for (int i{ 0 }; i < 100; ++i) {
-        // (cout << "a[" << i << "] = " << i << "\n").flush();
-        // (proc << "a.append(" << i << ")\n")/* .flush() */;
-        proc.write("392\n", 4)/* .flush() */;
+//     for (int i{ 0 }; i < 100; ++i) {
+//         // (cout << "a[" << i << "] = " << i << "\n").flush();
+//         // (proc << "a.append(" << i << ")\n")/* .flush() */;
+//         proc.write("392\n", 4)/* .flush() */;
+//     }
+//     (proc << "print(a)\n").flush();
+//     string line;
+//     getline(proc.out(), line);
+//     cout << line << endl;
+//     (proc << "exit()\n").flush();
+//     // proc.write("foo", 10000).flush();
+
+//     cout << "end" << endl;
+//     return 0;
+// }
+
+// using redi::pstreams;
+// using redi::pstream;
+// using redi::ipstream;
+
+// int main() {
+//     // const pstreams::pmode mode = pstreams::pstdout | pstreams::pstderr;
+//     pstream child("stdbuf --output=0 bash"/* "export PATH=\"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH\";unbuffer bash" *//* , mode */);
+//     char buf[1024];
+//     for (int i{ 0 };i < 1024; ++i) {
+//         buf[i] = 0;
+//     }
+//     std::streamsize n;
+//     std::string a;
+//     std::string cDir;
+//     bool finished[2] = { false, false };
+//     child << ("");
+//     while (!finished[0] || !finished[1]) {
+//         child << "echo $PWD" << std::endl;
+//         // child >> cDir;
+//         std::getline(child.out(), cDir);
+//         std::cout << ":" << cDir << "$\t";
+//         std::getline(std::cin, a);
+//         a += '\n';
+//         std::cout << "Sending out: " << a << ". \n";
+//         child.write(a.c_str(), a.size()).flush();
+//         // (child << a << '\n').flush();
+//         // (child << a << '\n').flush();
+//         // (child << "echo hello\n").flush();
+//         // std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+//         usleep(100000);
+//         if (!finished[0]) {
+//             while ((n = child.err().readsome(buf, sizeof(buf))) > 0)
+//                 std::cerr.write(buf, n);
+//             if (child.eof()) {
+//                 finished[0] = true;
+//                 if (!finished[1])
+//                     child.clear();
+//             }
+//         }
+
+//         if (!finished[1]) {
+//             while ((n = child.out().readsome(buf, sizeof(buf))) > 0)
+//                 std::cout.write(buf, n).flush();
+//             if (child.eof()) {
+//                 finished[1] = true;
+//                 if (!finished[0])
+//                     child.clear();
+//             }
+//         }
+//     }
+
+// }
+
+using redi::pstreams;
+using redi::pstream;
+using redi::ipstream;
+
+#include <boost/thread.hpp>
+
+struct Info {
+public:
+    std::string message_out;
+    std::string message_err;
+    std::string path;
+    bool terminated;
+    bool isComplete() {
+        return (((message_out != "") || (message_err != "")) && (path != ""));
     }
-    (proc << "print(a)\n").flush();
-    string line;
-    getline(proc.out(), line);
-    cout << line << endl;
-    (proc << "exit()\n").flush();
-    // proc.write("foo", 10000).flush();
+    void clear() {
+        message_out = "";
+        message_err = "";
+        path = "";
+    }
+};
 
-    cout << "end" << endl;
-    return 0;
+class Commu {
+protected:
+    static bool m_changed;
+    static std::string m_message;
+    static Info m_info;
+public:
+    Commu() {}
+    // Commu() : m_message{ "" }, m_changed{ false } {}
+    // Commu(std::string message) : m_message{ message }, m_changed{ true } {}
+    static Info& info() {
+        return m_info;
+    }
+    operator bool() {
+        return m_changed;
+    }
+    static bool hasChanged() {
+        return m_changed;
+    }
+    static Info& sendMessagef(const std::string& message) {
+        m_changed = true;
+        m_message = message;
+        // boost::thread thread1{}
+        while (!m_info.isComplete()) {
+            usleep(10000);
+        }
+        /**
+         * @brief
+         * Main process should handle this termination (if unexpected).
+         */
+         // if (m_info.terminated) {
+             // 
+         // }
+        return m_info;
+    }
+    static void setMessage(const std::string& message) {
+        m_changed = true;
+        m_message = message;
+        return;
+    }
+    static std::string& getMessage() {
+        m_changed = false;
+        return m_message;
+    }
+};
+
+bool Commu::m_changed{ false };
+std::string Commu::m_message{ "" };
+Info Commu::m_info{ "" };
+
+// Commu communicator1{};
+
+int contactor() {
+    // const pstreams::pmode mode = pstreams::pstdout | pstreams::pstderr;
+    static pstream child("stdbuf --output=0 bash"/* "export PATH=\"/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:$PATH\";unbuffer bash" *//* , mode */);
+    char buf[1024];
+    for (int i{ 0 };i < 1024; ++i) {
+        buf[i] = 0;
+    }
+    std::streamsize n;
+    std::string a;
+    std::string cDir;
+    std::stringstream ss;
+    bool finished[2] = { false, false };
+    child << ("");
+    while (!finished[0] || !finished[1]) {
+        while (!Commu::hasChanged()) {
+            usleep(10000);
+        }
+        Commu::info().clear();
+        child << "echo $PWD" << std::endl;
+        std::getline(child.out(), cDir);
+        Commu::info().path = ":" + cDir + "$\t";
+        // std::cout << ":" << cDir << "$\t";
+        std::getline(std::cin, a);
+        a += '\n';
+        // std::cout << "Sending out: " << a << ". \n";
+        child.write(a.c_str(), a.size()).flush();
+        usleep(100000);
+        if (!finished[0]) {
+            while ((n = child.err().readsome(buf, sizeof(buf))) > 0) {
+                // ss.write(buf, n);
+                // Commu::info().message_err += ss.str();
+                // ss.clear();
+                Commu::info().message_err += buf;
+                // std::cerr.write(buf, n);
+            }
+            if (child.eof()) {
+                finished[0] = true;
+                if (!finished[1])
+                    child.clear();
+            }
+        }
+
+        if (!finished[1]) {
+            while ((n = child.out().readsome(buf, sizeof(buf))) > 0) {
+                // ss.write(buf, n);
+                // Commu::info().message_out += ss.str();
+                // ss.clear();
+                Commu::info().message_out += buf;
+                // std::cout.write(buf, n).flush();
+            }
+            if (child.eof()) {
+                finished[1] = true;
+                if (!finished[0])
+                    child.clear();
+            }
+        }
+    }
+    Commu::info().terminated = true;
 }

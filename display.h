@@ -15,7 +15,7 @@ public:
     Display(QWidget *parent = nullptr);
     ~Display();
 
-private:
+    // private:
     Ui::Display *ui;
 };
 #endif // DISPLAY_H
