@@ -13,9 +13,9 @@ int main(int argc, char *argv[])
     Display w;
     // ;
     boost::thread communicate{ contactor };
-    boost::
-        communicate.join();
-    QObject::connect(w.ui->plainTextEdit, SIGNAL(textChanged()), Commu::sendMessagef, SLOT(clear()));
+    // boost::
+    // communicate.join();
+    // QObject::connect(w.ui->plainTextEdit, &QPlainTextEdit::textChanged, Commu::sendMessagef());
     // QObject::connect(); //Connect the signal everytime enter is pressed in terminal emulator and send the std::string to the Info static class member m_message. 
     w.show();
     return a.exec();
