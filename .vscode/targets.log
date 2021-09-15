@@ -1,0 +1,642 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.2.1
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2016 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+
+# Make data base, printed on Wed Sep 15 10:41:15 2021
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# environment
+WSLENV = VSCODE_WSL_EXT_LOCATION/up
+# default
+.SHELLFLAGS := -c
+# environment
+VSCODE_AGENT_FOLDER = /home/twistingcamel/.vscode-server-insiders
+# environment
+VSCODE_LOG_NATIVE = false
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# automatic
+@F = $(notdir $@)
+# makefile
+CURDIR := /home/twistingcamel/programs/kmitl/c++/cshell/CShell
+# makefile (from 'Makefile', line 39)
+SHELL = /bin/sh
+# makefile (from 'Makefile', line 45)
+RM = /usr/bin/cmake -E remove -f
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
+# environment
+_ = /home/twistingcamel/.vscode-server-insiders/bin/23cffa27b806f9e1733e15d611ec251dcdba2c42/node
+# makefile (from 'Makefile', line 54)
+CMAKE_BINARY_DIR = /home/twistingcamel/programs/kmitl/c++/cshell/CShell
+# makefile (from 'Makefile', line 1)
+MAKEFILE_LIST :=  Makefile
+# environment
+DONT_PROMPT_WSL_INSTALL = 1
+# environment
+SCALA_HOME = /home/twistingcamel/.sdkman/candidates/scala/current
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+XDG_DATA_DIRS = /usr/local/share:/usr/share:/var/lib/snapd/desktop
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# environment
+FNM_NODE_DIST_MIRROR = https://nodejs.org/dist
+# environment
+LESSOPEN = | /usr/bin/lesspipe %s
+# environment
+VSCODE_CWD = /mnt/c/Program Files/Microsoft VS Code Insiders
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+PATH = /home/twistingcamel/.vscode-server-insiders/bin/23cffa27b806f9e1733e15d611ec251dcdba2c42/bin:/home/twistingcamel/.local/bin:/home/twistingcamel/.cargo/bin:/home/twistingcamel/ci/build/builddir/bin:/opt/Qt/Tools/QtInstallerFramework/bin:/opt/Qt/Tools/QtDesignStudio/bin:/opt/Qt/Tools/QtCreator/bin:/opt/Qt/Tools/Qt3DStudio/bin:/home/twistingcamel/miniconda3/bin:/home/twistingcamel/miniconda3/condabin:/home/twistingcamel/.cache/activestate/bin:mnt/c/Program Files/Microsoft VS Code Insiders/bin:mnt/c/Program Files/Microsoft VS Code/bin:/opt/android-studio/bin:/opt/android-studio:/home/twistingcamel/.sdkman/candidates/scala/current/bin:/home/twistingcamel/.sdkman/candidates/kotlin/current/bin:/home/twistingcamel/.sdkman/candidates/java/current/bin:/tmp/fnm_multishells/124_1631677180967/bin:/home/twistingcamel/.fnm:/tmp/fnm_multishells/121_1631677180958/bin:/home/twistingcamel/.fnm:/usr/local/vcpkg:/opt/intel/oneapi:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Program Files (x86)/VMware/VMware Player/bin:/mnt/c/Java/openjdk-16.0.2_windows-x64_bin/jdk-16.0.2/bin:/mnt/c/ProgramData/Oracle/Java/javapath:/mnt/c/Qt/Qt:/mnt/c/Qt/6.1.2/msvc2019_64/bin:/mnt/c/Qt/Qt/6.1.2/MSVC 2019 (64-bit):/mnt/c/Qt/Tools/Preview/Qt Creator 5.0.0-beta1/bin:/mnt/c/Qt/Tools/Qt3DStudio/bin:/mnt/c/Qt/Tools/QtDesignStudio/bin:/mnt/c/ProgramData/Miniconda3:/mnt/c/ProgramData/Miniconda3/Library/mingw-w64/bin:/mnt/c/ProgramData/Miniconda3/Library/usr/bin:/mnt/c/ProgramData/Miniconda3/Library/bin:/mnt/c/ProgramData/Miniconda3/Scripts:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64/compiler:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0:/mnt/c/Windows/System32/OpenSSH:/mnt/c/Program Files/Microsoft SQL Server/130/Tools/Binn:/mnt/c/ProgramData/chocolatey:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/ProgramData/vcpkg:/mnt/c/Program Files/Microsoft VS Code Insiders/bin:/mnt/c/Program Files/Microsoft VS Code/bin:/mnt/c/Program Files/VideoLAN/VLC:/mnt/c/Program Files/Blender Foundation/Blender 2.93:/mnt/c/Java/openjdk-16.0.2_windows-x64_bin/jdk-16.0.2/bin:/mnt/c/OSG/OpenSceneGraph-3.6.5-VC2019-64-Debug/bin:/mnt/c/OSG/OpenSceneGraph-3.6.5-VC2019-64-Release/bin:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn:/mnt/c/Program Files (x86)/IncrediBuild:/mnt/c/Program Files/dotnet:/mnt/c/Program Files/Microsoft SQL Server/140/Tools/Binn:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/Cppcheck:/mnt/c/ProgramData/vcpkg/packages/llvm_x64-windows/tools/llvm:/mnt/c/ProgramData/vcpkg/buildtrees/llvm/x64-windows-dbg/bin:/mnt/c/ProgramData/vcpkg/buildtrees/llvm/x64-windows-rel/bin:/mnt/c/Program Files/cmake/bin:/mnt/c/Program Files/PowerShell/7:/mnt/c/Users/twist/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files (x86)/GitHub CLI:/mnt/c/Users/twist/.dotnet/tools:/mnt/c/tools/msys64:/mnt/c/Users/twist/AppData/Local/GitHubDesktop/bin:/snap/bin:/home/twistingcamel/.dotnet/toolssshd_status= * sshd is not running:/usr/local/bin
+# environment
+NAME = DESKTOP-8M4EEVT
+# environment
+SDKMAN_DIR = /home/twistingcamel/.sdkman
+# environment
+SDKMAN_CANDIDATES_API = https://api.sdkman.io/2
+# environment
+ONEAPI_ROOT = /opt/intel/oneapi
+# environment
+FNM_LOGLEVEL = info
+# environment
+CONDA_PREFIX = /home/twistingcamel/miniconda3
+# environment
+SDKMAN_PLATFORM = linuxx64
+# environment
+VSCODE_LOG_STACK = false
+# environment
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-d837b0d9-4cd2-41a9-8f2f-8cedaea217f8.sock
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# environment
+LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+# automatic
+%F = $(notdir $%)
+# environment
+DISPLAY = 127.0.0.1:0.0
+# environment
+CONDA_EXE = /home/twistingcamel/miniconda3/bin/conda
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+PWD = /home/twistingcamel/programs/kmitl/c++/cshell/CShell
+# default
+.LOADED := 
+# environment
+WSL_INTEROP = /run/WSL/11_interop
+# environment
+KOTLIN_HOME = /home/twistingcamel/.sdkman/candidates/kotlin/current
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/server/remoteExtensionHostProcess
+# environment
+HOME = /home/twistingcamel
+# environment
+LESSCLOSE = /usr/bin/lesspipe %s %s
+# environment
+FNM_MULTISHELL_PATH = /tmp/fnm_multishells/124_1631677180967
+# environment
+LOGNAME = twistingcamel
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+# makefile (from 'Makefile', line 48)
+EQUALS = =
+# environment
+CONDA_PROMPT_MODIFIER = (base) 
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+MAKELEVEL := 0
+# environment
+CONDA_DEFAULT_ENV = base
+# environment
+SDKMAN_VERSION = 5.11.7
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+CONDA_SHLVL = 1
+# environment
+SHLVL = 0
+# environment
+JAVA_HOME = /home/twistingcamel/.sdkman/candidates/java/current
+# default
+MAKE_VERSION := 4.2.1
+# environment
+USER = twistingcamel
+# makefile
+.DEFAULT_GOAL := default_target
+# makefile (from 'Makefile', line 51)
+CMAKE_SOURCE_DIR = /home/twistingcamel/programs/kmitl/c++/cshell/CShell
+# environment
+LIBVIRT_DEFAULT_URI = qemu:///system
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# environment
+VSCODE_WSL_EXT_LOCATION = /mnt/c/Users/twist/.vscode-insiders/extensions/ms-vscode-remote.remote-wsl-0.58.2
+# default
+MAKE_COMMAND := make
+# environment
+OLDPWD = /mnt/c/Program Files/Microsoft VS Code Insiders
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# makefile
+MAKEFLAGS = pqrRs
+# environment
+MFLAGS = -pqrRs
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# automatic
++F = $(notdir $+)
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# environment
+USE_DAAL4PY_SKLEARN = YES
+# environment
+SDKMAN_CANDIDATES_DIR = /home/twistingcamel/.sdkman/candidates
+# environment
+FNM_DIR = /home/twistingcamel/.fnm
+# environment
+LC_ALL = C
+# environment
+CONDA_PYTHON_EXE = /home/twistingcamel/miniconda3/bin/python
+# environment
+HOSTTYPE = x86_64
+# makefile (from 'Makefile', line 42)
+CMAKE_COMMAND = /usr/bin/cmake
+# automatic
+^F = $(notdir $^)
+# environment
+FNM_ARCH = x64
+# makefile (from 'Makefile', line 21)
+SUFFIXES = 
+# environment
+_CE_M = 
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH = /home/twistingcamel/.vscode-server-insiders/bin/23cffa27b806f9e1733e15d611ec251dcdba2c42/remote/node_modules
+# default
+.RECIPEPREFIX := 
+# environment
+LANG = C
+# environment
+TERM = xterm-256color
+# environment
+VSCODE_EXTHOST_WILL_SEND_SOCKET = true
+# environment
+WSL_DISTRO_NAME = Ubuntu
+# environment
+MOTD_SHOWN = update-motd
+# environment
+_CE_CONDA = 
+# variable set hash-table stats:
+# Load=101/1024=10%, Rehash=0, Collisions=9/135=7%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# . (device 2064, inode 3539015): 26 files, no impossibilities.
+
+# 26 files, no impossibilities in 1 directories.
+
+# Implicit Rules
+
+%.hpux_make_needs_suffix_list:
+
+# 1 implicit rules, 0 (0.0%) terminal.
+
+# Files
+
+cmake_force:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+NEWW.i: NEWW.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+NEWW.o: NEWW.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+edit_cache:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 72):
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+
+all: cmake_check_build_system
+#  Phony target (prerequisite of .PHONY).
+#  Command line target.
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/6=0%
+#  recipe to execute (from 'Makefile', line 83):
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/twistingcamel/programs/kmitl/c++/cshell/CShell/CMakeFiles /home/twistingcamel/programs/kmitl/c++/cshell/CShell/CMakeFiles/progress.marks
+	$(MAKE) -f CMakeFiles/Makefile2 all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/twistingcamel/programs/kmitl/c++/cshell/CShell/CMakeFiles 0
+
+display.s: display.cpp.s
+ 
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+.PHONY: default_target cmake_force rebuild_cache rebuild_cache/fast edit_cache edit_cache/fast all clean clean/fast preinstall preinstall/fast depend CShell CShell/fast CShell_autogen CShell_autogen/fast CShell_autogen/mocs_compilation.o CShell_autogen/mocs_compilation.cpp.o CShell_autogen/mocs_compilation.i CShell_autogen/mocs_compilation.cpp.i CShell_autogen/mocs_compilation.s CShell_autogen/mocs_compilation.cpp.s NEWW.o NEWW.cpp.o NEWW.i NEWW.cpp.i NEWW.s NEWW.cpp.s contactor.o contactor.cpp.o contactor.i contactor.cpp.i contactor.s contactor.cpp.s display.o display.cpp.o display.i display.cpp.i display.s display.cpp.s help cmake_check_build_system
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+contactor.s: contactor.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+preinstall/fast:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 105):
+	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+
+.SUFFIXES: .hpux_make_needs_suffix_list
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2021-09-13 22:53:48.7574449
+#  File has been updated.
+#  Successfully updated.
+
+display.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 235):
+	$(MAKE) -f CMakeFiles/CShell.dir/build.make CMakeFiles/CShell.dir/display.cpp.i
+
+display.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 226):
+	$(MAKE) -f CMakeFiles/CShell.dir/build.make CMakeFiles/CShell.dir/display.cpp.o
+
+CShell/fast:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 123):
+	$(MAKE) -f CMakeFiles/CShell.dir/build.make CMakeFiles/CShell.dir/build
+
+.NOTPARALLEL:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+CShell_autogen/mocs_compilation.s: CShell_autogen/mocs_compilation.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+contactor.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 208):
+	$(MAKE) -f CMakeFiles/CShell.dir/build.make CMakeFiles/CShell.dir/contactor.cpp.i
+
+contactor.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 199):
+	$(MAKE) -f CMakeFiles/CShell.dir/build.make CMakeFiles/CShell.dir/contactor.cpp.o
+
+clean/fast: clean
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+NEWW.s: NEWW.cpp.s
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+cmake_check_build_system:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  Implicit/static pattern stem: ''
+#  File does not exist.
+#  File has been updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := cmake_check_build_system
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := 
+# automatic
+# | := 
+# automatic
+# < := 
+# automatic
+# ^ := 
+# automatic
+# ? := 
+# variable set hash-table stats:
+# Load=8/32=25%, Rehash=0, Collisions=3/14=21%
+#  recipe to execute (from 'Makefile', line 280):
+	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+
+help:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 249):
+	@echo "The following are some of the valid targets for this Makefile:"
+	@echo "... all (the default if no target is provided)"
+	@echo "... clean"
+	@echo "... depend"
+	@echo "... rebuild_cache"
+	@echo "... edit_cache"
+	@echo "... CShell"
+	@echo "... CShell_autogen"
+	@echo "... CShell_autogen/mocs_compilation.o"
+	@echo "... CShell_autogen/mocs_compilation.i"
+	@echo "... CShell_autogen/mocs_compilation.s"
+	@echo "... NEWW.o"
+	@echo "... NEWW.i"
+	@echo "... NEWW.s"
+	@echo "... contactor.o"
+	@echo "... contactor.i"
+	@echo "... contactor.s"
+	@echo "... display.o"
+	@echo "... display.i"
+	@echo "... display.s"
+
+CShell_autogen/fast:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 136):
+	$(MAKE) -f CMakeFiles/CShell_autogen.dir/build.make CMakeFiles/CShell_autogen.dir/build
+
+preinstall: all
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 100):
+	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+
+.SILENT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+depend:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 110):
+	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+
+CShell_autogen/mocs_compilation.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 154):
+	$(MAKE) -f CMakeFiles/CShell.dir/build.make CMakeFiles/CShell.dir/CShell_autogen/mocs_compilation.cpp.i
+
+CShell_autogen/mocs_compilation.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 145):
+	$(MAKE) -f CMakeFiles/CShell.dir/build.make CMakeFiles/CShell.dir/CShell_autogen/mocs_compilation.cpp.o
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+default_target: all
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+NEWW.cpp.o:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 172):
+	$(MAKE) -f CMakeFiles/CShell.dir/build.make CMakeFiles/CShell.dir/NEWW.cpp.o
+
+CShell: cmake_check_build_system
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 118):
+	$(MAKE) -f CMakeFiles/Makefile2 CShell
+
+clean:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 90):
+	$(MAKE) -f CMakeFiles/Makefile2 clean
+
+display.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 244):
+	$(MAKE) -f CMakeFiles/CShell.dir/build.make CMakeFiles/CShell.dir/display.cpp.s
+
+rebuild_cache/fast: rebuild_cache
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+edit_cache/fast: edit_cache
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+contactor.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 217):
+	$(MAKE) -f CMakeFiles/CShell.dir/build.make CMakeFiles/CShell.dir/contactor.cpp.s
+
+NEWW.cpp.i:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 181):
+	$(MAKE) -f CMakeFiles/CShell.dir/build.make CMakeFiles/CShell.dir/NEWW.cpp.i
+
+display.i: display.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+display.o: display.cpp.o
+ 
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+CShell_autogen: cmake_check_build_system
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 131):
+	$(MAKE) -f CMakeFiles/Makefile2 CShell_autogen
+
+contactor.i: contactor.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+contactor.o: contactor.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+# Not a target:
+.hpux_make_needs_suffix_list:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+CShell_autogen/mocs_compilation.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 163):
+	$(MAKE) -f CMakeFiles/CShell.dir/build.make CMakeFiles/CShell.dir/CShell_autogen/mocs_compilation.cpp.s
+
+NEWW.cpp.s:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 190):
+	$(MAKE) -f CMakeFiles/CShell.dir/build.make CMakeFiles/CShell.dir/NEWW.cpp.s
+
+CShell_autogen/mocs_compilation.i: CShell_autogen/mocs_compilation.cpp.i
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+CShell_autogen/mocs_compilation.o: CShell_autogen/mocs_compilation.cpp.o
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+
+rebuild_cache:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 61):
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+
+# files hash-table stats:
+# Load=49/1024=5%, Rehash=0, Collisions=7/180=4%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 77 / storage = 1088 B / avg = 14 B
+# current buf: size = 8162 B / used = 1088 B / count = 77 / avg = 14 B
+
+# strcache performance: lookups = 276 / hit rate = 72%
+# hash-table stats:
+# Load=77/8192=1%, Rehash=0, Collisions=2/276=1%
+# Finished Make data base on Wed Sep 15 10:41:15 2021
+
+ 

@@ -1,0 +1,4 @@
+/home/twistingcamel/programs/kmitl/c++/cshell/CShell/CMakeFiles/rebuild_cache.dir
+/home/twistingcamel/programs/kmitl/c++/cshell/CShell/CMakeFiles/edit_cache.dir
+/home/twistingcamel/programs/kmitl/c++/cshell/CShell/CMakeFiles/CShell.dir
+/home/twistingcamel/programs/kmitl/c++/cshell/CShell/CMakeFiles/CShell_autogen.dir

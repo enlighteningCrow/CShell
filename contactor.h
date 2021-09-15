@@ -20,19 +20,35 @@ using redi::ipstream;
 
 #include <boost/thread.hpp>
 
-struct Info {
+class Info {
 public:
     std::string message_out;
     std::string message_err;
     std::string path;
     bool terminated;
+    bool complete;
+    operator bool() const {
+        return complete;
+    }
+    Info& operator=(const Info& b) {
+        this->message_err = b.message_err;
+        this->message_out = b.message_out;
+        this->path = b.path;
+        return *this;
+    }
     bool isComplete() {
-        return (((message_out != "") || (message_err != "")) && (path != ""));
+        return complete;
+        // return (((message_out != "") || (message_err != "")) && (path != ""));
     }
     void clear() {
         message_out = "";
         message_err = "";
         path = "";
+        complete = false;
+    }
+    friend std::ostream& operator<< (std::ostream& out, const Info& info) {
+        out << "{ path:\t\"" << info.path << "\", stderr:\t\"" << info.message_err << "\", stdout:\t\"" << info.message_out << "\" }\n";
+        return out;
     }
 };
 
@@ -55,10 +71,12 @@ public:
         return m_changed;
     }
     static Info& sendMessagef(const std::string& message) {
-        m_changed = true;
         m_message = message;
+        // std::cout << "Received message: " << message << std::endl;
         // boost::thread thread1{}
+        m_changed = true;
         while (!m_info.isComplete()) {
+            // std::cout << "Still waiting\n";
             usleep(10000);
         }
         /**
@@ -86,3 +104,21 @@ public:
 int contactor();
 
 #endif // CONTACTOR_H
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//TODO: Edit the split (between IDE and the terminal) to use QSplitter and edit the terminal to have separate windows for input, output, and current directory.
