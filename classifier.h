@@ -288,4 +288,8 @@ class Statement {
                 std::pair<std::string, std::string> {"xor", ""},
                 std::pair<std::string, std::string> {"xor_eq", ""},
     }
+    /**
+     * TODO: Make a function for parsing
+     *
+     */
 };
