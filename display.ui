@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
+    <width>771</width>
     <height>600</height>
    </rect>
   </property>
@@ -14,75 +14,132 @@
    <string>Display</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="0">
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <property name="spacing">
-         <number>0</number>
-        </property>
-        <item>
-         <widget class="QScrollArea" name="scrollArea">
-          <property name="acceptDrops">
-           <bool>true</bool>
+   <widget class="QWidget" name="layoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>520</width>
+      <height>347</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout">
+     <property name="spacing">
+      <number>0</number>
+     </property>
+     <item row="0" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item>
+        <widget class="QScrollArea" name="scrollArea">
+         <property name="acceptDrops">
+          <bool>true</bool>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOn</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOn</enum>
+         </property>
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>497</width>
+            <height>66</height>
+           </rect>
           </property>
-          <property name="verticalScrollBarPolicy">
-           <enum>Qt::ScrollBarAlwaysOn</enum>
-          </property>
-          <property name="horizontalScrollBarPolicy">
-           <enum>Qt::ScrollBarAlwaysOn</enum>
-          </property>
-          <property name="widgetResizable">
-           <bool>true</bool>
-          </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents">
+          <widget class="QLabel" name="label">
            <property name="geometry">
             <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>755</width>
-             <height>302</height>
+             <x>10</x>
+             <y>-30</y>
+             <width>861</width>
+             <height>101</height>
             </rect>
            </property>
-           <widget class="QLabel" name="label">
-            <property name="geometry">
-             <rect>
-              <x>60</x>
-              <y>-30</y>
-              <width>811</width>
-              <height>411</height>
-             </rect>
-            </property>
-            <property name="text">
-             <string>HellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellos</string>
-            </property>
-           </widget>
+           <property name="text">
+            <string>HellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellosHellos</string>
+           </property>
           </widget>
          </widget>
-        </item>
-       </layout>
-      </item>
-      <item row="1" column="0">
-       <widget class="QPlainTextEdit" name="plainTextEdit">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>200</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-   </layout>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item row="1" column="0">
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Output:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPlainTextEdit" name="plainTextEdit">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>200</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Current Path:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLineEdit" name="lineEdit_2"/>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Input:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTextEdit" name="textEdit"/>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>771</width>
      <height>23</height>
     </rect>
    </property>
@@ -90,5 +147,22 @@
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>textEdit</sender>
+   <signal>textChanged()</signal>
+   <receiver>textEdit</receiver>
+   <slot>paste()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>329</x>
+     <y>286</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>394</x>
+     <y>255</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

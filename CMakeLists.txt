@@ -11,6 +11,11 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+set(Boost_USE_STATIC_LIBS ON)
+find_package(Boost REQUIRED COMPONENTS thread )# asio is header only no library, random is for example
+include_directories(${Boost_INCLUDE_DIR})
+
 # QtCreator supports the following variables for Android, which are identical to qmake Android variables.
 # Check https://doc.qt.io/qt/deployment-android.html for more information.
 # They need to be set before the find_package( ...) calls below.
@@ -28,7 +33,9 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
 set(PROJECT_SOURCES
+        # EXPERIMENT.cpp
         main.cpp
+        # NEWW.cpp
         contactor.h
         contactor.cpp
         display.cpp
@@ -53,14 +60,6 @@ else()
     endif()
 endif()
 
-target_link_libraries(CShell PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
-
-set_target_properties(CShell PROPERTIES
-    MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
-    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-)
-
-if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(CShell)
-endif()
+target_link_libraries(CShell PRIVATE Qt${QT_VERSION_MAJOR}::Widgets ${Boost_LIBRARIES})
+# target_link_libraries(CShell )
+# }::Widgets)
