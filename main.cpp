@@ -21,3 +21,14 @@ int main(int argc, char *argv[])
     w.show();
     return a.exec();
 }
+
+
+
+
+/**TODO:
+ *
+ * The installation of this program will be in a shell script, containing these lines:
+ * git clone git://gcc.gnu.org/git/gcc.git /usr/local/CShell/libs
+ * build from source,
+ * (will think of this later...)
+ */

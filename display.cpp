@@ -10,7 +10,7 @@ Display::Display(QWidget* parent)
     // boost::thread communicate{ contactor };
     // boost::
     // communicate.join();
-    QObject::connect(ui->plainTextEdit, &QPlainTextEdit::textChanged, [=](/* const QString& newValue */) { Commu::sendMessagef(ui->plainTextEdit->toPlainText().toStdString()); });
+    QObject::connect(ui->plainTextEdit, &QPlainTextEdit::textChanged, [this](/* const QString& newValue */) { Commu::sendMessagef(ui->plainTextEdit->toPlainText().toStdString()); });
 
 
 
@@ -19,14 +19,12 @@ Display::Display(QWidget* parent)
     // a.set
 
 
-    std::future<int> future{ std::async(contactor) };
-    Info& i{ Commu::info() };
-    std::filesystem::path cwd = std::filesystem::current_path();
-    std::cout << "The path is at \"" << cwd << "\"\n";
-    while (true) {
-        Commu::sendMessagef("cmake --version");
-        std::cout << "i is now complete with the message:\t" << i << '\n';
-    }
+    //std::filesystem::path cwd = std::filesystem::current_path();
+    //std::cout << "The path is at \"" << cwd << "\"\n";
+    //while (true) {
+    //    Commu::sendMessagef("cmake --version");
+    //    std::cout << "i is now complete with the message:\t" << i << '\n';
+    //}
 }
 
 Display::~Display() {
