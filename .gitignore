@@ -76,3 +76,17 @@ Thumbs.db
 build/
 out/
 .vs/
+.vscode/
+.idea/
+cmake-build*
+
+*.iml
+*.xml
+*.pb
+*.json
+# dryrun.log
+*.log
+clion*
+*.
+# .vscode/dryrun.log
+# .vscode/targets.log
