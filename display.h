@@ -2,6 +2,8 @@
 #define DISPLAY_H
 
 #include <QMainWindow>
+#include <QPainter>
+#include <QPainterPath>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Display; }
@@ -15,7 +17,9 @@ public:
     Display(QWidget *parent = nullptr);
     ~Display();
 
+
     // private:
     Ui::Display *ui;
 };
+
 #endif // DISPLAY_H
