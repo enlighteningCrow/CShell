@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Sep 30 14:44:40 2021
+# Make data base, printed on Sun Oct 10 09:13:02 2021
 
 # Variables
 
@@ -37,7 +37,7 @@ RM = /usr/bin/cmake -E remove -f
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en","availableLanguages":{}}
 # environment
-_ = /home/twistingcamel/.vscode-server-insiders/bin/8d30d4d922dda917d22f05a81f2ab4fad7349779/node
+_ = /home/twistingcamel/.vscode-server-insiders/bin/c9e8266ee24f34107ff52d836a4e8f533afb93c5/node
 # makefile (from 'Makefile', line 54)
 CMAKE_BINARY_DIR = /home/twistingcamel/programs/kmitl/c++/cshell/CShell
 # makefile (from 'Makefile', line 1)
@@ -61,7 +61,7 @@ VSCODE_CWD = /mnt/c/Program Files/Microsoft VS Code Insiders
 # default
 MAKE_HOST := x86_64-pc-linux-gnu
 # environment
-PATH = /home/twistingcamel/.vscode-server-insiders/bin/8d30d4d922dda917d22f05a81f2ab4fad7349779/bin:/home/twistingcamel/.local/bin:/home/twistingcamel/.cargo/bin:/home/twistingcamel/ci/build/builddir/bin:/opt/Qt/Tools/QtInstallerFramework/bin:/opt/Qt/Tools/QtDesignStudio/bin:/opt/Qt/Tools/QtCreator/bin:/opt/Qt/Tools/Qt3DStudio/bin:/home/twistingcamel/miniconda3/bin:/home/twistingcamel/miniconda3/condabin:/home/twistingcamel/.cache/activestate/bin:mnt/c/Program Files/Microsoft VS Code Insiders/bin:mnt/c/Program Files/Microsoft VS Code/bin:/opt/android-studio/bin:/opt/android-studio:/home/twistingcamel/.sdkman/candidates/scala/current/bin:/home/twistingcamel/.sdkman/candidates/kotlin/current/bin:/home/twistingcamel/.sdkman/candidates/java/current/bin:/tmp/fnm_multishells/9045_1632987866663/bin:/home/twistingcamel/.fnm:/tmp/fnm_multishells/9042_1632987866655/bin:/home/twistingcamel/.fnm:/usr/local/vcpkg:/opt/intel/oneapi:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Program Files (x86)/VMware/VMware Player/bin:/mnt/c/Java/openjdk-16.0.2_windows-x64_bin/jdk-16.0.2/bin:/mnt/c/ProgramData/Oracle/Java/javapath:/mnt/c/Qt/Qt:/mnt/c/Qt/6.1.2/msvc2019_64/bin:/mnt/c/Qt/Qt/6.1.2/MSVC 2019 (64-bit):/mnt/c/Qt/Tools/Preview/Qt Creator 5.0.0-beta1/bin:/mnt/c/Qt/Tools/Qt3DStudio/bin:/mnt/c/Qt/Tools/QtDesignStudio/bin:/mnt/c/ProgramData/Miniconda3:/mnt/c/ProgramData/Miniconda3/Library/mingw-w64/bin:/mnt/c/ProgramData/Miniconda3/Library/usr/bin:/mnt/c/ProgramData/Miniconda3/Library/bin:/mnt/c/ProgramData/Miniconda3/Scripts:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64/compiler:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0:/mnt/c/Windows/System32/OpenSSH:/mnt/c/Program Files/Microsoft SQL Server/130/Tools/Binn:/mnt/c/ProgramData/chocolatey:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/ProgramData/vcpkg:/mnt/c/Program Files/Microsoft VS Code Insiders/bin:/mnt/c/Program Files/Microsoft VS Code/bin:/mnt/c/Program Files/VideoLAN/VLC:/mnt/c/Program Files/Blender Foundation/Blender 2.93:/mnt/c/Java/openjdk-16.0.2_windows-x64_bin/jdk-16.0.2/bin:/mnt/c/OSG/OpenSceneGraph-3.6.5-VC2019-64-Debug/bin:/mnt/c/OSG/OpenSceneGraph-3.6.5-VC2019-64-Release/bin:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn:/mnt/c/Program Files (x86)/IncrediBuild:/mnt/c/Program Files/dotnet:/mnt/c/Program Files/Microsoft SQL Server/140/Tools/Binn:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/Cppcheck:/mnt/c/ProgramData/vcpkg/packages/llvm_x64-windows/tools/llvm:/mnt/c/ProgramData/vcpkg/buildtrees/llvm/x64-windows-dbg/bin:/mnt/c/ProgramData/vcpkg/buildtrees/llvm/x64-windows-rel/bin:/mnt/c/Program Files/cmake/bin:/mnt/c/Program Files/PowerShell/7:/mnt/c/Users/twist/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files (x86)/GitHub CLI:/mnt/c/Users/twist/.dotnet/tools:/mnt/c/tools/msys64:/mnt/c/Users/twist/AppData/Local/GitHubDesktop/bin:/snap/bin:/home/twistingcamel/.dotnet/toolssshd_status= * sshd is running:/usr/local/bin
+PATH = /home/twistingcamel/.vscode-server-insiders/bin/c9e8266ee24f34107ff52d836a4e8f533afb93c5/bin:/home/twistingcamel/.local/bin:/home/twistingcamel/.cargo/bin:/home/twistingcamel/ci/build/builddir/bin:/home/twistingcamel/programs/nvim-linux64/bin:/opt/Qt/Tools/QtInstallerFramework/bin:/opt/Qt/Tools/QtDesignStudio/bin:/opt/Qt/Tools/QtCreator/bin:/opt/Qt/Tools/Qt3DStudio/bin:/home/twistingcamel/miniconda3/bin:/home/twistingcamel/miniconda3/condabin:/home/twistingcamel/.cache/activestate/bin:mnt/c/Program Files/Microsoft VS Code Insiders/bin:mnt/c/Program Files/Microsoft VS Code/bin:/opt/android-studio/bin:/opt/android-studio:/home/twistingcamel/.sdkman/candidates/scala/current/bin:/home/twistingcamel/.sdkman/candidates/kotlin/current/bin:/home/twistingcamel/.sdkman/candidates/java/current/bin:/tmp/fnm_multishells/109_1633831906812/bin:/home/twistingcamel/.fnm:/tmp/fnm_multishells/106_1633831906799/bin:/home/twistingcamel/.fnm:/usr/local/vcpkg:/opt/intel/oneapi:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Program Files (x86)/VMware/VMware Player/bin:/mnt/c/Java/openjdk-16.0.2_windows-x64_bin/jdk-16.0.2/bin:/mnt/c/ProgramData/Oracle/Java/javapath:/mnt/c/Qt/Qt:/mnt/c/Qt/6.1.2/msvc2019_64/bin:/mnt/c/Qt/Qt/6.1.2/MSVC 2019 (64-bit):/mnt/c/Qt/Tools/Preview/Qt Creator 5.0.0-beta1/bin:/mnt/c/Qt/Tools/Qt3DStudio/bin:/mnt/c/Qt/Tools/QtDesignStudio/bin:/mnt/c/ProgramData/Miniconda3:/mnt/c/ProgramData/Miniconda3/Library/mingw-w64/bin:/mnt/c/ProgramData/Miniconda3/Library/usr/bin:/mnt/c/ProgramData/Miniconda3/Library/bin:/mnt/c/ProgramData/Miniconda3/Scripts:/mnt/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64/compiler:/mnt/c/Windows/system32:/mnt/c/Windows:/mnt/c/Windows/System32/Wbem:/mnt/c/Windows/System32/WindowsPowerShell/v1.0:/mnt/c/Windows/System32/OpenSSH:/mnt/c/Program Files/Microsoft SQL Server/130/Tools/Binn:/mnt/c/ProgramData/chocolatey:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/ProgramData/vcpkg:/mnt/c/Program Files/Microsoft VS Code Insiders/bin:/mnt/c/Program Files/Microsoft VS Code/bin:/mnt/c/Program Files/VideoLAN/VLC:/mnt/c/Program Files/Blender Foundation/Blender 2.93:/mnt/c/Java/openjdk-16.0.2_windows-x64_bin/jdk-16.0.2/bin:/mnt/c/OSG/OpenSceneGraph-3.6.5-VC2019-64-Debug/bin:/mnt/c/OSG/OpenSceneGraph-3.6.5-VC2019-64-Release/bin:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn:/mnt/c/Program Files (x86)/IncrediBuild:/mnt/c/Program Files/dotnet:/mnt/c/Program Files/Microsoft SQL Server/140/Tools/Binn:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/Cppcheck:/mnt/c/ProgramData/vcpkg/packages/llvm_x64-windows/tools/llvm:/mnt/c/ProgramData/vcpkg/buildtrees/llvm/x64-windows-dbg/bin:/mnt/c/ProgramData/vcpkg/buildtrees/llvm/x64-windows-rel/bin:/mnt/c/Program Files/cmake/bin:/mnt/c/Program Files/PowerShell/7:/mnt/c/Users/twist/AppData/Local/Android/Sdk/platform-tools:/mnt/c/Users/twist/AppData/Local/Microsoft/WindowsApps:/mnt/c/Program Files (x86)/GitHub CLI:/mnt/c/Users/twist/.dotnet/tools:/mnt/c/tools/msys64:/mnt/c/Users/twist/AppData/Local/GitHubDesktop/bin:/snap/bin:/home/twistingcamel/.dotnet/toolssshd_status= * sshd is not running:/usr/local/bin
 # environment
 NAME = DESKTOP-8M4EEVT
 # environment
@@ -79,7 +79,7 @@ SDKMAN_PLATFORM = linuxx64
 # environment
 VSCODE_LOG_STACK = false
 # environment
-VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-9985428b-9b5d-430b-9039-e5611072ce99.sock
+VSCODE_IPC_HOOK_CLI = /tmp/vscode-ipc-2600ccc1-d047-42c2-912c-06305c78bd0f.sock
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
 # environment
@@ -87,7 +87,7 @@ LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:
 # automatic
 %F = $(notdir $%)
 # environment
-DISPLAY = 192.168.1.86:0.0
+DISPLAY = 173.16.0.121:0.0
 # environment
 CONDA_EXE = /home/twistingcamel/miniconda3/bin/conda
 # environment
@@ -97,7 +97,7 @@ PWD = /home/twistingcamel/programs/kmitl/c++/cshell/CShell
 # default
 .LOADED := 
 # environment
-WSL_INTEROP = /run/WSL/8997_interop
+WSL_INTEROP = /run/WSL/12_interop
 # environment
 KOTLIN_HOME = /home/twistingcamel/.sdkman/candidates/kotlin/current
 # environment
@@ -107,7 +107,7 @@ HOME = /home/twistingcamel
 # environment
 LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
-FNM_MULTISHELL_PATH = /tmp/fnm_multishells/9045_1632987866663
+FNM_MULTISHELL_PATH = /tmp/fnm_multishells/109_1633831906812
 # environment
 LOGNAME = twistingcamel
 # environment
@@ -197,7 +197,7 @@ _CE_M =
 # default
 .INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
 # environment
-VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH = /home/twistingcamel/.vscode-server-insiders/bin/8d30d4d922dda917d22f05a81f2ab4fad7349779/remote/node_modules
+VSCODE_INJECT_NODE_MODULE_LOOKUP_PATH = /home/twistingcamel/.vscode-server-insiders/bin/c9e8266ee24f34107ff52d836a4e8f533afb93c5/remote/node_modules
 # default
 .RECIPEPREFIX := 
 # environment
@@ -209,9 +209,11 @@ VSCODE_EXTHOST_WILL_SEND_SOCKET = true
 # environment
 WSL_DISTRO_NAME = Ubuntu
 # environment
+MOTD_SHOWN = update-motd
+# environment
 _CE_CONDA = 
 # variable set hash-table stats:
-# Load=100/1024=10%, Rehash=0, Collisions=9/134=7%
+# Load=101/1024=10%, Rehash=0, Collisions=9/135=7%
 
 # Pattern-specific Variable Values
 
@@ -219,9 +221,9 @@ _CE_CONDA =
 
 # Directories
 
-# . (device 2064, inode 3539015): 36 files, no impossibilities.
+# . (device 2064, inode 3539015): 37 files, no impossibilities.
 
-# 36 files, no impossibilities in 1 directories.
+# 37 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -557,11 +559,11 @@ display.o: display.cpp.o
 #  File does not exist.
 #  File has not been updated.
 
+ 
 CShell_autogen: cmake_check_build_system
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
- 
 #  File has not been updated.
 #  recipe to execute (from 'Makefile', line 131):
 	$(MAKE) -f CMakeFiles/Makefile2 CShell_autogen
@@ -629,12 +631,12 @@ rebuild_cache:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 87 / storage = 1189 B / avg = 13 B
-# current buf: size = 8162 B / used = 1189 B / count = 87 / avg = 13 B
+# strcache buffers: 1 (0) / strings = 88 / storage = 1209 B / avg = 13 B
+# current buf: size = 8162 B / used = 1209 B / count = 88 / avg = 13 B
 
-# strcache performance: lookups = 286 / hit rate = 69%
+# strcache performance: lookups = 287 / hit rate = 69%
 # hash-table stats:
-# Load=87/8192=1%, Rehash=0, Collisions=2/286=1%
-# Finished Make data base on Thu Sep 30 14:44:41 2021
+# Load=88/8192=1%, Rehash=0, Collisions=2/287=1%
+# Finished Make data base on Sun Oct 10 09:13:02 2021
 
  

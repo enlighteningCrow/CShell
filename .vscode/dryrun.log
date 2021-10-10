@@ -3,18 +3,22 @@ make: Entering directory '/home/twistingcamel/programs/kmitl/c++/cshell/CShell'
 /usr/bin/cmake -S/home/twistingcamel/programs/kmitl/c++/cshell/CShell -B/home/twistingcamel/programs/kmitl/c++/cshell/CShell --check-build-system CMakeFiles/Makefile.cmake 0
 /usr/bin/cmake -E cmake_progress_start /home/twistingcamel/programs/kmitl/c++/cshell/CShell/CMakeFiles /home/twistingcamel/programs/kmitl/c++/cshell/CShell/CMakeFiles/progress.marks
 make -f CMakeFiles/Makefile2 all
+ 
 make[1]: Entering directory '/home/twistingcamel/programs/kmitl/c++/cshell/CShell'
 make -f CMakeFiles/CShell_autogen.dir/build.make CMakeFiles/CShell_autogen.dir/depend
+ 
 make[2]: Entering directory '/home/twistingcamel/programs/kmitl/c++/cshell/CShell'
 cd /home/twistingcamel/programs/kmitl/c++/cshell/CShell && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/twistingcamel/programs/kmitl/c++/cshell/CShell /home/twistingcamel/programs/kmitl/c++/cshell/CShell /home/twistingcamel/programs/kmitl/c++/cshell/CShell /home/twistingcamel/programs/kmitl/c++/cshell/CShell /home/twistingcamel/programs/kmitl/c++/cshell/CShell/CMakeFiles/CShell_autogen.dir/DependInfo.cmake --color=
 make[2]: Leaving directory '/home/twistingcamel/programs/kmitl/c++/cshell/CShell'
 make -f CMakeFiles/CShell_autogen.dir/build.make CMakeFiles/CShell_autogen.dir/build
+ 
 make[2]: Entering directory '/home/twistingcamel/programs/kmitl/c++/cshell/CShell'
 /usr/bin/cmake -E cmake_echo_color --switch= --blue --bold --progress-dir=/home/twistingcamel/programs/kmitl/c++/cshell/CShell/CMakeFiles --progress-num=6 "Automatic MOC and UIC for target CShell"
 /usr/bin/cmake -E cmake_autogen /home/twistingcamel/programs/kmitl/c++/cshell/CShell/CMakeFiles/CShell_autogen.dir/AutogenInfo.json ""
 make[2]: Leaving directory '/home/twistingcamel/programs/kmitl/c++/cshell/CShell'
 /usr/bin/cmake -E cmake_echo_color --switch= --progress-dir=/home/twistingcamel/programs/kmitl/c++/cshell/CShell/CMakeFiles --progress-num=6 "Built target CShell_autogen"
 make -f CMakeFiles/CShell.dir/build.make CMakeFiles/CShell.dir/depend
+ 
 make[2]: Entering directory '/home/twistingcamel/programs/kmitl/c++/cshell/CShell'
 cd /home/twistingcamel/programs/kmitl/c++/cshell/CShell && /usr/bin/cmake -E cmake_depends "Unix Makefiles" /home/twistingcamel/programs/kmitl/c++/cshell/CShell /home/twistingcamel/programs/kmitl/c++/cshell/CShell /home/twistingcamel/programs/kmitl/c++/cshell/CShell /home/twistingcamel/programs/kmitl/c++/cshell/CShell /home/twistingcamel/programs/kmitl/c++/cshell/CShell/CMakeFiles/CShell.dir/DependInfo.cmake --color=
 make[2]: Leaving directory '/home/twistingcamel/programs/kmitl/c++/cshell/CShell'
@@ -26,11 +30,12 @@ make[2]: Entering directory '/home/twistingcamel/programs/kmitl/c++/cshell/CShel
 /usr/bin/c++  -DBOOST_ALL_NO_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/twistingcamel/programs/kmitl/c++/cshell/CShell -I/home/twistingcamel/programs/kmitl/c++/cshell/CShell/CShell_autogen/include -isystem /opt/Qt/Tools/QtDesignStudio/qt5_design_studio_reduced_version/include -isystem /opt/Qt/Tools/QtDesignStudio/qt5_design_studio_reduced_version/include/QtWidgets -isystem /opt/Qt/Tools/QtDesignStudio/qt5_design_studio_reduced_version/include/QtGui -isystem /opt/Qt/Tools/QtDesignStudio/qt5_design_studio_reduced_version/include/QtCore -isystem /opt/Qt/Tools/QtDesignStudio/qt5_design_studio_reduced_version/./mkspecs/linux-g++  -pthread   -fPIC -std=gnu++17 -o CMakeFiles/CShell.dir/contactor.cpp.o -c /home/twistingcamel/programs/kmitl/c++/cshell/CShell/contactor.cpp
 /usr/bin/cmake -E cmake_echo_color --switch= --green --progress-dir=/home/twistingcamel/programs/kmitl/c++/cshell/CShell/CMakeFiles --progress-num=4 "Building CXX object CMakeFiles/CShell.dir/display.cpp.o"
 /usr/bin/c++  -DBOOST_ALL_NO_LIB -DQT_CORE_LIB -DQT_GUI_LIB -DQT_NO_DEBUG -DQT_WIDGETS_LIB -I/home/twistingcamel/programs/kmitl/c++/cshell/CShell -I/home/twistingcamel/programs/kmitl/c++/cshell/CShell/CShell_autogen/include -isystem /opt/Qt/Tools/QtDesignStudio/qt5_design_studio_reduced_version/include -isystem /opt/Qt/Tools/QtDesignStudio/qt5_design_studio_reduced_version/include/QtWidgets -isystem /opt/Qt/Tools/QtDesignStudio/qt5_design_studio_reduced_version/include/QtGui -isystem /opt/Qt/Tools/QtDesignStudio/qt5_design_studio_reduced_version/include/QtCore -isystem /opt/Qt/Tools/QtDesignStudio/qt5_design_studio_reduced_version/./mkspecs/linux-g++  -pthread   -fPIC -std=gnu++17 -o CMakeFiles/CShell.dir/display.cpp.o -c /home/twistingcamel/programs/kmitl/c++/cshell/CShell/display.cpp
-make[2]: Leaving directory '/home/twistingcamel/programs/kmitl/c++/cshell/CShell'
-make[1]: Leaving directory '/home/twistingcamel/programs/kmitl/c++/cshell/CShell'
-make: Leaving directory '/home/twistingcamel/programs/kmitl/c++/cshell/CShell'
  
 make[2]: *** No rule to make target 'CShell_autogen/mocs_compilation.cpp', needed by 'CMakeFiles/CShell.dir/CShell_autogen/mocs_compilation.cpp.o'.
 make[1]: *** [CMakeFiles/Makefile2:77: CMakeFiles/CShell.dir/all] Error 2
 make: *** [Makefile:84: all] Error 2
+ 
+make[2]: Leaving directory '/home/twistingcamel/programs/kmitl/c++/cshell/CShell'
+make[1]: Leaving directory '/home/twistingcamel/programs/kmitl/c++/cshell/CShell'
+make: Leaving directory '/home/twistingcamel/programs/kmitl/c++/cshell/CShell'
  

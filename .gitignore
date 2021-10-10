@@ -90,3 +90,5 @@ clion*
 *.
 # .vscode/dryrun.log
 # .vscode/targets.log
+.vscode/dryrun.log
+.vscode/targets.log
