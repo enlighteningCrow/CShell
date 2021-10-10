@@ -73,6 +73,9 @@ Thumbs.db
 *.dll
 *.exe
 
+*.bin
+*.out
+
 build/
 out/
 .vs/
