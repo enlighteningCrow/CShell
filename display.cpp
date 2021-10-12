@@ -3,6 +3,7 @@
 #include <boost/thread.hpp>
 #include "contactor.h"
 
+
 #include <QPushButton>
 #include <QVBoxLayout>
 
@@ -11,12 +12,10 @@ Display::Display(QWidget* parent)
     , ui(new Ui::Display) {
     ui->setupUi(this);
 
-
     QVBoxLayout * lay = new QVBoxLayout(this);
-    for (int i = 0; i < 30; ++i){
-        QPushButton *boton = new QPushButton("this is a button");
-        lay ->addWidget(boton);
-        }
+        QPushButton *boton1 = new QPushButton("button1");
+
+        lay ->addWidget(boton1);
         ui ->scrollAreaWidgetContents_2->setLayout(lay);
 
 
@@ -42,3 +41,5 @@ Display::Display(QWidget* parent)
 Display::~Display() {
     delete ui;
 }
+
+

@@ -41,6 +41,10 @@ set(PROJECT_SOURCES
         display.cpp
         display.h
         display.ui
+        utils.h
+        misc.h
+        painter.h
+        painter.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
