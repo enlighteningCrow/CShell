@@ -1,18 +1,20 @@
-#include "display.h"
 #include <QApplication>
+#include <QPainter>
+#include <QPainterPath>
 #include <QThread>
 #include <boost/thread.hpp>
 #include "contactor.h"
-#include <QPainter>
-#include <QPainterPath>
+#include "display.h"
 
+// TODO: Finish this function below.
 
-void Display::paintEvent(Color color, double x, double y, std::size_t){
+void Display::paintEvent(Color color, double x, double y, double width, double height) {
     QPainter p(this);
     p.setRenderHint(QPainter::Antialiasing);
-    switch(t){
-    case
-
+    /*TODO: I don't know what this variable below (t) is, so maybe modify it*/
+    int t;
+    switch (t) {
+    case /*TODO: Fill in this thing*/ 0: break;
     }
 
     QPainterPath path;
@@ -22,4 +24,3 @@ void Display::paintEvent(Color color, double x, double y, std::size_t){
     p.fillPath(path, Qt::white);
     p.drawPath(path);
 }
-
