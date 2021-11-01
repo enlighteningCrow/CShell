@@ -1,0 +1,2 @@
+run the things recursively until nothing is changed (eg. 3 / (1 + 1))
+operator precedence (detect binary operators before unary operators) (parse from right to left occasionally for right-to-left operators)

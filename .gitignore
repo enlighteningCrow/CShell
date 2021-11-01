@@ -76,11 +76,17 @@ Thumbs.db
 *.bin
 *.out
 
+*.idx
+*.log
+*.db
+
 build/
 out/
 .vs/
 .vscode/
 .idea/
+.cache/
+.metals/
 cmake-build*
 
 *.iml
@@ -88,7 +94,7 @@ cmake-build*
 *.pb
 *.json
 # dryrun.log
-*.log
+# *.log
 clion*
 *.
 # .vscode/dryrun.log
