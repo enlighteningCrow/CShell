@@ -1,0 +1,4 @@
+Make the parse/check function (IDK which) check the left_to_right associativity of the parsed operator.
+Also, make the line 1790 make correct statements, maybe using the nodes.
+Handle literals
+Line 280-ish

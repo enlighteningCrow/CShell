@@ -1,8 +1,10 @@
 //#include <bits/stdc++.h>
 #include "stdc++.h"
 
+#include "array_view.h"
 #include "misc.h"
 #include "utils.h"
+
 
 // #include ""
 
@@ -242,11 +244,14 @@ class Classifier {
     //     Expression* m_variable_secondary;
     // };
 
-    union ExpressionSize {
-        Expression ex;
+    union ExpressionStr {
+        std::shared_ptr<Expression> ex;
         // decltype(*this) ex;
         // std::size_t ind;
         String str;
+        // ExpressionStr(const Expression &exp) : ex(exp) {}
+        ExpressionStr(const std::shared_ptr<Expression> &exp) : ex(exp) {}
+        ExpressionStr(const String &string) : str(string) {}
     };
 
     class Expression {
@@ -265,27 +270,87 @@ class Classifier {
         //
         // TODO: true -> use the Expression (means is parent Node)
 
-        Array<Pair<ExpressionSize, bool>> subs;
+        Array<Pair<ExpressionStr, bool>> subs;
 
 
         // Expression(std::string) : m_evaluated_type{m_evaluated_type} {}
 
-        Expression() : subs() {}
-        Expression(Array<Pair<ExpressionSize, bool>> ex) : subs(ex) {}
-        Expression &push_back(Pair<ExpressionSize, bool> &&ex) {
-            if (ex.second) {
-                ex.
-                // TODO: Make the Expression have the bool m_has_parent become true.
+        Expression() : m_has_parent{false}, m_in_paren{false}, subs() {}
+        Expression(const Expression &exp) :
+            m_has_parent{exp.m_has_parent}, m_in_paren{exp.m_in_paren}, subs(exp.subs) {}
+        /**
+         *
+         *TODO!!!!:
+         * @brief Construct a new Expression object
+         *The following function does not actually work, fix this class to use Expression pointers instead, use
+         *std::shared_ptr to handle them
+         *
+         * @param ex
+         */
+        Expression(Array<Pair<ExpressionStr, bool>> &&ex) : subs(ex) {
+            for (std::size_t i{0}; i < ex.size(); ++i) {
+                if (ex[i].second) { ((Expression *)(&(ex[i].first)))->m_has_parent = true; }
             }
+        }
+        Expression &push_back(Pair<ExpressionStr, bool> &&ex) {
+            // if (ex.second) {
+            //     ex.
+            //     // TODO: Make the Expression have the bool m_has_parent become true.
+            // }
+
+            if (ex.second) { ((Expression *)(&(ex.first)))->m_has_parent = true; }
             subs.push_back(ex);
             return *this;
         }
+        Expression &insert(Pair<ExpressionStr, bool> &&ex, std::size_t index) {
+            // if (ex.second) {
+            //     ex.
+            //     // TODO: Make the Expression have the bool m_has_parent become true.
+            // }
 
-        ExpressionSize &operator[](std::size_t index) { return subs[index].first; }
-        bool &          isExpression(std::size_t index) const { return subs[index].second; }
-        Expression *    indexAsExp(std::size_t index) const { return (Expression *)(&(subs[index].first)); }
-        String *        indexAsStr(std::size_t index) const { return (String *)(&(subs[index].first)); }
-        friend FILE &   operator<<(FILE &out, const Expression &exp) {
+            if (ex.second) { ((Expression *)(&(ex.first)))->m_has_parent = true; }
+            subs.insert(ex, index);
+            return *this;
+        }
+
+        Expression &pop_back() {
+            // if (ex.second) {
+            //     ex.
+            //     // TODO: Make the Expression have the bool m_has_parent become true.
+            // }
+
+            // Pair<ExpressionStr, bool> &ex{subs[subs.size() - 1]};
+            if (!subs.size()) *stderr << "Expression already empty.\n";
+            if (subs[subs.size() - 1].second) {
+                ((Expression *)(&(subs[subs.size() - 1].first)))->m_has_parent = false;
+            }
+            // subs.push_back(subs[subs.size() - 1]);
+            subs.pop_back();
+            return *this;
+        }
+        Expression &remove(std::size_t index) {
+            // if (ex.second) {
+            //     ex.
+            //     // TODO: Make the Expression have the bool m_has_parent become true.
+            // }
+            if (index >= subs.size()) *stderr << "Out of range.\n";
+            if (subs[index].second) { ((Expression *)(&(subs[index].first)))->m_has_parent = false; }
+            // subs.insert(ex, index);
+            subs.remove(index, index + 1);
+            return *this;
+        }
+
+
+        ExpressionStr &operator[](std::size_t index) { return subs[index].first; }
+        Expression &   operator=(const Expression &exp) {
+            m_has_parent = exp.m_has_parent;
+            m_in_paren   = exp.m_in_paren;
+            subs         = exp.subs;
+        }
+        bool &       isExpression(std::size_t index) const { return subs[index].second; }
+        Expression * indexAsExp(std::size_t index) const { return (Expression *)(&(subs[index].first)); }
+        String *     indexAsStr(std::size_t index) const { return (String *)(&(subs[index].first)); }
+        friend FILE &operator<<(FILE &out, const Expression &exp) {
             for (std::size_t i{0}; i < exp.subs.size(); ++i) {
                 if (exp.isExpression(i)) {
                     out << *exp.indexAsExp(i);
@@ -297,6 +362,35 @@ class Classifier {
                 }
             }
         }
+
+        Expression &operator+(const Array_view<T> &array) const {
+            if (!array.size()) { return Array<T>(); }
+            Array<T> arr(m_size + array.m_size);
+            memcpy(arr.m_data, m_data, m_size * sizeof(T));
+            memcpy(arr.m_data + m_size, &array[0], array.size() * sizeof(T));
+            m_is_sorted = false;
+            return arr;
+        }
+
+        template<class T>
+        Array<T> &Array<T>::operator+=(const Array_view<T> &array) {
+            if (!array.size()) { return Array<T>(); }
+            std::size_t old_size{m_size};
+            resize(m_size + array.size());
+            memcpy(m_data + old_size, &array[0], array.size() * sizeof(T));
+            m_is_sorted = false;
+            return *this;
+        }
+
+        template<class T>
+        Array<T> &Array<T>::operator=(const Array_view<T> &array) {
+            if (!array.size()) { return Array<T>(); }
+            resize(array.size());
+            memcpy(m_data, &array[0], array.size() * sizeof(T));
+            m_is_sorted = array.arr.m_is_sorted;
+            return *this;
+        }
+
         FILE &write(FILE &out, const Expression &exp /* , bool in_paren = false */) {
             if (m_in_paren) out << '(';
             for (std::size_t i{0}; i < exp.subs.size(); ++i) {
@@ -331,11 +425,13 @@ class Classifier {
         Expression node;
         // Statement(std::size_t id) : statement_id{id} {}
         Statement() : node() {}
+        // Statement() : node() {}
         /* void write(FILE &file) {
             // fputc()
             file << node;
         } */
         friend FILE &operator<<(FILE &out, const Statement &st) { out << st.node; }
+        Statement &  operator=(const Statement &st) { node = st.node; }
     };
 
 
@@ -1049,6 +1145,8 @@ class Classifier {
         // std::pair<std::string, std::string> {"sizeof()", "ei"},
     }};
 
+    const Map<String, Array<Pair<std::size_t, std::size_t>>> key_expressions_const = key_expressions;
+
     // std::vector<Statement> parse(FILE* file) {
     //   DContainer<char> container{0};
     //   int c;
@@ -1225,27 +1323,64 @@ class Classifier {
 #undef sta
     }
     short int matchExact(
-        const Array_view<std::size_t> &a, /*  std::size_t foptions, */ std::size_t index1, std::size_t index2
+        // const Array_view<Pair<std::size_t, std::size_t>> &a, std::size_t precedence,
+        const Array_view<Pair<String, Array<Pair<std::size_t, std::size_t>>>> &a, std::size_t precedence,
+        /*  std::size_t foptions, */ std::size_t index1, std::size_t index2
         /*,bool mode /*0 is test mode, 1 is accept mode*/) {
 #define sta(param) statement_types_arrays[index1].first[index2].first[param]
 #define sts statement_types_arrays[index1].first[index2].first.size()
 #define foptions statement_types_arrays[index1].first[index2].second
+#define ainfof (i, i0) a[i].second[i0].first
+#define ainfos (i, i0) a[i].second[i0].second
         for (std::size_t i{0}; i < sts; ++i) {
-            if (sta(i) & a[i]) {
-                if ((a[i] & STypes::OPERATOR) || (a[i] & STypes::OPEN) || (a[i] & STypes::CLOSE)) {
-                    if ((foptions & a[i])) {
-                        // if (mode)
-                        continue;
+            // TODO!: Finish this
+            for (std::size_t i0{0}; i < a[i].second.size(); ++i) {
+                // a[i].second[i0].first;
+                // sta(i) & a[i].second[i0].first;
+                if (sta(i) & ainfof(i, i0)) {
+                    // if ((ainfof(i, i0) & STypes::OPERATOR) || (ainfof(i, i0) & STypes::OPEN) ||
+                    //     (ainfof(i, i0) & STypes::CLOSE)) {
+                    if ((ainfof(i, i0) & STypes::PARENTHESIS) || (ainfof(i, i0) & STypes::BRACE) ||
+                        (ainfof(i, i0) & STypes::CURLY_BRACE) || (ainfof(i, i0) & STypes::OPERATOR)) {
+                        if ((foptions & ainfof(i, i0))) {
+                            // if (mode)
+                            if (ainfof(i, i0) & STypes::OPERATOR) {
+                                if (ainfos(i, i0) == precedence) {
+                                    continue;
+                                    // break;
+                                    // goto after_loop;
+                                    // goto after_loop;
+                                }
+                                return 0;
+                                // continue;
+                            }
+                            continue;
+                            // break;
+                            // goto after_loop;
+                        }
+                        return 0;
+                        // continue;
                     }
-                    return 0;
+                    continue;
+                    // break;
+                    // goto after_loop;
                 }
-                continue;
             }
-            return 0;
+            // return 0;
+            // return 0;
+            // after_loop:
+            // TODO!: If the thing is not over yet but matched so far, return -1; if over and all matched, return 1; if
+            // not matched, return 0
+            if (sts == i + 1) return 1;
+            // continue;
+            // return 0;
+            // continue;
         }
-        // TODO: make it return 1 when the thing is not complete but accepted so far, but if it completes the
+        // // TODO: make it return 1 when the thing is not complete but accepted so far, but if it completes the
         // whole thing in index2, return 2 instead
-        return 1;
+        return -1;
+#undef ainfos
+#undef ainfof
 #undef foptions
 #undef sts
 #undef sta
@@ -1367,7 +1502,10 @@ class Classifier {
     }
 
 
-    short int parseArray(const Array_view<std::size_t> &a, std::size_t index, std::size_t operator_precedence_level) {
+    short int parseArray(
+        // const Array_view<Pair<std::size_t, std::size_t>> &a, std::size_t index,
+        const Array_view<Pair<String, Array<Pair<std::size_t, std::size_t>>>> &a, std::size_t index,
+        std::size_t operator_precedence_level = 0ULL) {
 
 
         // TODO: fix this operator_precedence_level (put the precedence level of the operators if the Array contains
@@ -1375,9 +1513,9 @@ class Classifier {
 
 
 #define arr statement_types_arrays[index].first
-        short int               tmp{0};
-        Array_view<std::size_t> arr_view{a};
-        std::size_t             offset{0};
+        short int                                                       tmp{0};
+        Array_view<Pair<String, Array<Pair<std::size_t, std::size_t>>>> arr_view{a};
+        std::size_t                                                     offset{0};
         // int                j_was = 0;
         // TODO: The j might not be direct loops of the i, maybe make it so tha tj retains its value after each
         // loop
@@ -1406,7 +1544,7 @@ class Classifier {
 
             //     continue;
             // }
-            tmp = matchExact(arr_view, index, i);
+            tmp = matchExact(arr_view, operator_precedence_level, index, i);
             if (tmp > 0) {
                 // arr_view.clear();
                 // arr_view.setViewStart(j + 1);
@@ -1422,9 +1560,10 @@ class Classifier {
                 // goto no_increment;
             }
             for (int k{i}; (k < arr.size()) && (arr[k].second & STypes::OPTIONAL); ++k) {
-                if (matchExact(arr_view, index, k)) {
+                if (matchExact(arr_view, operator_precedence_level, index, k)) {
                     i = k - 1;
-                    j -= arr_view.size();
+                    // j -= arr_view.size();
+                    // end -= arr_view.size();
                     // end -= (arr_view.size() - 1);
 
                     // arr_view.clear();
@@ -1442,7 +1581,7 @@ class Classifier {
                 }
             }
             if (arr[i - 1].second & STypes::MULTIPLE) {
-                if (matchExact(arr_view, index, --i)) { goto next_loop; }
+                if (matchExact(arr_view, operator_precedence_level, index, --i)) { goto next_loop; }
             }
             return -1;
         next_loop:;
@@ -1456,114 +1595,171 @@ class Classifier {
      * @brief
      * the parameter a is the list of the things in the parsed statement.
      */
+    //
+    // bool check(Array<std::size_t> &a) {
+    //
+    //     // Array<String> things{};
+    //     // // std::bitset<17> bitset;
+    //     // std::size_t bits{0ULL};
+    //     // // bitset = std::num;
+    //     // // bitset.set();
+    //     // // bitset = 0ULL;
+    //     // for (int i{0}; i < statement_types_arrays.size(); ++i) {
+    //     //     for (int j{0}; j < statement_types_arrays[i].first.size(); ++j) {
+    //     //         // if (!(bits & (1ULL << j))) {
+    //     //         if (!checkBit(bits, j)) {
+    //     // 	for (int k{0}; k < a.size(); ++k) {
+    //     // 		if(statement_types_arrays.)
+    //     // 			for(int l{0}; l < (a.size() - k) - 1; ++l) {
+    //     // 			}
+    //     // 	}
+    //
+    //     //             // if ((a[j] & statement_types_arrays[i].first[j]) && bitset[j]) {
+    //     //             if (a[j] & statement_types_arrays[i].first[j]) {
+    //     //                 // things.push_back()
+    //     //             }
+    //     //         }
+    //     //         else {
+    //     //             bits |= (1 << j);
+    //     //         }
+    //
+    //     //         // else if (statement_types_arrays[i].first[j] & STypes::MULTIPLE) {
+    //     //         // }
+    //     //         // else if (statement_types_arrays[i].first[j] & STypes::OPTIONAL) {
+    //     //         // }
+    //     //         // statement_types_arrays[i].first[j]
+    //     //     }
+    //     // }
+    //     [> for (int i{0}; i < statement_types_arrays.size(); ++i) {
+    //         for (int j{0}; j < a.size(); ++j) {
+    //             for (int k{j}; k < (a.size() - j); ++k) {
+    //                 if (a[k] != statement_types_arrays[i].first[k]) break;
+    //                 if ((k + 1) == statement_types_arrays[i].first.size()) {
+    //                     a.replace(statement_types_arrays[i].second.first, j, k + 1);
+    //                     break;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return; */
+    //
+    //
+    //     [> for (int i{0}; i < statement_types_arrays.size(); ++i) {
+    //         for (int j{0}; j < a.size(); ++j) {
+    //             for (int k{j}; k < (a.size() - j); ++k) {
+    //                 if (a[k] != statement_types_arrays[i].first[k]) break;
+    //                 if ((k + 1) == statement_types_arrays[i].first.size()) {
+    //                     a.replace(statement_types_arrays[i].second.first, j, k + 1);
+    //                     break;
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     return; */
+    //
+    //     // TODO: for this, make sure that the parser deals with the operator precedence on its own, without relying
+    //     // on the statement_types_arrays.
+    //     // TODO: Also, write the function for writing to file and compiling.
+    //
+    //     // Array<std::size_t> tmp_arr{};
+    //
+    //     // for (bool changed{true}, just_changed{false}, changed_back{false}; changed; changed = false) {
+    //     //     // changed = false;
+    //
+    //     //     [>* TODO: TODO: TODO::: FIX THESE BELOW STUFFFF!!!!!!!!!
+    //     //      * TODO: Also these notes from the notepad:
+    //     //      *make function for Map class -> can search for keys starting with something.
+    //
+    //
+    //     //     when the checkArr(the new one) replaces, continue that loop, then make it run again with the same i,
+    //     and
+    //     //     then make it start from i = 0 onwards.
+    //     //     */
+    //
+    //     //     for (std::size_t i{0}, increment{0}, inc{0}; i < statement_types_arrays.size(); i += inc) {
+    //     //         // tmp_arr.clear();
+    //     //         tmp_arr      = a;
+    //     //         changed_back = just_changed;
+    //     //         if (changed_back && !just_changed) { i = 0; }
+    //     //         just_changed = false;
+    //     //         inc          = 1;
+    //     //         for (std::size_t j{0}; j < a.size(); ++j [> j += !just_changed <], tmp_arr.pop_front(increment)) {
+    //     //             // tmp_arr.push_back(a[i]);
+    //     //             increment = parseArray(tmp_arr, i);
+    //     //             if (increment < 0) {
+    //     //                 increment = 1;
+    //     //                 continue;
+    //     //             }
+    //     //             a.replace(statement_types_arrays[i].second.first, i, i + increment);
+    //     //             just_changed = true;
+    //     //             inc          = 0;
+    //
+    //     //             // *this.
+    //
+    //     //             // tmp_arr.pop_front(increment);
+    //
+    //     //             // for (int j{0}; j <)
+    //     //         }
+    //     //     }
+    //     // }
+    //     // Array<std::size_t> tmp_arr{};
+    //     Array_view<std::size_t> arr_view{a};
+    //
+    //     for (bool changed{true}, just_changed{false}, changed_back{false}; changed; changed = false) {
+    //         // changed = false;
+    //
+    //         [>* TODO: TODO: TODO::: FIX THESE BELOW STUFFFF!!!!!!!!!
+    //          * TODO: Also these notes from the notepad:
+    //          *make function for Map class -> can search for keys starting with something.
+    //
+    //
+    //         when the checkArr(the new one) replaces, continue that loop, then make it run again with the same i, and
+    //         then make it start from i = 0 onwards.
+    //         */
+    //
+    //         for (std::size_t i{0}, increment{0}, inc{0}; i < statement_types_arrays.size(); i += inc) {
+    //             // tmp_arr.clear();
+    //             // arr_view     = a;
+    //             changed_back = just_changed;
+    //             if (changed_back && !just_changed) { i = 0; }
+    //             just_changed = false;
+    //             inc          = 1;
+    //             for (std::size_t j{0}; j < a.size(); ++j [> j += !just_changed <], arr_view.truncFront(increment)) {
+    //                 // tmp_arr.push_back(a[i]);
+    //                 // TODO: put this statement immediately below in a for loop if the thing contains an operator
+    //                 that
+    //                 // has precedence value.
+    //                 increment = parseArray(arr_view, i);
+    //                 if (increment < 0) {
+    //                     increment = 1;
+    //                     continue;
+    //                 }
+    //                 a.replace(statement_types_arrays[i].second.first, i, i + increment);
+    //                 just_changed = true;
+    //                 inc          = 0;
+    //
+    //                 // *this.
+    //
+    //                 // tmp_arr.pop_front(increment);
+    //
+    //                 // for (int j{0}; j <)
+    //             }
+    //         }
+    //     }
+    // }
 
-    bool check(Array<std::size_t> &a) {
 
-        // Array<String> things{};
-        // // std::bitset<17> bitset;
-        // std::size_t bits{0ULL};
-        // // bitset = std::num;
-        // // bitset.set();
-        // // bitset = 0ULL;
-        // for (int i{0}; i < statement_types_arrays.size(); ++i) {
-        //     for (int j{0}; j < statement_types_arrays[i].first.size(); ++j) {
-        //         // if (!(bits & (1ULL << j))) {
-        //         if (!checkBit(bits, j)) {
-        // 	for (int k{0}; k < a.size(); ++k) {
-        // 		if(statement_types_arrays.)
-        // 			for(int l{0}; l < (a.size() - k) - 1; ++l) {
-        // 			}
-        // 	}
+    // bool check(Array<Pair<std::size_t, std::size_t>> &a, Array<Statement> &arr_statements) {
+    bool check(Array<Pair<String, Array<Pair<std::size_t, std::size_t>>>> &a, Array<Statement> &arr_statements) {
+        Array_view<Pair<String, Array<Pair<std::size_t, std::size_t>>>> arr_view{a};
 
-        //             // if ((a[j] & statement_types_arrays[i].first[j]) && bitset[j]) {
-        //             if (a[j] & statement_types_arrays[i].first[j]) {
-        //                 // things.push_back()
-        //             }
-        //         }
-        //         else {
-        //             bits |= (1 << j);
-        //         }
+        Statement statement1{};
+        // Map<Pair<std::size_t, std::size_t>, std::unique_ptr<Expression>> map1{};
+        Map<std::size_t, std::shared_ptr<Expression>> map1{};
 
-        //         // else if (statement_types_arrays[i].first[j] & STypes::MULTIPLE) {
-        //         // }
-        //         // else if (statement_types_arrays[i].first[j] & STypes::OPTIONAL) {
-        //         // }
-        //         // statement_types_arrays[i].first[j]
-        //     }
-        // }
-        /* for (int i{0}; i < statement_types_arrays.size(); ++i) {
-            for (int j{0}; j < a.size(); ++j) {
-                for (int k{j}; k < (a.size() - j); ++k) {
-                    if (a[k] != statement_types_arrays[i].first[k]) break;
-                    if ((k + 1) == statement_types_arrays[i].first.size()) {
-                        a.replace(statement_types_arrays[i].second.first, j, k + 1);
-                        break;
-                    }
-                }
-            }
-        }
-        return; */
-
-
-        /* for (int i{0}; i < statement_types_arrays.size(); ++i) {
-            for (int j{0}; j < a.size(); ++j) {
-                for (int k{j}; k < (a.size() - j); ++k) {
-                    if (a[k] != statement_types_arrays[i].first[k]) break;
-                    if ((k + 1) == statement_types_arrays[i].first.size()) {
-                        a.replace(statement_types_arrays[i].second.first, j, k + 1);
-                        break;
-                    }
-                }
-            }
-        }
-        return; */
-
-        // TODO: for this, make sure that the parser deals with the operator precedence on its own, without relying
-        // on the statement_types_arrays.
-        // TODO: Also, write the function for writing to file and compiling.
-
-        // Array<std::size_t> tmp_arr{};
-
-        // for (bool changed{true}, just_changed{false}, changed_back{false}; changed; changed = false) {
-        //     // changed = false;
-
-        //     /** TODO: TODO: TODO::: FIX THESE BELOW STUFFFF!!!!!!!!!
-        //      * TODO: Also these notes from the notepad:
-        //      *make function for Map class -> can search for keys starting with something.
-
-
-        //     when the checkArr(the new one) replaces, continue that loop, then make it run again with the same i, and
-        //     then make it start from i = 0 onwards.
-        //     */
-
-        //     for (std::size_t i{0}, increment{0}, inc{0}; i < statement_types_arrays.size(); i += inc) {
-        //         // tmp_arr.clear();
-        //         tmp_arr      = a;
-        //         changed_back = just_changed;
-        //         if (changed_back && !just_changed) { i = 0; }
-        //         just_changed = false;
-        //         inc          = 1;
-        //         for (std::size_t j{0}; j < a.size(); ++j /* j += !just_changed */, tmp_arr.pop_front(increment)) {
-        //             // tmp_arr.push_back(a[i]);
-        //             increment = parseArray(tmp_arr, i);
-        //             if (increment < 0) {
-        //                 increment = 1;
-        //                 continue;
-        //             }
-        //             a.replace(statement_types_arrays[i].second.first, i, i + increment);
-        //             just_changed = true;
-        //             inc          = 0;
-
-        //             // *this.
-
-        //             // tmp_arr.pop_front(increment);
-
-        //             // for (int j{0}; j <)
-        //         }
-        //     }
-        // }
-        // Array<std::size_t> tmp_arr{};
-        Array_view<std::size_t> arr_view{a};
+        // statement1.node.;
+        // Statement *stm = nullptr;
+        // Statement                                  st();
 
         for (bool changed{true}, just_changed{false}, changed_back{false}; changed; changed = false) {
             // changed = false;
@@ -1578,34 +1774,137 @@ class Classifier {
             */
 
             for (std::size_t i{0}, increment{0}, inc{0}; i < statement_types_arrays.size(); i += inc) {
+                goto start_of_loop;
+            restart_loop:
+                i = 0;
+            start_of_loop:
+
                 // tmp_arr.clear();
                 // arr_view     = a;
-                changed_back = just_changed;
-                if (changed_back && !just_changed) { i = 0; }
-                just_changed = false;
-                inc          = 1;
-                for (std::size_t j{0}; j < a.size(); ++j /* j += !just_changed */, arr_view.truncFront(increment)) {
+                // TODO!!!!!!!!!!!!!!:
+                // the statement below does not work if i is already on the last one, make it check before the condition
+                // check from the for loop itself.
+                inc = 1;
+                for (std::size_t j{0}, holder{0}; j < a.size();
+                     ++j /* j += !just_changed */, arr_view.truncFront(increment), holder = 0) {
                     // tmp_arr.push_back(a[i]);
-                    // TODO: put this statement immediately below in a for loop if the thing contains an operator that
+                    // // TODO: put this statement immediately below in a for loop if the thing contains an operator
+                    // that
+                    // // TODO
+
+                    // TODO!:
+                    /*
+                    Make the checkArr to support using STypes::Statement, maybe by replacing all sub arrays until
+                     they are all STypes::Statement. Update the parser to make Array<Pair<String,
+                    Array<Pair<std::size_t, std::size_t>>>>, then send it to the bool check(Array<Pair<std::size_t,
+                    std::size_t>, ...), while changing its parameter and working as well.
+                    */
+
+
                     // has precedence value.
-                    increment = parseArray(arr_view, i);
-                    if (increment < 0) {
-                        increment = 1;
-                        continue;
+
+                    // do {
+                    //     increment = parseArray(arr_view, i, 0ULL);
+                    // } while(()(holder < 15));
+
+                    for (std::size_t holder{0}; holder < 15; ++i) {
+
+                        // TODO!: Update this parseArray, so it receives Array<Pair<String, Array<Pair<std::size_t,
+                        // std::size_t>>>> instead, but ignores the String part (param[i].first) in the checking
+                        // process. Also make it parse the Arrays properly, instead of one-by-one like now
+                        // also make the left-to-right and right-to-left operator precedences work.
+                        // TODO!:
+                        // Make a copy of a with a different type; instead of taking like the thing parsed from the main
+                        // map, just use Array<std::size_t> or something similar instead
+                        increment = parseArray(arr_view, i, 0ULL);
+
+                        if (increment < 0) {
+                            increment = 1;
+                            goto next_sub;
+                        }
+
+                        // map1.insert(Pair<Pair<std::size_t, std::size_t>, std::unique_ptr<Classifier::Expression>>{
+                        //     Pair<std::size_t, std::size_t>(i, (std::size_t)(i + increment)),
+                        //     std::make_unique<Statement>(new Statement)});
+                        map1.insert(Pair<std::size_t, std::shared_ptr<Expression>>{
+                            i, std::make_shared<Expression>(new Classifier)});
+                        // TODO!: Make an Array_view of whatever to add with (the things that are about to get replaced)
+
+                        Array<Pair<ExpressionStr, bool>> arr();
+                        for (std::size_t j{i}; j < i + increment; ++j) {
+                            std::size_t index{map1.find(j)};
+                            /**
+                             * @brief
+                             * Note:
+                             * If the string is empty, that means it should also be in the map1 already, so no need to
+                             * check for both, just one is enough
+                             *
+                             */
+                            if ((index != map1.size())) {
+                                arr.push_back(Pair<ExpressionStr, bool>(
+                                // TODO!: Get the Expression pointer, then make it part of the new parent Expression.
+                                // ExpressionStr(map1.operator[](j).second. [j].second.first), 1));
+                            }
+                            else {
+                                // TODO!: Get the String, then make an Expression with it in the constructor
+                                arr.push_back(Pair<ExpressionStr, bool>(ExpressionStr()))
+                            }
+                        }
+
+                        (*(map1[Pair<std::size_t, std::size_t>(i, (std::size_t)(i + increment))].second)) +=
+                            Array_view // .push_back();
+
+
+                        {
+                            Pair<String, Array<Pair<std::size_t, std::size_t>>> temp(
+                                "",
+                                Pair<std::size_t, std::size_t>(
+                                    statement_types_arrays[i].second.first,
+                                    /* (std::size_t)STypes::NONE */ (std::size_t)0UL));
+                            // a.replace(statement_types_arrays[i].second.first, i, i + increment);
+                            a.replace(temp, i, i + increment);
+                        }
+
+                        statement1.node.push_back();
+                        just_changed = true;
+                        inc          = 0;
+
+                        // *this.
+
+                        // tmp_arr.pop_front(increment);
+
+                        // for (int j{0}; j <)
+
+                    next_sub:
+
+                        if (!holder) {
+                            // if(arr_view.arr().findGreater(0) == arr_view.arr().size()) {
+                            //     break;
+                            // }
+                            std::size_t sum{0};
+                            for (std::size_t k{0}; k < statement_types_arrays[i].first.size(); ++k) {
+                                for (std::size_t l{0}; l < statement_types_arrays[i].first[k].first.size(); ++l) {
+                                    if (statement_types_arrays[i].first[k].first[l] & STypes::OPERATOR) { ++k; }
+                                }
+                            }
+                            if (!sum) break;
+                            // TODO: implement arr so can get Array from Array_view, and from then search for any
+                            // operators, if there is, then don't break.
+                        }
                     }
-                    a.replace(statement_types_arrays[i].second.first, i, i + increment);
-                    just_changed = true;
-                    inc          = 0;
-
-                    // *this.
-
-                    // tmp_arr.pop_front(increment);
-
-                    // for (int j{0}; j <)
                 }
+                if (changed_back && !just_changed) {
+                    /* i = 0; */
+                    changed_back = just_changed;
+                    just_changed = false;
+                    goto restart_loop;
+                }
+                changed_back = just_changed;
+                just_changed = false;
             }
         }
     }
+
 
     Expression generate(Array<std::size_t> a) {
         for (int i{0}; i < statement_types_arrays.size(); ++i) {
@@ -1622,35 +1921,75 @@ class Classifier {
     // TODO: use the regex library instead of manual parsing.
     // TODO: also make sure that the += and + do not get confused.
     Classifier &parse(FILE *file) {
-        String            container{};
-        int               c;
-        std::stringstream ss{};
+        Array<Pair<String, Array<Pair<std::size_t, std::size_t>>>> container{};
+        String                                                     str{};
+        int                                                        c;
+        std::stringstream                                          ss{};
         ss << container;
-        std::vector<Statement> statements;
+        // std::vector<Statement> statements;
         // Note: stm -> statement
         Array<Statement> stm(0);
         // Note: combined STypes
         Array<std::size_t> exp(0);
         // Note: ws -> was special, wsp -> was special prior
-        bool        ws{false}, wsp{false};
-        short int   mode{0};
-        bool        end_of_term;
-        std::size_t find_result{0UL};
-        for (; (c = fgetc(file)) != EOF; wsp = ws) {
-            ws = !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
-            container.push_back(c);
-            if (!(ws || wsp)) {}
-            else {
-                if ((find_result = key_expressions.find(container)) != key_expressions.size()) {
-                    exp.push_back(key_expressions(find_result).second);
-                }
-                // TODO: Check this with the statements map above (defining all c statements)
-                if ()
-                // if (container ==) {
-                //   std::cout << container;
-                // }
-            }
+        bool                                                       ws{false}, wsp{false};
+        short int                                                  mode{0};
+        bool                                                       end_of_term;
+        std::size_t                                                find_result{0UL};
+        Array<Pair<String, Array<Pair<std::size_t, std::size_t>>>> parsed_results{};
+        str << *file;
+        // Array_view<char>
+        String_view sv{str};
+        sv.setView(0, 0);
+        bool               wasChar{false}, isChar{false};
+        Array<String>      keys{key_expressions_const.keys()};
+        Array<std::size_t> inserted_indexes{};
+        std::size_t        ind;
+        for (std::size_t j{0}; j < keys.size(); ++j) {
+            sv.setViewStart(0);
+            // for (std::size_t i{0}; i < str.size(); ++i) {
+            std::size_t index{sv.find(keys[j])};
+            if (index == sv.size()) break;
+            // str.purge(index, keys[j].size() + index);
+            ind = inserted_indexes.findLesser(sv.start());
+
+
+            // TODO!::::: Check if this statement below works!!!!!
+
+
+            // parsed_results.push_back(key_expressions_const(j));
+            parsed_results.insert(key_expressions_const(j), ind);
+
+            inserted_indexes.insert(sv.start(), ind);
+
+
+            sv.truncFront(keys[j].size());
+
+            // TODO: Continue here!!!
+
+            // sv.setViewStart(i);
+            // if (sv.size()) {
+            //     isChar = isCharacter(a[0]);
+            //     // if (wasChar && isChar) {}
+            // }
+            // }
         }
+        check(parsed_results, statements);
+        // for (; (c = fgetc(file)) != EOF; wsp = ws) {
+        //     ws = !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+        //     container.push_back(c);
+        //     if (!(ws || wsp)) {}
+        //     else {
+        //         if ((find_result = key_expressions.find(container)) != key_expressions.size()) {
+        //             exp.push_back(key_expressions(find_result).second);
+        //         }
+        //         // TODO: Check this with the statements map above (defining all c statements)
+        //         if ()
+        //         // if (container ==) {
+        //         //   std::cout << container;
+        //         // }
+        //     }
+        // }
     }
     Array<Statement> statements;
     /**

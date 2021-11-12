@@ -41,8 +41,11 @@ set(PROJECT_SOURCES
         # display.cpp
         # display.h
         # display.ui
+        file_io.cpp
         utils.h
+        utils.cpp
         misc.h
+        misc.cpp
         TEST123.cpp
 )
 

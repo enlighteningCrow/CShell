@@ -31,6 +31,9 @@ make[1]: Leaving directory '/home/twistingcamel/programs/kmitl/c++/cshell/CShell
 make: Leaving directory '/home/twistingcamel/programs/kmitl/c++/cshell/CShell'
  
 make[2]: *** No rule to make target 'CShell_autogen/mocs_compilation.cpp', needed by 'CMakeFiles/CShell.dir/CShell_autogen/mocs_compilation.cpp.o'.
+make[2]: *** No rule to make target '/opt/Qt/Tools/QtDesignStudio/qt5_design_studio_reduced_version/lib/libQt5Widgets.so.5.15.3', needed by 'CShell'.
+make[2]: *** No rule to make target '/opt/Qt/Tools/QtDesignStudio/qt5_design_studio_reduced_version/lib/libQt5Gui.so.5.15.3', needed by 'CShell'.
+make[2]: *** No rule to make target '/opt/Qt/Tools/QtDesignStudio/qt5_design_studio_reduced_version/lib/libQt5Core.so.5.15.3', needed by 'CShell'.
 make[1]: *** [CMakeFiles/Makefile2:77: CMakeFiles/CShell.dir/all] Error 2
 make: *** [Makefile:84: all] Error 2
  

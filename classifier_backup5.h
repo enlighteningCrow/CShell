@@ -271,21 +271,70 @@ class Classifier {
         // Expression(std::string) : m_evaluated_type{m_evaluated_type} {}
 
         Expression() : subs() {}
-        Expression(Array<Pair<ExpressionSize, bool>> ex) : subs(ex) {}
-        Expression &push_back(Pair<ExpressionSize, bool> &&ex) {
-            if (ex.second) {
-                ex.
-                // TODO: Make the Expression have the bool m_has_parent become true.
+        Expression(Array<Pair<ExpressionSize, bool>> &&ex) : subs(ex) {
+            for (std::size_t i{0}; i < ex.size(); ++i) {
+                if (ex[i].second) { ((Expression *)(&(ex[i].first)))->m_has_parent = true; }
             }
+        }
+        Expression &push_back(Pair<ExpressionSize, bool> &&ex) {
+            // if (ex.second) {
+            //     ex.
+            //     // TODO: Make the Expression have the bool m_has_parent become true.
+            // }
+
+            if (ex.second) { ((Expression *)(&(ex.first)))->m_has_parent = true; }
             subs.push_back(ex);
             return *this;
         }
+        Expression &insert(Pair<ExpressionSize, bool> &&ex, std::size_t index) {
+            // if (ex.second) {
+            //     ex.
+            //     // TODO: Make the Expression have the bool m_has_parent become true.
+            // }
+
+            if (ex.second) { ((Expression *)(&(ex.first)))->m_has_parent = true; }
+            subs.insert(ex, index);
+            return *this;
+        }
+
+        Expression &pop_back() {
+            // if (ex.second) {
+            //     ex.
+            //     // TODO: Make the Expression have the bool m_has_parent become true.
+            // }
+
+            // Pair<ExpressionSize, bool> &ex{subs[subs.size() - 1]};
+            if (!subs.size()) *stderr << "Expression already empty.\n";
+            if (subs[subs.size() - 1].second) {
+                ((Expression *)(&(subs[subs.size() - 1].first)))->m_has_parent = false;
+            }
+            // subs.push_back(subs[subs.size() - 1]);
+            subs.pop_back();
+            return *this;
+        }
+        Expression &remove(std::size_t index) {
+            // if (ex.second) {
+            //     ex.
+            //     // TODO: Make the Expression have the bool m_has_parent become true.
+            // }
+            if (index >= subs.size()) *stderr << "Out of range.\n";
+            if (subs[index].second) { ((Expression *)(&(subs[index].first)))->m_has_parent = false; }
+            // subs.insert(ex, index);
+            subs.remove(index, index + 1);
+            return *this;
+        }
+
 
         ExpressionSize &operator[](std::size_t index) { return subs[index].first; }
-        bool &          isExpression(std::size_t index) const { return subs[index].second; }
-        Expression *    indexAsExp(std::size_t index) const { return (Expression *)(&(subs[index].first)); }
-        String *        indexAsStr(std::size_t index) const { return (String *)(&(subs[index].first)); }
-        friend FILE &   operator<<(FILE &out, const Expression &exp) {
+        Expression &    operator=(const Expression &exp) {
+            m_has_parent = exp.m_has_parent;
+            m_in_paren   = exp.m_in_paren;
+            subs         = exp.subs;
+        }
+        bool &       isExpression(std::size_t index) const { return subs[index].second; }
+        Expression * indexAsExp(std::size_t index) const { return (Expression *)(&(subs[index].first)); }
+        String *     indexAsStr(std::size_t index) const { return (String *)(&(subs[index].first)); }
+        friend FILE &operator<<(FILE &out, const Expression &exp) {
             for (std::size_t i{0}; i < exp.subs.size(); ++i) {
                 if (exp.isExpression(i)) {
                     out << *exp.indexAsExp(i);
@@ -297,6 +346,7 @@ class Classifier {
                 }
             }
         }
+
         FILE &write(FILE &out, const Expression &exp /* , bool in_paren = false */) {
             if (m_in_paren) out << '(';
             for (std::size_t i{0}; i < exp.subs.size(); ++i) {
@@ -331,11 +381,13 @@ class Classifier {
         Expression node;
         // Statement(std::size_t id) : statement_id{id} {}
         Statement() : node() {}
+        // Statement() : node() {}
         /* void write(FILE &file) {
             // fputc()
             file << node;
         } */
         friend FILE &operator<<(FILE &out, const Statement &st) { out << st.node; }
+        Statement &  operator=(const Statement &st) { node = st.node; }
     };
 
 
@@ -1225,20 +1277,22 @@ class Classifier {
 #undef sta
     }
     short int matchExact(
-        const Array_view<std::size_t> &a, /*  std::size_t foptions, */ std::size_t index1, std::size_t index2
+        const Array_view<Pair<std::size_t, std::size_t>> &a, std::size_t precedence,
+        /*  std::size_t foptions, */ std::size_t index1, std::size_t index2
         /*,bool mode /*0 is test mode, 1 is accept mode*/) {
 #define sta(param) statement_types_arrays[index1].first[index2].first[param]
 #define sts statement_types_arrays[index1].first[index2].first.size()
 #define foptions statement_types_arrays[index1].first[index2].second
         for (std::size_t i{0}; i < sts; ++i) {
-            if (sta(i) & a[i]) {
-                if ((a[i] & STypes::OPERATOR) || (a[i] & STypes::OPEN) || (a[i] & STypes::CLOSE)) {
-                    if ((foptions & a[i])) {
+            if (sta(i) & a[i].first) {
+                if ((a[i].first & STypes::OPERATOR) || (a[i].first & STypes::OPEN) || (a[i].first & STypes::CLOSE)) {
+                    if ((foptions & a[i].first)) {
                         // if (mode)
-                        if (a[i] & STypes::OPERATOR) {
-                            if(a[i].second.)
+                        if (a[i].first & STypes::OPERATOR) {
+                            if (a[i].second == precedence) continue;
+                            return 0;
                         }
-                            continue;
+                        continue;
                     }
                     return 0;
                 }
@@ -1370,7 +1424,9 @@ class Classifier {
     }
 
 
-    short int parseArray(const Array_view<std::size_t> &a, std::size_t index, std::size_t operator_precedence_level = 0ULL) {
+    short int parseArray(
+        const Array_view<Pair<std::size_t, std::size_t>> &a, std::size_t index,
+        std::size_t operator_precedence_level = 0ULL) {
 
 
         // TODO: fix this operator_precedence_level (put the precedence level of the operators if the Array contains
@@ -1378,9 +1434,9 @@ class Classifier {
 
 
 #define arr statement_types_arrays[index].first
-        short int               tmp{0};
-        Array_view<std::size_t> arr_view{a};
-        std::size_t             offset{0};
+        short int                                  tmp{0};
+        Array_view<Pair<std::size_t, std::size_t>> arr_view{a};
+        std::size_t                                offset{0};
         // int                j_was = 0;
         // TODO: The j might not be direct loops of the i, maybe make it so tha tj retains its value after each
         // loop
@@ -1409,7 +1465,7 @@ class Classifier {
 
             //     continue;
             // }
-            tmp = matchExact(arr_view, index, i);
+            tmp = matchExact(arr_view, operator_precedence_level, index, i);
             if (tmp > 0) {
                 // arr_view.clear();
                 // arr_view.setViewStart(j + 1);
@@ -1425,7 +1481,7 @@ class Classifier {
                 // goto no_increment;
             }
             for (int k{i}; (k < arr.size()) && (arr[k].second & STypes::OPTIONAL); ++k) {
-                if (matchExact(arr_view, index, k)) {
+                if (matchExact(arr_view, operator_precedence_level, index, k)) {
                     i = k - 1;
                     // j -= arr_view.size();
                     // end -= arr_view.size();
@@ -1446,7 +1502,7 @@ class Classifier {
                 }
             }
             if (arr[i - 1].second & STypes::MULTIPLE) {
-                if (matchExact(arr_view, index, --i)) { goto next_loop; }
+                if (matchExact(arr_view, operator_precedence_level, index, --i)) { goto next_loop; }
             }
             return -1;
         next_loop:;
@@ -1536,7 +1592,8 @@ class Classifier {
     //     //      *make function for Map class -> can search for keys starting with something.
     //
     //
-    //     //     when the checkArr(the new one) replaces, continue that loop, then make it run again with the same i, and
+    //     //     when the checkArr(the new one) replaces, continue that loop, then make it run again with the same i,
+    //     and
     //     //     then make it start from i = 0 onwards.
     //     //     */
     //
@@ -1590,7 +1647,8 @@ class Classifier {
     //             inc          = 1;
     //             for (std::size_t j{0}; j < a.size(); ++j [> j += !just_changed <], arr_view.truncFront(increment)) {
     //                 // tmp_arr.push_back(a[i]);
-    //                 // TODO: put this statement immediately below in a for loop if the thing contains an operator that
+    //                 // TODO: put this statement immediately below in a for loop if the thing contains an operator
+    //                 that
     //                 // has precedence value.
     //                 increment = parseArray(arr_view, i);
     //                 if (increment < 0) {
@@ -1612,10 +1670,13 @@ class Classifier {
     // }
 
 
+    bool check(Array<Pair<std::size_t, std::size_t>> &a, Array<Statement> &arr_statements) {
+        Array_view<Pair<std::size_t, std::size_t>> arr_view{a};
 
-
-    bool check(Array<std::size_t> &a) {
-        Array_view<std::size_t> arr_view{a};
+        Statement statement1();
+        // statement1.node.;
+        // Statement *stm = nullptr;
+        // Statement                                  st();
 
         for (bool changed{true}, just_changed{false}, changed_back{false}; changed; changed = false) {
             // changed = false;
@@ -1630,31 +1691,82 @@ class Classifier {
             */
 
             for (std::size_t i{0}, increment{0}, inc{0}; i < statement_types_arrays.size(); i += inc) {
+                goto start_of_loop;
+            restart_loop:
+                i = 0;
+            start_of_loop:
+
                 // tmp_arr.clear();
                 // arr_view     = a;
-                changed_back = just_changed;
-                if (changed_back && !just_changed) { i = 0; }
-                just_changed = false;
-                inc          = 1;
-                for (std::size_t j{0}; j < a.size(); ++j /* j += !just_changed */, arr_view.truncFront(increment)) {
+                // TODO!!!!!!!!!!!!!!:
+                // the statement below does not work if i is already on the last one, make it check before the condition
+                // check from the for loop itself.
+                inc = 1;
+                for (std::size_t j{0}, holder{0}; j < a.size();
+                     ++j /* j += !just_changed */, arr_view.truncFront(increment), holder = 0) {
                     // tmp_arr.push_back(a[i]);
-                    // TODO: put this statement immediately below in a for loop if the thing contains an operator that
+                    // // TODO: put this statement immediately below in a for loop if the thing contains an operator
+                    // that
+                    // // TODO
+
+                    // TODO!:
+                    /*
+                    Make the checkArr to support using STypes::Statement, maybe by replacing all sub arrays until
+                     they are all STypes::Statement. Update the parser to make Array<Array<Pair<std::size_t,
+                     std::size_t>>>, then send it to the bool check(Array<Pair<std::size_t, std::size_t>, ...), while
+                     changing its parameter and working as well.
+                    */
+
+
                     // has precedence value.
-                    increment = parseArray(arr_view, i);
-                    if (increment < 0) {
-                        increment = 1;
-                        continue;
+
+                    // do {
+                    //     increment = parseArray(arr_view, i, 0ULL);
+                    // } while(()(holder < 15));
+
+                    for (std::size_t holder{0}; holder < 15; ++i) {
+                        increment = parseArray(arr_view, i, 0ULL);
+
+                        if (increment < 0) {
+                            increment = 1;
+                            goto next_sub;
+                        }
+                        a.replace(statement_types_arrays[i].second.first, i, i + increment);
+                        just_changed = true;
+                        inc          = 0;
+
+                        // *this.
+
+                        // tmp_arr.pop_front(increment);
+
+                        // for (int j{0}; j <)
+
+                    next_sub:
+
+                        if (!holder) {
+                            // if(arr_view.arr().findGreater(0) == arr_view.arr().size()) {
+                            //     break;
+                            // }
+                            std::size_t sum{0};
+                            for (std::size_t k{0}; k < statement_types_arrays[i].first.size(); ++k) {
+                                for (std::size_t l{0}; l < statement_types_arrays[i].first[k].first.size(); ++l) {
+                                    if (statement_types_arrays[i].first[k].first[l] & STypes::OPERATOR) { ++k; }
+                                }
+                            }
+                            if (!sum) break;
+                            // TODO: implement arr so can get Array from Array_view, and from then search for any
+                            // operators, if there is, then don't break.
+                        }
                     }
-                    a.replace(statement_types_arrays[i].second.first, i, i + increment);
-                    just_changed = true;
-                    inc          = 0;
-
-                    // *this.
-
-                    // tmp_arr.pop_front(increment);
-
-                    // for (int j{0}; j <)
                 }
+                if (changed_back && !just_changed) {
+                    /* i = 0; */
+                    changed_back = just_changed;
+                    just_changed = false;
+                    goto restart_loop;
+                }
+                changed_back = just_changed;
+                just_changed = false;
             }
         }
     }
