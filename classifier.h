@@ -288,7 +288,6 @@ namespace Classifier {
                  {STypes::AMPERSAND | STypes::ASTERISK}, STypes::OPTIONAL | STypes::MULTIPLE}},
             Pair<size_ut, size_ut>(STypes::TYPE, 25)},
 
-        // TODO: Copy the format of the above to below ones.
         Pair<Array<Pair<Array<size_ut>, size_ut>>, Pair<size_ut, size_ut>>{
             {
                 // Function Call
@@ -366,7 +365,6 @@ namespace Classifier {
              Pair<Array<size_ut>, size_ut>{{STypes::PARENTHESIS}, STypes::CLOSE},
              Pair<Array<size_ut>, size_ut>{{STypes::SEMICOLON}, STypes::NONE}},
             Pair<size_ut, size_ut>(STypes::NONE, 7)},
-        // TODO: Continue making them pairs from here on.
         Pair<Array<Pair<Array<size_ut>, size_ut>>, Pair<size_ut, size_ut>>{
             {// Function Definition
              Pair<Array<size_ut>, size_ut>{{STypes::TYPE}, STypes::NONE},
@@ -525,11 +523,6 @@ namespace Classifier {
             Pair<size_ut, size_ut>(STypes::NONE, 0)},
     };
 
-
-    // TODO: qsort this from greatest precedence (greatest number) to least
-
-    // TODO: types can also be called as functions.
-
     Array<Pair<String, size_ut>> type_modifier_order{
         Pair<String, size_ut>("auto", 0),     Pair<String, size_ut>("static", 0), Pair<String, size_ut>("extern", 0),
         Pair<String, size_ut>("register", 0), Pair<String, size_ut>("const", 1),  Pair<String, size_ut>("long", -1),
@@ -681,7 +674,6 @@ namespace Classifier {
 
     int compare(const void* a, const void* b) {
 
-        // TODO: Edit this
         return ((ExpTypePtr)(a))->second[0].second < ((ExpTypePtr)(b))->second[0].second;
     }
 
@@ -690,6 +682,7 @@ namespace Classifier {
             qsort(&(exp(0)), exp.size(), sizeof(exp(0)), compare);
             return exp;
         }(key_expressions));
+
 
 #define checkBit(a, b) (a & (1LL << b))
 #define setBit(a, b) (a |= (1LL << b))
@@ -755,16 +748,11 @@ namespace Classifier {
         const Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut index,
         size_ut operator_precedence_level = 0LL) {
 
-
-        // TODO: fix this operator_precedence_level (put the precedence level of the operators if the Array contains
-
 #define arr statement_types_arrays[index].first
         short int                                               tmp{0};
         Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>> arr_view{a};
         size_ut                                                 offset{0};
-        // TODO: The j might not be direct loops of the i, maybe make it so tha tj retains its value after each
-
-        size_ut start{0}, end{1};
+        size_ut                                                 start{0}, end{1};
 
         arr_view.setViewEnd(0);
         for (size_ut i{0}; ((end < arr[i].first.size()) && (i < arr.size())); ++end, ++i, offset = 0) {
