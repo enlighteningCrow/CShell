@@ -3,6 +3,7 @@
 
 #include <bits/stdc++.h>
 #include <cstddef>
+#include <iterator>
 #include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,6 +11,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+typedef long long int size_ut;
 
 #include <initializer_list>
 #include <iostream>
@@ -17,7 +19,9 @@
 
 #include "file_io.h"
 
-#define int1_t char
+// #define int1_t char
+
+typedef char int1_t;
 
 // #include "array_view.h"
 
@@ -49,8 +53,8 @@ friend FileWrapper& operator<<(FileWrapper& out, const char* ch) {
 template<typename T>
 class Array {
 protected:
-    std::size_t  m_size;
-    std::size_t  m_allocated;
+    size_ut      m_size;
+    size_ut      m_allocated;
     T *          m_data;
     mutable bool m_is_sorted;
     // friend class String;
@@ -72,6 +76,33 @@ protected:
     }
 
 public:
+    struct Iter {
+    public:
+        using value_type        = T;
+        using pointer           = value_type *;
+        using reference         = value_type &;
+        using iterator_category = std::random_access_iterator_tag;
+        using difference_type   = std::ptrdiff_t;
+
+    protected:
+        pointer m_ptr;
+
+    public:
+        reference operator*() const { return *m_ptr; }
+        pointer   operator->() const { return m_ptr; }
+        Iter &    operator++() {
+            ++m_ptr;
+            return *this;
+        }
+        Iter operator++(int) {
+            ++m_ptr;
+            return Iter(m_ptr - 1);
+        }
+        friend bool operator==(const Iter &a, const Iter &b) { return a.m_ptr == b.m_ptr; };
+        friend bool operator!=(const Iter &a, const Iter &b) { return a.m_ptr != b.m_ptr; };
+        Iter(const pointer &ptr) : m_ptr{ptr} {}
+        Iter(const Iter &ptr) : m_ptr{ptr.m_ptr} {}
+    };
     /*
     Array(Array<T>& array)
         : m_size{ array.m_size }
@@ -103,15 +134,20 @@ public:
         array.m_data = NULL;
         // memcpy(m_data, array.m_data, m_size * sizeof(T));
     }
-    Array(std::size_t size) :
-        m_size{size}, m_allocated{(std::size_t)(size * 1.3 + 1)}, m_data{(T *)(malloc(sizeof(T) * m_allocated))},
+    Array(const Array<T> &array) :
+        m_size{array.m_size}, m_allocated{array.m_allocated}, m_data{(T *)malloc(sizeof(T) * array.m_size)},
+        m_is_sorted{array.m_is_sorted}, _middle{0} {
+        memcpy(m_data, array.m_data, m_size * sizeof(T));
+    }
+    Array(size_ut size) :
+        m_size{size}, m_allocated{(size_ut)(size * 1.3 + 1)}, m_data{(T *)(malloc(sizeof(T) * m_allocated))},
         m_is_sorted{false}, _middle{0} {
         memset(m_data, 0, sizeof(T) * m_size);
     }
     Array() : Array(0UL) {}
     Array(const std::initializer_list<T> &list) :
-        m_size{list.size()}, m_allocated{(std::size_t)(m_size * 1.3 + 1)},
-        m_data{(T *)(malloc(sizeof(T) * m_allocated))}, m_is_sorted{false} {
+        m_size{list.size()}, m_allocated{(size_ut)(m_size * 1.3 + 1)}, m_data{(T *)(malloc(sizeof(T) * m_allocated))},
+        m_is_sorted{false} {
         int j{0};
         for (const T &i : list) {
             m_data[j] = i;
@@ -119,12 +155,12 @@ public:
         }
     }
     virtual ~Array() { free(m_data); }
-    virtual std::size_t size() const { return m_size; }
-    Array<T> &          resize(std::size_t size) {
+    virtual size_ut size() const { return m_size; }
+    Array<T> &      resize(size_ut size) {
         if (m_size == size) return *this;
         bool expanded{(m_allocated < size)};
-        if ((m_allocated < size) || ((std::size_t)(m_allocated * 0.7 + 1) > size)) {
-            m_allocated = (std::size_t)((size * 1.3) + 1);
+        if ((m_allocated < size) || ((size_ut)(m_allocated * 0.7 + 1) > size)) {
+            m_allocated = (size_ut)((size * 1.3) + 1);
         }
         else {
             m_size = size;
@@ -146,13 +182,13 @@ public:
         return *this;
     }
 
-    Array<T> &remove(std::size_t start, std::size_t end) {
+    Array<T> &remove(size_ut start, size_ut end) {
         memcpy(m_data + start, m_data + end, (m_size - end) * sizeof(T));
         resize(m_size - (end - start));
         return *this;
     }
 
-    Array<T> &insert(const T &value, std::size_t index) {
+    Array<T> &insert(const T &value, size_ut index) {
         std::cout << "called resize with " << m_size + 1 << ".\n";
         resize(m_size + 1);
         std::cout << "called memmove with m_data + " << index + 1 << ", m_data + " << index << ", "
@@ -163,7 +199,7 @@ public:
     }
 
     // NOTE!!!!!: this replace is NON-INCLUSIVE, like for loops.
-    Array<T> &replace(const T &value, std::size_t start, std::size_t end) {
+    Array<T> &replace(const T &value, size_ut start, size_ut end) {
         // memcpy(m_data + start, m_data + end, m_size - end);
         // remove(start + 1, end);
 
@@ -174,7 +210,12 @@ public:
         return *this;
     }
 
-    Array<T> &pop_front(std::size_t indexes = 1ULL) {
+    Array<T> &fill(const T &value, size_ut start, size_ut end) {
+        for (size_ut i{start}; i < end; ++i) { m_data[i] = value; }
+        return *this;
+    }
+
+    Array<T> &pop_front(size_ut indexes = 1ULL) {
         memcpy(m_data, m_data + indexes, m_size - indexes);
         resize(m_size - indexes);
         return *this;
@@ -187,7 +228,7 @@ public:
         return *this;
     }
 
-    virtual T &operator[](std::size_t index) const {
+    virtual T &operator[](size_ut index) const {
         if (index < 0) index += m_size;
         if (index >= m_size || index < 0) {
             fprintf(stderr, "Out of range.\n");
@@ -204,7 +245,7 @@ public:
         return arr;
     }
     Array<T> &operator+=(const Array<T> &array) {
-        std::size_t old_size{m_size};
+        size_ut old_size{m_size};
         resize(m_size + array.m_size);
         memcpy(m_data + old_size, array.m_data, array.m_size * sizeof(T));
         m_is_sorted = false;
@@ -228,7 +269,7 @@ public:
     // }
     Array<T> &operator+=(const Array_view<T> &array);
     // Array<T> &operator+=(const Array<T> &array) {
-    //     std::size_t old_size{m_size};
+    //     size_ut old_size{m_size};
     //     resize(m_size + array.m_size);
     //     memcpy(m_data + old_size, array.m_data, array.m_size * sizeof(T));
     //     m_is_sorted = false;
@@ -242,27 +283,27 @@ public:
     //     return *this;
     // }
 
-    virtual std::size_t find(const T &target) {
+    virtual size_ut find(const T &target) {
         if (!m_size) { return 0UL; }
         if (!m_is_sorted) { sort(); }
         return _find(target, 0, m_size - 1);
     }
-    virtual std::size_t findGreater(const T &target) {
+    virtual size_ut findGreater(const T &target) {
         if (!m_size) { return 0UL; }
         if (!m_is_sorted) { sort(); }
         return _findg(target, 0, m_size - 1);
     }
-    virtual std::size_t findGreaterEq(const T &target) {
+    virtual size_ut findGreaterEq(const T &target) {
         if (!m_size) { return 0UL; }
         if (!m_is_sorted) { sort(); }
         return _findge(target, 0, m_size - 1);
     }
-    virtual std::size_t findLesser(const T &target) {
+    virtual size_ut findLesser(const T &target) {
         if (!m_size) { return 0UL; }
         if (!m_is_sorted) { sort(); }
         return _findl(target, 0, m_size - 1);
     }
-    virtual std::size_t findLesserEq(const T &target) {
+    virtual size_ut findLesserEq(const T &target) {
         if (!m_size) { return 0UL; }
         if (!m_is_sorted) { sort(); }
         return _findle(target, 0, m_size - 1);
@@ -280,8 +321,8 @@ public:
     Array<T> &clear() { resize(0); }
 
 protected:
-    std::size_t         _middle;
-    virtual std::size_t _find(const T &target, std::size_t left, std::size_t right) {
+    size_ut         _middle;
+    virtual size_ut _find(const T &target, size_ut left, size_ut right) {
         if (right < left) return m_size;
         _middle = (left + (right - left) / 2);
         if (m_data[_middle] == target)
@@ -291,7 +332,7 @@ protected:
         else
             return _find(target, _middle + 1, right);
     }
-    virtual std::size_t _findg(const T &target, std::size_t left, std::size_t right) {
+    virtual size_ut _findg(const T &target, size_ut left, size_ut right) {
         if (right < left) return _middle;
         _middle = (left + (right - left) / 2);
         if (m_data[_middle] == target)
@@ -304,7 +345,7 @@ protected:
         else
             return _find(target, _middle + 1, right);
     }
-    virtual std::size_t _findl(const T &target, std::size_t left, std::size_t right) {
+    virtual size_ut _findl(const T &target, size_ut left, size_ut right) {
         if (right < left) return _middle;
         _middle = (left + (right - left) / 2);
         if (m_data[_middle] == target)
@@ -318,7 +359,7 @@ protected:
             return _find(target, _middle + 1, right);
         }
     }
-    virtual std::size_t _findge(const T &target, std::size_t left, std::size_t right) {
+    virtual size_ut _findge(const T &target, size_ut left, size_ut right) {
         if (right < left) return _middle;
         _middle = (left + (right - left) / 2);
         if (m_data[_middle] == target) {
@@ -333,7 +374,7 @@ protected:
         else
             return _find(target, _middle + 1, right);
     }
-    virtual std::size_t _findle(const T &target, std::size_t left, std::size_t right) {
+    virtual size_ut _findle(const T &target, size_ut left, size_ut right) {
         if (right < left) return _middle;
         _middle = (left + (right - left) / 2);
         if (m_data[_middle] == target) {
@@ -354,8 +395,8 @@ public:
     Array<T> &push_back(const T &element) {
         //    ++m_size;
         //    if (m_size > m_allocated) {
-        //      m_data = realloc(m_data, (std::size_t)(m_size * 1.5 + 1));
-        //      m_allocated = (std::size_t)(m_size * 1.5 + 1);
+        //      m_data = realloc(m_data, (size_ut)(m_size * 1.5 + 1));
+        //      m_allocated = (size_ut)(m_size * 1.5 + 1);
         //    }
         //    *(m_data + m_size - 1) = element;
         //    return *this;
@@ -366,9 +407,9 @@ public:
     }
     Array<T> &pop_back() {
         //    --m_size;
-        //    if (m_size < (std::size_t)(m_allocated * 0.7)) {
-        //      m_data = realloc(m_data, (std::size_t)(m_size * 0.7 + 1));
-        //      m_allocated = (std::size_t)(m_size * 0.7 + 1);
+        //    if (m_size < (size_ut)(m_allocated * 0.7)) {
+        //      m_data = realloc(m_data, (size_ut)(m_size * 0.7 + 1));
+        //      m_allocated = (size_ut)(m_size * 0.7 + 1);
         //    }
         //    return *this;
         resize(m_size - 1);
@@ -396,6 +437,8 @@ public:
     //       }
     //       return arr;
     //   }
+    Iter begin() { return Iter(m_data); }
+    Iter end() { return Iter(m_data + m_size() - 1); }
 };
 
 
@@ -421,18 +464,18 @@ protected:
 public:
     String(String &array) : Array<char>{array} {}
     String(String &&array) : Array<char>{array} {}
-    String(std::size_t size) : Array(size) {}
-    String(const char *str) : Array<char>((std::size_t)strlen(str)) { memcpy(m_data, str, m_size); }
+    String(size_ut size) : Array(size) {}
+    String(const char *str) : Array<char>((size_ut)strlen(str)) { memcpy(m_data, str, m_size); }
     String(String_view &strview); // : Array<char>(strview.size()) { memcpy(m_data, str, m_size); }
     String() : Array<char>(0UL) {}
-    bool                operator<(const String &array) const { return strcmp(this->m_data, array.m_data) < 0; }
-    bool                operator>(const String &array) const { return strcmp(this->m_data, array.m_data) > 0; }
-    bool                operator<=(const String &array) const { return strcmp(this->m_data, array.m_data) <= 0; }
-    bool                operator>=(const String &array) const { return strcmp(this->m_data, array.m_data) >= 0; }
-    virtual std::size_t find(const char *target) {
-        std::size_t str_size = strlen(target);
-        for (std::size_t i{0}; i <= this->size() - str_size; ++i) {
-            for (std::size_t j{0}; j < str_size; ++j) {
+    bool            operator<(const String &array) const { return strcmp(this->m_data, array.m_data) < 0; }
+    bool            operator>(const String &array) const { return strcmp(this->m_data, array.m_data) > 0; }
+    bool            operator<=(const String &array) const { return strcmp(this->m_data, array.m_data) <= 0; }
+    bool            operator>=(const String &array) const { return strcmp(this->m_data, array.m_data) >= 0; }
+    virtual size_ut find(const char *target) {
+        size_ut str_size = strlen(target);
+        for (size_ut i{0}; i <= this->size() - str_size; ++i) {
+            for (size_ut j{0}; j < str_size; ++j) {
                 if (target[j] == this->operator[](i + j)) continue;
                 goto not_equal;
                 // break;
@@ -443,10 +486,10 @@ public:
         }
         return this->size();
     }
-    virtual std::size_t find(const String &target) {
-        std::size_t str_size = target.size();
-        for (std::size_t i{0}; i <= this->size() - str_size; ++i) {
-            for (std::size_t j{0}; j < str_size; ++j) {
+    virtual size_ut find(const String &target) {
+        size_ut str_size = target.size();
+        for (size_ut i{0}; i <= this->size() - str_size; ++i) {
+            for (size_ut j{0}; j < str_size; ++j) {
                 if (target[j] == this->operator[](i + j)) continue;
                 goto not_equal;
                 // break;
@@ -457,11 +500,11 @@ public:
         }
         return this->size();
     }
-    virtual std::size_t find(/* const Array_view<char> */ String_view &target);
-    // virtual std::size_t find(const Array_view<char>& target) {
-    //     std::size_t str_size = target.size();
-    //     for (std::size_t i{ 0 }; i <= this->size() - str_size; ++i) {
-    //         for (std::size_t j{ 0 }; j < str_size; ++j) {
+    virtual size_ut find(/* const Array_view<char> */ String_view &target);
+    // virtual size_ut find(const Array_view<char>& target) {
+    //     size_ut str_size = target.size();
+    //     for (size_ut i{ 0 }; i <= this->size() - str_size; ++i) {
+    //         for (size_ut j{ 0 }; j < str_size; ++j) {
     //             if (target[j] == this->operator[](i + j)) continue;
     //             goto not_equal;
     //             // break;
@@ -472,7 +515,7 @@ public:
     //     }
     //     return this->size();
     // }
-    String &purge(std::size_t start, std::size_t end) {
+    String &purge(size_ut start, size_ut end) {
         memset(m_data + start, 0, end - start);
         // for (;start < end; ++start) {
         //
@@ -484,13 +527,13 @@ public:
         // fstat(fd, buf);
         // buf.st_size;
         // resize(buf.st_size);
-        // for(std::size_t i {0}; i < buf.st_size; ++i) {
+        // for(size_ut i {0}; i < buf.st_size; ++i) {
         //     fgetc(buf)
         // }
 
         // clear();
         fseek(&f, 0, SEEK_END);
-        std::size_t size = ftell(&f);
+        size_ut size = ftell(&f);
         fseek(&f, 0, SEEK_SET);
         resize(size + 1);
         fread(this->m_data, 1, size, &f);
@@ -534,19 +577,19 @@ public:
         return arr;
     }
     String &operator+=(const String &array) {
-        std::size_t old_size{m_size};
+        size_ut old_size{m_size};
         resize(m_size + array.m_size);
         memcpy(m_data + old_size, array.m_data, array.m_size);
         return *this;
     }
     String &operator+=(const char *array) {
-        std::size_t old_size{m_size};
+        size_ut old_size{m_size};
         resize(m_size + strlen(array));
         strcpy(m_data + old_size, array);
         return *this;
     }
     String &operator+=(char ch) {
-        std::size_t old_size{m_size};
+        size_ut old_size{m_size};
         resize(m_size + 1);
         m_data[old_size] = ch;
         return *this;
@@ -585,9 +628,9 @@ public:
     //     return (memcmp(m_data, arr.m_data, m_size));
     // }
     //   operator char*() const { return m_data; }
-    int readChars(FILE *f, std::size_t count) {
+    int readChars(FILE *f, size_ut count) {
         resize(count);
-        std::size_t i{0};
+        size_ut i{0};
         for (char *d{m_data}; i < count; ++i) {
             *(d++) = fgetc(f);
             if (*(d - 1) == EOF) return -1;
@@ -627,12 +670,12 @@ public:
 //     //       m_is_sorted{false} {
 //     //   memcpy(m_data, array.m_data, m_size * sizeof(T));
 //     // }
-//     Map(std::size_t size)
+//     Map(size_ut size)
 //         : Array<Pair<T1, T2>>(size)
 //     {
 //     }
 //     //   : m_size{size},
-//     //     m_allocated{(std::size_t)(m_size * 1.3 + 1)},
+//     //     m_allocated{(size_ut)(m_size * 1.3 + 1)},
 //     //     m_data{(T*)(malloc(sizeof(T) * m_allocated))},
 //     //     m_is_sorted{false} {
 //     // memset(m_data, 0, sizeof(T) * m_size);
@@ -646,7 +689,7 @@ public:
 //     {
 //     }
 //     //     : m_size{list.size()},
-//     //       m_allocated{(std::size_t)(m_size * 1.3 + 1)},
+//     //       m_allocated{(size_ut)(m_size * 1.3 + 1)},
 //     //       m_data{(T*)(malloc(sizeof(T) * m_allocated))},
 //     //       m_is_sorted{false} {
 //     //   int j{0};
@@ -663,7 +706,7 @@ public:
 //         return *this;
 //     }
 
-//     virtual std::size_t find(const T1& target)
+//     virtual size_ut find(const T1& target)
 //     {
 //         if (!m_is_sorted) {
 //             sort();
@@ -672,8 +715,8 @@ public:
 //     }
 
 // protected:
-//     virtual std::size_t _find(const T1& target, std::size_t left,
-//         std::size_t right)
+//     virtual size_ut _find(const T1& target, size_ut left,
+//         size_ut right)
 //     {
 //         _middle = (left + (right - left) / 2);
 //         if (m_data[_middle].first == target)
@@ -683,7 +726,7 @@ public:
 //         else
 //             return _find(target, _middle + 1, right);
 //     }
-//     std::size_t index;
+//     size_ut index;
 
 // public:
 //     Map<T1, T2>& insert(const Pair<T1, T2>& pair)
@@ -717,7 +760,7 @@ public:
 //         }
 //         return m_data[index];
 //     }
-//     virtual Pair<T1, T2>& operator()(std::size_t ind) const
+//     virtual Pair<T1, T2>& operator()(size_ut ind) const
 //     {
 //         return m_data[ind];
 //         // index = find(ind);
@@ -750,9 +793,9 @@ public:
     //       m_is_sorted{false} {
     //   memcpy(m_data, array.m_data, m_size * sizeof(T));
     // }
-    Map(std::size_t size) : Array<Pair<T1, T2>>(size), index{0} {}
+    Map(size_ut size) : Array<Pair<T1, T2>>(size), index{0} {}
     //   : m_size{size},
-    //     m_allocated{(std::size_t)(m_size * 1.3 + 1)},
+    //     m_allocated{(size_ut)(m_size * 1.3 + 1)},
     //     m_data{(T*)(malloc(sizeof(T) * m_allocated))},
     //     m_is_sorted{false} {
     // memset(m_data, 0, sizeof(T) * m_size);
@@ -760,7 +803,7 @@ public:
     Map() : Array<Pair<T1, T2>>(0UL), index{0} {}
     Map(const std::initializer_list<Pair<T1, T2>> &list) : Array<Pair<T1, T2>>(list), index{0} {}
     //     : m_size{list.size()},
-    //       m_allocated{(std::size_t)(m_size * 1.3 + 1)},
+    //       m_allocated{(size_ut)(m_size * 1.3 + 1)},
     //       m_data{(T*)(malloc(sizeof(T) * m_allocated))},
     //       m_is_sorted{false} {
     //   int j{0};
@@ -776,7 +819,7 @@ public:
         return *this;
     }
 
-    // virtual std::size_t find(const T1& target)
+    // virtual size_ut find(const T1& target)
     // {
     //     if (!m_size) {
     //         return 0UL;
@@ -788,8 +831,8 @@ public:
     // }
 
 protected:
-    // virtual std::size_t _find(const T1& target, std::size_t left,
-    //     std::size_t right)
+    // virtual size_ut _find(const T1& target, size_ut left,
+    //     size_ut right)
     // {
     //     _middle = (left + (right - left) / 2);
     //     if (m_data[_middle].first == target)
@@ -799,7 +842,7 @@ protected:
     //     else
     //         return _find(target, _middle + 1, right);
     // }
-    std::size_t index;
+    size_ut index;
 
 public:
     Map &insert(const Pair<T1, T2> &pair) {
@@ -833,7 +876,7 @@ public:
         }
         return this->m_data[index];
     }
-    virtual Pair<T1, T2> &operator()(std::size_t ind) const {
+    virtual Pair<T1, T2> &operator()(size_ut ind) const {
         return this->m_data[ind];
         // index = find(ind);
         // if (index == this->m_size) {
@@ -842,41 +885,41 @@ public:
         // }
         // return this->m_data[index];
     }
-    std::size_t findStartingWith(const T1 &key) { return this->findLesserEq(key) - this->findGreaterEq(key); }
-    Array<T1>   keys() const {
+    size_ut   findStartingWith(const T1 &key) { return this->findLesserEq(key) - this->findGreaterEq(key); }
+    Array<T1> keys() const {
         Array<T1> keyArr(this->m_size);
-        for (std::size_t i{0}; i < this->m_size; ++i) { keyArr[i] = this->m_data[i].first; }
+        for (size_ut i{0}; i < this->m_size; ++i) { keyArr[i] = this->m_data[i].first; }
         return keyArr;
     }
 
-    virtual std::size_t find(const T1 &target) {
+    virtual size_ut find(const T1 &target) {
         if (!m_size) { return 0UL; }
         if (!m_is_sorted) { sort(); }
         return _find(target, 0, m_size - 1);
     }
-    virtual std::size_t findGreater(const T1 &target) {
+    virtual size_ut findGreater(const T1 &target) {
         if (!m_size) { return 0UL; }
         if (!m_is_sorted) { sort(); }
         return _findg(target, 0, m_size - 1);
     }
-    virtual std::size_t findGreaterEq(const T1 &target) {
+    virtual size_ut findGreaterEq(const T1 &target) {
         if (!m_size) { return 0UL; }
         if (!m_is_sorted) { sort(); }
         return _findge(target, 0, m_size - 1);
     }
-    virtual std::size_t findLesser(const T1 &target) {
+    virtual size_ut findLesser(const T1 &target) {
         if (!m_size) { return 0UL; }
         if (!m_is_sorted) { sort(); }
         return _findl(target, 0, m_size - 1);
     }
-    virtual std::size_t findLesserEq(const T1 &target) {
+    virtual size_ut findLesserEq(const T1 &target) {
         if (!m_size) { return 0UL; }
         if (!m_is_sorted) { sort(); }
         return _findle(target, 0, m_size - 1);
     }
 
 
-    virtual std::size_t _find(const T1 &target, std::size_t left, std::size_t right) {
+    virtual size_ut _find(const T1 &target, size_ut left, size_ut right) {
         if (right < left) return m_size;
         _middle = (left + (right - left) / 2);
         if (m_data[_middle].first == target)
@@ -886,66 +929,108 @@ public:
         else
             return _find(target, _middle + 1, right);
     }
-    virtual std::size_t _findg(const T1 &target, std::size_t left, std::size_t right) {
+    virtual size_ut _findg(const T1 &target, size_ut left, size_ut right) {
         if (right < left) return _middle;
         _middle = (left + (right - left) / 2);
         if (m_data[_middle].first == target)
-            return _find(target, _middle + 1, right);
+            return _findg(target, _middle + 1, right);
         else if (m_data[_middle].first > target) {
             if (_middle == 0) { return _middle; }
             if (!(m_data[_middle - 1].first > target)) return _middle;
-            return _find(target, left, _middle - 1);
+            return _findg(target, left, _middle - 1);
         }
         else
-            return _find(target, _middle + 1, right);
+            return _findg(target, _middle + 1, right);
     }
-    virtual std::size_t _findl(const T1 &target, std::size_t left, std::size_t right) {
+    virtual size_ut _findl(const T1 &target, size_ut left, size_ut right) {
         if (right < left) return _middle;
         _middle = (left + (right - left) / 2);
         if (m_data[_middle].first == target)
-            return _find(target, _middle + 1, right);
+            return _findl(target, _middle + 1, right);
         else if (m_data[_middle].first > target) {
-            return _find(target, left, _middle - 1);
+            return _findl(target, left, _middle - 1);
         }
         else {
             if (_middle == m_size - 1) { return _middle; }
             if (!(m_data[_middle + 1].first < target)) return _middle;
-            return _find(target, _middle + 1, right);
+            return _findl(target, _middle + 1, right);
         }
     }
-    virtual std::size_t _findge(const T1 &target, std::size_t left, std::size_t right) {
+    virtual size_ut _findge(const T1 &target, size_ut left, size_ut right) {
         if (right < left) return _middle;
         _middle = (left + (right - left) / 2);
         if (m_data[_middle].first == target) {
             if (_middle == m_size - 1) { return _middle; }
-            return _find(target, _middle + 1, right);
+            return _findge(target, _middle + 1, right);
         }
         else if (m_data[_middle].first > target) {
             if (_middle == 0) { return _middle; }
             if (!(m_data[_middle - 1].first > target)) return _middle - 1;
-            return _find(target, left, _middle - 1);
+            return _findge(target, left, _middle - 1);
         }
         else
-            return _find(target, _middle + 1, right);
+            return _findge(target, _middle + 1, right);
     }
-    virtual std::size_t _findle(const T &target, std::size_t left, std::size_t right) {
+    virtual size_ut _findle(const T1 &target, size_ut left, size_ut right) {
         if (right < left) return _middle;
         _middle = (left + (right - left) / 2);
         if (m_data[_middle].first == target) {
             if (_middle == 0) { return _middle; }
-            return _find(target, _middle + 1, right);
+            return _findle(target, _middle + 1, right);
         }
         else if (m_data[_middle].first > target) {
-            return _find(target, left, _middle - 1);
+            return _findle(target, left, _middle - 1);
         }
         else {
             if (_middle == m_size - 1) { return _middle; }
             if (!(m_data[_middle + 1].first < target)) return _middle + 1;
-            return _find(target, _middle + 1, right);
+            return _findle(target, _middle + 1, right);
         }
     }
 };
 
 inline bool isCharacter(char a) { return ((a <= 'Z') && (a >= 'A')) || ((a <= 'z') && (a >= 'a')); }
 
+// void swap(size_ut& a, size_ut& b) {
+//     size_ut& c = b;
+//     b = a;
+//     a = c;
+// }
+
+// void swap(bool& a, size_ut& b) {
+//     size_ut& c = b;
+//     b = a;
+//     a = c;
+// }
+
+template<class T>
+void swap(Array<T> &a, Array<T> b) {
+    std::swap(a.m_allocated, b.m_allocated);
+    std::swap(a.m_is_sorted, b.m_is_sorted);
+    std::swap(a.m_size, b.m_size);
+    std::swap(a._middle, b._middle);
+    std::swap(a.m_data, b.m_data);
+}
+
+template<class T1, class T2>
+void swap(Map<T1, T2> &a, Map<T1, T2> b) {
+    std::swap(a.m_allocated, b.m_allocated);
+    std::swap(a.m_is_sorted, b.m_is_sorted);
+    std::swap(a.m_size, b.m_size);
+    std::swap(a._middle, b._middle);
+    std::swap(a.m_data, b.m_data);
+    std::swap(a.index, b.index);
+    // std::swap(a., b.index);
+
+
+    // a.index
+}
+
+// bool isAlphanumeric(char c) { return ((c <= 'Z' && c >= 'A') || (c <= 'z' && c >= 'a') || (c <= '9' && c >=
+// '0')); }
+bool isAlnum(char c);
+bool isAlphabet(char c);
+bool isNumber(char c);
+
+// bool
 #endif

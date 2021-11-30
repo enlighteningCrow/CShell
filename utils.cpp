@@ -17,7 +17,7 @@ Array<T> Array<T>::operator+(const Array_view<T> &array) const {
 template<class T>
 Array<T> &Array<T>::operator+=(const Array_view<T> &array) {
     if (!array.size()) { return Array<T>(); }
-    std::size_t old_size{m_size};
+    size_ut old_size{m_size};
     resize(m_size + array.size());
     memcpy(m_data + old_size, &array[0], array.size() * sizeof(T));
     m_is_sorted = false;
@@ -34,10 +34,10 @@ Array<T> &Array<T>::operator=(const Array_view<T> &array) {
 }
 
 
-std::size_t String::find(String_view &target) {
-    std::size_t str_size = target.size();
-    for (std::size_t i{0}; i <= this->size() - str_size; ++i) {
-        for (std::size_t j{0}; j < str_size; ++j) {
+size_ut String::find(String_view &target) {
+    size_ut str_size = target.size();
+    for (size_ut i{0}; i <= this->size() - str_size; ++i) {
+        for (size_ut j{0}; j < str_size; ++j) {
             if (target[j] == this->operator[](i + j)) continue;
             goto not_equal;
             // break;
@@ -48,3 +48,7 @@ std::size_t String::find(String_view &target) {
     }
     return this->size();
 }
+
+bool isAlnum(char c) { return ((c <= 'Z' && c >= 'A') || (c <= 'z' && c >= 'a') || (c <= '9' && c >= '0')); }
+bool isAlphabet(char c) { return ((c <= 'Z' && c >= 'A') || (c <= 'z' && c >= 'a')); }
+bool isNumber(char c) { return (c <= '9' && c >= '0'); }
