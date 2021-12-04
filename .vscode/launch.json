@@ -24,7 +24,7 @@
             ],
             "preLaunchTask": "C/C++: g++-10 build active file",
             "miDebuggerPath": "/usr/bin/gdb",
-            "visualizerFile": "/home/twistingcamel/.vscode-server-insiders/data/User/workspaceStorage/f7c3965284fa665893ee078082304a6d/tonka3000.qtvsctools/qt.natvis.xml"
+            "visualizerFile": "/home/twistingcamel/.vscode-server-insiders/data/User/workspaceStorage/7334c538383405796f670bfb9f5aaade/tonka3000.qtvsctools/qt.natvis.xml"
         }
     ]
 }

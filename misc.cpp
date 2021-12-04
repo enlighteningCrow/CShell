@@ -496,6 +496,7 @@ Move &Move::operator=(const Move &move) {
     this->recursive = move.recursive;
     return *this;
 } */
+
 //
 // short compare(const Move& move_a, const Move& move_b) {
 //	return (move_a.first == move_b.first ? (move_a.second == move_b.second ? 1 : -1) : 0);

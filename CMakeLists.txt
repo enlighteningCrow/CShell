@@ -46,6 +46,10 @@ set(PROJECT_SOURCES
         utils.cpp
         misc.h
         misc.cpp
+        painter.h
+        painter.cpp
+        component.h
+        component.cpp
         TEST123.cpp
 )
 
