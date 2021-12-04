@@ -45,6 +45,8 @@ set(PROJECT_SOURCES
         misc.h
         painter.h
         painter.cpp
+        component.h
+        component.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
