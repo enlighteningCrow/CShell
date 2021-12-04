@@ -286,7 +286,7 @@ long int findFirst(
     }
     }
 }
-template<>
+/* template<>
 long int findFirst(
     Piece *array, long first, long last,
     const std::function<short(Piece *, long)> &determinator) { // short int(*determinator)) {
@@ -333,7 +333,7 @@ long int findFirst(
         return -1;
     }
     }
-}
+} */
 
 // findFirst(array, )
 //	if (!determinator(array, (first + last) / 2)) {
@@ -368,31 +368,31 @@ long int findFirst(
     }
     }
 }
-template<>
-long int findFirst(
-    const std::vector<Vector<long int>> &array, long first, long last,
-    const std::function<short(const std::vector<Vector<long int>> &, long int)>
-        &determinator) { // short int(*determinator)) {
-    // return (((first + last) / 2) ==  - 1)findFirst()
-    if (first == last) { return -1; }
-    switch (determinator(array, (first + last) / 2)) {
-    case 1: {
-        return findFirst<Vector<long int>>(array, first, (first + last) / 2, determinator);
-        break;
-    }
-    case -1: {
-        return findFirst<Vector<long int>>(array, (first + last) / 2, last, determinator);
-        break;
-    }
-    case 0: {
-        return ((first + last) / 2);
-        break;
-    }
-    default: {
-        return -1;
-    }
-    }
-}
+// template<>
+// long int findFirst(
+//     const std::vector<Vector<long int>> &array, long first, long last,
+//     const std::function<short(const std::vector<Vector<long int>> &, long int)>
+//         &determinator) { // short int(*determinator)) {
+//     // return (((first + last) / 2) ==  - 1)findFirst()
+//     if (first == last) { return -1; }
+//     switch (determinator(array, (first + last) / 2)) {
+//     case 1: {
+//         return findFirst<Vector<long int>>(array, first, (first + last) / 2, determinator);
+//         break;
+//     }
+//     case -1: {
+//         return findFirst<Vector<long int>>(array, (first + last) / 2, last, determinator);
+//         break;
+//     }
+//     case 0: {
+//         return ((first + last) / 2);
+//         break;
+//     }
+//     default: {
+//         return -1;
+//     }
+//     }
+// }
 
 // findFirst(array, )
 //	if (!determinator(array, (first + last) / 2)) {
@@ -478,7 +478,7 @@ Pair<long int, long int> *makePairs(const std::initializer_list<std::initializer
 //	return temp;
 //}
 
-Move::Move() : Pair<Vector<long int>, bool>{}, vector{first}, recursive{second} {}
+/* Move::Move() : Pair<Vector<long int>, bool>{}, vector{first}, recursive{second} {}
 
 Move::Move(const Vector<long int> &vector, bool recursive) :
     Pair<Vector<long int>, bool>{vector, recursive}, vector{first}, recursive{second} {}
@@ -495,15 +495,17 @@ Move &Move::operator=(const Move &move) {
     this->vector    = move.vector;
     this->recursive = move.recursive;
     return *this;
-}
+} */
+
 //
 // short compare(const Move& move_a, const Move& move_b) {
 //	return (move_a.first == move_b.first ? (move_a.second == move_b.second ? 1 : -1) : 0);
 //}
 
-short compare(const Move &move_a, const Move &move_b) {
-    return (short)(((move_a.first.m_x == move_b.first.m_x) && (move_a.first.m_y == move_b.first.m_y) && (move_a.first.m_z == move_b.first.m_z)) ? (move_a.second == move_b.second ? 1 : -1) : 0);
-}
+// short compare(const Move &move_a, const Move &move_b) {
+//     return (short)(((move_a.first.m_x == move_b.first.m_x) && (move_a.first.m_y == move_b.first.m_y) &&
+//     (move_a.first.m_z == move_b.first.m_z)) ? (move_a.second == move_b.second ? 1 : -1) : 0);
+// }
 
 
 //

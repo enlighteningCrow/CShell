@@ -33,20 +33,24 @@ find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 
 set(PROJECT_SOURCES
-        # EXPERIMENT.cpp
-        main.cpp
-        # NEWW.cpp
-        contactor.h
-        contactor.cpp
-        display.cpp
-        display.h
-        display.ui
+        # # EXPERIMENT.cpp
+        # main.cpp
+        # # NEWW.cpp
+        # contactor.h
+        # contactor.cpp
+        # display.cpp
+        # display.h
+        # display.ui
+        file_io.cpp
         utils.h
+        utils.cpp
         misc.h
+        misc.cpp
         painter.h
         painter.cpp
         component.h
         component.cpp
+        TEST123.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

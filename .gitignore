@@ -73,7 +73,31 @@ Thumbs.db
 *.dll
 *.exe
 
+*.bin
+*.out
+
+*.idx
+*.log
+*.db
+
 build/
 out/
 .vs/
 .vscode/
+.idea/
+.cache/
+.metals/
+cmake-build*
+
+*.iml
+*.xml
+*.pb
+*.json
+# dryrun.log
+# *.log
+clion*
+*.
+# .vscode/dryrun.log
+# .vscode/targets.log
+.vscode/dryrun.log
+.vscode/targets.log
