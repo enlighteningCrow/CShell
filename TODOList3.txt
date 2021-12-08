@@ -8,3 +8,6 @@ Line 1811, 1964.
 Line 1532.
 
 Lines 1210, 1267 need working
+
+Check if the [] works in parameters and variable declaration. 
+Eg. int main(int argc, char* argv[]) {;}

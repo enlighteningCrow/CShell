@@ -1,0 +1,4 @@
+make function for Map class -> can search for keys starting with something.
+
+
+when the checkArr(the new one) replaces, continue that loop, then make it run again with the same i, and then make it start from i = 0 onwards.

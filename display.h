@@ -1,3 +1,25 @@
+// #ifndef DISPLAY_H
+// #define DISPLAY_H
+
+// #include <QMainWindow>
+
+// QT_BEGIN_NAMESPACE
+// namespace Ui { class Display; }
+// QT_END_NAMESPACE
+
+// class Display : public QMainWindow
+// {
+//     Q_OBJECT
+
+// public:
+//     Display(QWidget *parent = nullptr);
+//     ~Display();
+
+// private:
+//     Ui::Display *ui;
+// };
+// #endif // DISPLAY_H
+
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
@@ -9,7 +31,7 @@
 #include <QVBoxLayout>
 #include <stdio.h>
 #include <stdlib.h>
-#include "./ui_display.h"
+// #include "./ui_display.h"
 #include "utils.h"
 
 QT_BEGIN_NAMESPACE
@@ -115,11 +137,11 @@ class Display : public QMainWindow {
     Q_OBJECT
 
 public:
-    Display(QWidget *parent = nullptr);
+    Display(QWidget* parent = nullptr);
     ~Display();
-    bool         eventFilter(QObject *obj, QEvent *event);
-    Ui::Display *ui;
+    bool         eventFilter(QObject* obj, QEvent* event);
+    Ui::Display* ui;
 };
 
 
-#endif // DISPLAY_H
+#endif// DISPLAY_H

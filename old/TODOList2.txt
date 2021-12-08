@@ -1,0 +1,2 @@
+Make the checkArr to support using STypes::Statement, maybe by replacing all sub arrays until they are all STypes::Statement.
+Update the parser to make Array<Array<Pair<std::size_t, std::size_t>>>, then send it to the bool check(Array<Pair<std::size_t, std::size_t>, ...), while changing its parameter and working as well.

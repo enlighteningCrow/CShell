@@ -1,13 +1,29 @@
+// #include "display.h"
+// #include "./ui_display.h"
+
+// Display::Display(QWidget *parent)
+//     : QMainWindow(parent)
+//     , ui(new Ui::Display)
+// {
+//     ui->setupUi(this);
+// }
+
+// Display::~Display()
+// {
+//     delete ui;
+// }
+
 #include "display.h"
 #include <boost/thread.hpp>
 #include "./ui_display.h"
 #include "contactor.h"
 
 
+#include <QGroupBox>
 #include <QPushButton>
 #include <QVBoxLayout>
 
-Display::Display(QWidget *parent) : QMainWindow(parent), ui(new Ui::Display) {
+Display::Display(QWidget* parent) : QMainWindow(parent), ui(new Ui::Display) {
     ui->setupUi(this);
 
     // QVBoxLayout *lay    = new QVBoxLayout(this);
@@ -41,22 +57,32 @@ Display::Display(QWidget *parent) : QMainWindow(parent), ui(new Ui::Display) {
     //}
 }
 
-Display::~Display() { delete ui; }
+Display::~Display() {
+    delete ui;
+}
 
 
-bool Display::eventFilter(QObject *obj, QEvent *event) {
+bool Display::eventFilter(QObject* obj, QEvent* event) {
     if (event->type() == QEvent::MouseMove) {
-        QMouseEvent *mouse(static_cast<QMouseEvent *>(event));
+        QMouseEvent* mouse(static_cast<QMouseEvent*>(event));
         mouse->pos();
     }
     switch (event->type()) {
-    case QEvent::MouseButtonPress: statusBar()->showMessage(QString("Currently pressed.")); break;
-    case QEvent::MouseButtonRelease: statusBar()->showMessage(QString("Currently released.")); break;
-    default: break;
+    case QEvent::MouseButtonPress:
+        statusBar()->showMessage(QString("Currently pressed."));
+        break;
+    case QEvent::MouseButtonRelease:
+        statusBar()->showMessage(QString("Currently released."));
+        break;
+    default:
+        break;
     }
     return false;
 }
 
-void handleUserInputs(QScrollArea &scr) {
-    for (auto &i : scr.children()) { i-> }
+void handleUserInputs(QScrollArea& scr) {
+    for (auto* i : scr.children()) {
+        QGroupBox* ptr = static_cast<QGroupBox*>(i);
+        ptr->rect().contains(QPoint(0, 0));
+    }
 }

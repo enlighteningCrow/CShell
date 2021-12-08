@@ -1,0 +1,12 @@
+1.) Make easy to use GUI for c++ programming that supports both drag and drop and typing.
+2.) Support for parsing c++ files.
+3.) Automatic code suggestions (provide warnings for the user and tell info (such as what types of parameters a function wants)).
+6.) Display (some) error messages in better to read way.
+7.) Debugging support (for gdb).
+4.) Automatic (Basic) CMake generation.
+5.) Vcpkg and CMake automatic and (relatively) seamless integration.
+// 8.) Write a mini library that makes using c++ (a bit) easier.
+
+To install:
+1.) pstream
+2.) expect
