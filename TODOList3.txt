@@ -1,0 +1,13 @@
+Make the parse/check function (IDK which) check the left_to_right associativity of the parsed operator.
+Also, make the line 1790 make correct statements, maybe using the nodes.
+Handle literals
+Line 280-ish
+Update Line 247 to use shared_ptrs, make the constructors in class Expression use with shared_ptr with parents, maybe also make aware of own parents.
+Line 1811, 1964.
+
+Line 1532.
+
+Lines 1210, 1267 need working
+
+Check if the [] works in parameters and variable declaration. 
+Eg. int main(int argc, char* argv[]) {;}
