@@ -131,6 +131,10 @@ public:
         }
         return arr;
     }
+
+    Array<T> getArray() const {
+        return Array<T>(*this);
+    }
 };
 
 // class String;
@@ -148,6 +152,9 @@ public:
     }
     // String_view(String_view &arr) : m_arr{arr.m_arr}, m_start{arr.m_start}, m_end{arr.m_end /* arr.size() - 1 */} {}
     String_view(const String_view& arr) : Array_view{arr}, m_str{arr.m_str} {
+    }
+    String_view(const String_view& arr, std::size_t start, std::size_t end) :
+        Array_view{arr, start, end}, m_str{arr.m_str} {
     }
     std::size_t size() const {
         return m_end - m_start;
@@ -245,6 +252,12 @@ public:
             *stderr << "Out of range";
         return *this;
     }
+    size_t remainingFront() const {
+        return m_start;
+    }
+    size_t remainingBack() const {
+        return m_end - m_str.size();
+    }
     // char &operator[](std::size_t index) const {
     //     if (index >= size()) *stderr << "Out of range";
     //     return m_str[index + m_start];
@@ -253,9 +266,20 @@ public:
         if (!size())
             throw Exception{"Out of range.\n"};
         // if (index >= size()) *stderr << "Out of range";
-        index %= size();
-        if (index < 0)
-            index += size();
+        if (index < 0) {
+            if (size() == 1)
+                index = 0;
+            else {
+                index = -index;
+                index %= size();
+                index = size() - index;
+            }
+        }
+        else {
+            index %= size();
+        }
+        // if (index < 0)
+        //     index += size();
         return m_str[index + m_start];
     }
     String& arr() const {
@@ -280,14 +304,16 @@ public:
     //     return !(memcmp(data() , arr.data() , size()));
     // }
     inline bool operator!=(const String& arr) const {
-        if ((m_end - m_start) != arr.size())
-            return 1;
-        return (memcmp(m_str.data(), arr.data(), arr.size()));
+        return str() != arr;
+        // if ((m_end - m_start) != arr.size())
+        //     return 1;
+        // return (memcmp(m_str.data(), arr.data(), arr.size()));
     }
     inline bool operator==(const String& arr) const {
-        if ((m_end - m_start) != arr.size())
-            return 0;
-        return !(memcmp(m_str.data(), arr.data(), arr.size()));
+        return str() == arr;
+        // if ((m_end - m_start) != arr.size())
+        //     return 0;
+        // return !(memcmp(m_str.data(), arr.data(), arr.size()));
     }
     inline bool operator<(const String& arr) const {
         if ((m_end - m_start) < arr.size())

@@ -531,6 +531,108 @@ namespace Classifier {
      *      >0: amount of increment needed to go from start to end
      */
 
+
+    // short int parseArray(
+    //     const Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut index,
+    //     size_ut operator_precedence_level) {
+
+    //     // #define arr statement_types_arrays[index].first
+    //     Array<Pair<Array<size_ut>, size_ut>>&                   arr{statement_types_arrays[index].first};
+    //     short int                                               tmp{0};
+    //     Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>> arr_view{a};
+    //     size_ut                                                 offset{0};
+    //     size_ut                                                 start{0}, end{1};
+
+    //     arr_view.setViewEnd(0);
+    //     // for (size_ut i{0}; ((end <= arr[i].first.size()) && (i < arr.size())); ++end, ++i, offset = 0) {
+    //     // no_increment:
+    //     //     arr_view.setViewStart(start);
+    //     //     arr_view.setViewEnd(end);
+    //     //     // tmp = matchExact(arr_view, operator_precedence_level, index, i);
+    //     //     // for(size_ut j{0}; j < arr[i].first.size(); ++j) {
+
+    //     //     // }
+    //     //     tmp = matchExact(arr_view, operator_precedence_level, index, j);
+    //     //     if (tmp > 0) {
+    //     //         start = arr_view.end();
+    //     //         arr_view.setViewStart(start);
+    //     //         continue;
+    //     //     }
+    //     //     if (tmp) {
+    //     //         --i;
+    //     //         continue;
+    //     //     }
+    //     //     for (size_ut k{i}; (k < arr.size()) && (arr[k].second & STypes::OPTIONAL); ++k) {
+    //     //         if (matchExact(arr_view, operator_precedence_level, index, k)) {
+    //     //             i = k - 1;
+
+    //     //             end = arr_view.start();
+    //     //             arr_view.setViewEnd(end);
+
+    //     //             goto next_loop;
+    //     //         }
+    //     //     }
+    //     //     if (arr[i - 1].second & STypes::MULTIPLE) {
+    //     //         if (matchExact(arr_view, operator_precedence_level, index, --i)) {
+    //     //             goto next_loop;
+    //     //         }
+    //     //     }
+    //     //     return -1;
+    //     // next_loop:;
+    //     // }
+
+    //     // for (size_ut i{0}; ((end <= arr[i].first.size()) && (i < arr.size())); ++end, ++i, offset = 0) {
+    //     // for (size_ut i{0}; (i < arr.size()); ++i, offset = 0) {
+    //     for (size_ut end{1}; end < a.size(); ++end) {
+    //     no_increment:
+    //         // for(size_ut )
+    //         arr_view.setViewStart(start);
+    //         arr_view.setViewEnd(end);
+    //         for (size_ut j{0}; j <= arr[index].first.size(); ++j) {
+    //             // tmp = matchExact(arr_view, operator_precedence_level, index, index);
+    //             tmp = matchExact(arr_view, operator_precedence_level, index, j);
+    //             if (tmp > 0) {
+    //                 start = arr_view.end();
+    //                 arr_view.setViewStart(start);
+    //                 goto next_loop;
+    //                 // continue;
+    //             }
+    //             else if (tmp) {
+
+    //                 // goto no_increment;
+    //                 // --index;
+    //                 // continue;
+    //             }
+    //             else {
+    //                 goto next_loop;
+    //             }
+    //         }
+
+    //         // TODO: check this algorithm
+
+    //         for (size_ut k{end}; (k < arr_view.size()) && (arr_view[k].second & STypes::OPTIONAL); ++k) {
+    //             if (matchExact(arr_view, operator_precedence_level, index, )) {
+    //                 // index = k - 1;
+
+    //                 end = arr_view.start();
+    //                 arr_view.setViewEnd(end);
+
+    //                 goto next_loop;
+    //             }
+    //         }
+    //         if (arr[index - 1].second & STypes::MULTIPLE) {
+    //             if (matchExact(arr_view, operator_precedence_level, index, --index)) {
+    //                 goto next_loop;
+    //             }
+    //         }
+    //         return -1;
+    //     next_loop:;
+    //     }
+    //     return end;
+    //     // #undef arr
+    //     // }
+    // }
+
     short int parseArray(
         Array<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut index, size_ut operator_precedence_level) {
 
@@ -547,7 +649,7 @@ namespace Classifier {
         // for (size_ut i{0}; ((end <= arr[i].first.size()) && (i < arr.size())); ++end, ++i, offset = 0) {
         // for (size_ut i{0}; (i < arr.size()); ++i, offset = 0) {
         for (size_ut end{1}, j{0}; (end < a.size()) && (j < arr[index].first.size()); ++end) {
-            // no_increment:
+        no_increment:
             // for(size_ut )
             arr_view.setViewStart(start);
             arr_view.setViewEnd(end);
@@ -575,8 +677,40 @@ namespace Classifier {
                 // --index;
                 // continue;
             }
-            // else {
-            //     return -1;
+            else {
+                return -1;
+            }
+            // }
+
+            // // TODO: check this algorithm
+
+            // if (std::get<1>(tup_current) & STypes::OPTIONAL) {
+
+            //     // decltype(a) arr_tmp{a};
+            //     // arr_tmp.remove()
+            //     // parseArray()
+
+
+            //     // for (size_ut k{end}; (k < arr_view.size()); ++k) {
+            //     //     for (size_ut j{0}; j <= arr[index].first.size(); ++j) {
+            //     //         // ExpressionType;
+            //     //         if (arr_view[k].second[j].& STypes::OPTIONAL) {
+            //     //             if (matchExact(arr_view, operator_precedence_level, index, j)) {
+            //     //                 // index = k - 1;
+
+            //     //                 end = arr_view.start();
+            //     //                 arr_view.setViewEnd(end);
+
+            //     //                 goto next_loop;
+            //     //             }
+            //     //         }
+            //     //     }
+            //     // }
+            // }
+            // if (arr[index - 1].second & STypes::MULTIPLE) {
+            //     if (matchExact(arr_view, operator_precedence_level, index, --index)) {
+            //         goto next_loop;
+            //     }
             // }
             return -1;
         next_loop:;
@@ -586,8 +720,6 @@ namespace Classifier {
         // }
     }
 
-    // TODO: Everything is remade, but not yet debugged for the final iteration; test the whole process for more complex
-    // c source codes.
 
     bool check(Array<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, Array<Statement>& arr_statements) {
         Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>> arr_view{a};
@@ -611,23 +743,22 @@ namespace Classifier {
                 i = 0;
             start_of_loop:
                 inc = 1;
-                for (size_ut j{0}, precedence_level{0}; j < a.size();
-                     ++j, arr_view.truncFrontIgnore(increment, fill_value), precedence_level = 0) {
+                for (size_ut j{0}, holder{0}; j < a.size();
+                     ++j, arr_view.truncFrontIgnore(increment, fill_value), holder = 0) {
                     // arr_view;
                     // arr_view.arr();
                     auto a = arr_view.getArray();
                     // auto s = arr_view.
 
-                    for (precedence_level = 0; precedence_level < 15; ++precedence_level) {
+                    for (holder = 0; holder < 15; ++holder) {
 
                         // Note: Updated this parseArray, so it receives Array<Pair<String, Array<Pair<size_ut,
                         // size_ut>>>> instead, but ignores the String part (param[i].first) in the checking
                         // process. But instead with precedences.
 
                         Array<Pair<String, ExpressionType>> ignored_cut{arr_view.cutIgnored(fill_value)};
-                        // Array_view<Pair<String, ExpressionType>>(ignored_cut)
 
-                        increment = parseArray(ignored_cut, i, precedence_level);
+                        increment = parseArray(Array_view<Pair<String, ExpressionType>>(ignored_cut), i, 0LL);
 
                         if (increment < 0) {
                             increment = 1;
@@ -730,12 +861,12 @@ namespace Classifier {
 
                         /**
                          * @brief
-                         * if precedence_level is 0 (so that this is only looped once) and none of the things in the
-                         * current statement type selected has operators, break from this loop.
+                         * if holder is 0 (so that this is only looped once) and none of the things in the current
+                         * statement type selected has operators, break from this loop.
                          *
                          */
                         std::cout << mapc << std::endl;
-                        if (!precedence_level) {
+                        if (!holder) {
                             size_ut sum{0};
                             for (size_ut k{0}; k < statement_types_arrays[i].first.size(); ++k) {
                                 for (size_ut l{0}; l < statement_types_arrays[i].first[k].first.size(); ++l) {

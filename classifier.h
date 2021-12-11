@@ -271,6 +271,7 @@ namespace Classifier {
                 }
                 else {
                     out << exp.indexAsStr(i) << ' ';
+                    // out << "\" " << exp.indexAsStr(i) << " \"" << ' ';
                 }
             }
         }
@@ -409,13 +410,17 @@ namespace Classifier {
             1: matched and completed
      */
 
-    short int matchExact(
+    // short int matchExact(
+    //     const Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut precedence, size_ut index1,
+    //     size_ut index2);
+    // short int parseArray(
+    //     const Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut index,
+    //     size_ut operator_precedence_level = 0LL);
+    short int parseArray(
+        Array<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut index, size_ut operator_precedence_level = 0LL);
+    std::tuple<short int, size_ut> matchExact(
         const Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut precedence, size_ut index1,
         size_ut index2);
-    short int parseArray(
-        const Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut index,
-        size_ut operator_precedence_level = 0LL);
-
     /**
      * @brief
      * the parameter a is the list of the things in the parsed statement.

@@ -79,6 +79,11 @@ protected:
 
 public:
     using std::vector<T>::vector;
+
+    Array(const Array_view<T>& arr) : Array<T>() {
+        this->std::vector<T>::insert(end(), arr.arr().begin() + arr.start(), arr.arr().begin() + arr.end());
+    }
+
     virtual void _print(std::ostream& out) const {
         out << ("{");
         for (int i{0}; i < this->size(); ++i) {
@@ -102,12 +107,12 @@ public:
     // }
 
     Array<T>& remove(size_ut start, size_ut end) {
-        this->erase(begin() + start, begin() + end);
+        this->erase(this->begin() + start, this->begin() + end);
         return *this;
     }
 
     Array<T>& insert(const T& value, size_ut index) {
-        this->std::vector<T>::insert(begin() + index, value);
+        this->std::vector<T>::insert(this->begin() + index, value);
         m_is_sorted = true;
         return *this;
     }
@@ -128,13 +133,13 @@ public:
         return *this;
     }
     Array<T> operator+(const Array<T>& array) const {
-        Array<T> arr(size() + array.size());
-        arr.std::vector<T>::insert(arr.end(), begin(), end());
+        Array<T> arr(this->size() + array.size());
+        arr.std::vector<T>::insert(arr.end(), this->begin(), this->end());
         arr.std::vector<T>::insert(arr.end(), array.begin(), array.end());
         return arr;
     }
     Array<T>& operator+=(const Array<T>& array) {
-        this->std::vector<T>::insert(end(), array.begin(), array.end());
+        this->std::vector<T>::insert(this->end(), array.begin(), array.end());
         m_is_sorted = true;
         return *this;
     }
@@ -154,8 +159,50 @@ public:
     explicit operator T*() const {
         return this->data();
     }
+    T& operator[](size_ut index) {
+        if (!size())
+            throw Exception{"Out of range.\n"};
+        // if (index >= size()) *stderr << "Out of range";
+        if (index < 0) {
+            if (size() == 1)
+                index = 0;
+            else {
+                index = -index;
+                index %= size();
+                index = size() - index;
+            }
+        }
+        else {
+            index %= size();
+        }
+        return this->std::vector<T>::operator[](index);
+        // if (index < 0)
+        //     index += size();
+        // return m_str[index + m_start];
+    }
+    const T& operator[](size_ut index) const {
+        if (!size())
+            throw Exception{"Out of range.\n"};
+        // if (index >= size()) *stderr << "Out of range";
+        if (index < 0) {
+            if (size() == 1)
+                index = 0;
+            else {
+                index = -index;
+                index %= size();
+                index = size() - index;
+            }
+        }
+        else {
+            index %= size();
+        }
+        return this->std::vector<T>::operator[](index);
+        // if (index < 0)
+        //     index += size();
+        // return m_str[index + m_start];
+    }
     virtual Array<T>& sort() {
-        std::sort(begin(), end(), [](const T& a, const T& b) -> bool { return a < b; });
+        std::sort(this->begin(), this->end(), [](const T& a, const T& b) -> bool { return a < b; });
         m_is_sorted = true;
         return *this;
     }
@@ -178,7 +225,7 @@ public:
             sort();
         }
         // Minus the return value by begin()
-        return std::find(begin(), end(), target) - begin();
+        return std::find(this->begin(), this->end(), target) - begin();
     }
     virtual size_ut findGreater(const T& target) {
         if (!this->size()) {
@@ -187,7 +234,7 @@ public:
         if (!m_is_sorted) {
             sort();
         }
-        return std::upper_bound(begin(), end(), target) - begin();
+        return std::upper_bound(this->begin(), this->end(), target) - begin();
         // return std::find_if(begin(), end(), []()) return _findg(target, 0, size() - 1);
     }
     virtual size_ut findGreaterEq(const T& target) {
@@ -197,9 +244,9 @@ public:
         if (!m_is_sorted) {
             sort();
         }
-        if (find(target) == end() - begin())
-            ;
-        return std::lower_bound(begin(), end(), target) - begin();
+        // if (find(target) == this->end() - this->begin())
+        //     ;
+        return std::lower_bound(this->begin(), this->end(), target) - this->begin();
         // auto index = std::upper_bound(begin(), end(), target) - begin();
         // while (1) {
         //     if ((index >= 1) && ((*this)[index] >= target))
@@ -337,6 +384,16 @@ public:
         // }
         return *this;
     }
+    friend std::istream& operator>>(std::istream& in, String& str) {
+        str.clear();
+        char c;
+        while (in.get(c)) {
+            if (c == '\n')
+                break;
+            str.push_back(c);
+        }
+        return in;
+    }
     String& operator<<(std::fstream& f) {
         std::stringstream ss;
         ss << f.rdbuf();
@@ -384,9 +441,26 @@ public:
         str._print(out);
         return out;
     }
+
+    bool operator==(const String& str) const {
+        return this->toStdString() == str.toStdString();
+        // return std::string{data()} == std::string{str.data()};
+    }
+    bool operator!=(const String& str) const {
+        return this->toStdString() != str.toStdString();
+        // return std::string{data()} != std::string{str.data()};
+    }
+    // bool operator==(const String& str) const {
+    //     return std::string()
+    //     return !strcmp(this->data(), str.data());
+    // }
+    // bool operator!=(const String& str) const {
+    //     return (bool)strcmp(this->data(), str.data());
+    // }
+    // bool operator==(const char)
     String operator+(const String& array) const {
         String arr(*this);
-        arr.std::vector<char>::insert(this->end(), array.begin(), array.end());
+        arr.std::vector<char>::insert(arr.end(), array.begin(), array.end());
         return arr;
     }
     String operator+(const char* array) const {
@@ -486,6 +560,8 @@ public:
         }
         index = findGreater(pair.first);
         this->Array<Pair<T1, T2>>::insert(pair, index);
+        // this->Array<Pair<T1, T2>>::push_back(pair);
+        // this->sort();
         // memmove(this->data() + index + 1, this->data() + index, this->size() - index + 1);
         // this->resize(this->size() + 1);
         return *this;
@@ -512,6 +588,11 @@ public:
         return this->data()[index];
     }
     virtual Pair<T1, T2>& operator()(size_ut ind) {
+        if (ind >= this->size()) {
+            fprintf(stderr, "Warning: Index out of bounds!\n");
+            // return Pair<T1, T2>();
+            throw "Index out of bounds!\n";
+        }
         return this->data()[ind];
         // index = find(ind);
         // if (index == this->size()) {
