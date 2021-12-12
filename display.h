@@ -133,11 +133,15 @@ struct Color {
 //     // void paintEvent(QPaintEvent *event);
 //     // void paintEvent(Color color, double x, double y, double width, double height);
 // };
+
+class CFile;
+
 class Display : public QMainWindow {
     Q_OBJECT
 
 public:
-    Display(QWidget* parent = nullptr);
+    CFile& m_cfile;
+    Display(CFile& cfile, QWidget* parent = nullptr);
     ~Display();
     bool         eventFilter(QObject* obj, QEvent* event);
     Ui::Display* ui;

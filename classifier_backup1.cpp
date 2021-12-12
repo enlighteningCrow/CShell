@@ -29,7 +29,7 @@ namespace Classifier {
                     {STypes::COMMA, STypes::NAME | STypes::LITERAL}, STypes::MULTIPLE | STypes::OPTIONAL},
                 Pair<Array<size_ut>, size_ut>{{STypes::PARENTHESIS}, STypes::CLOSE},
             },
-            Pair<size_ut, size_ut>(STypes::LITERAL | STypes::NAME, 24)},
+            Pair<size_ut, size_ut>(-1, 24)},
         Pair<Array<Pair<Array<size_ut>, size_ut>>, Pair<size_ut, size_ut>>{
             {
                 // Function Call
@@ -37,7 +37,7 @@ namespace Classifier {
                     {STypes::AMPERSAND | STypes::ASTERISK}, STypes::OPTIONAL | STypes::MULTIPLE},
                 Pair<Array<size_ut>, size_ut>{{STypes::NAME}, STypes::NONE},
             },
-            Pair<size_ut, size_ut>(STypes::LITERAL | STypes::NAME, 23)},
+            Pair<size_ut, size_ut>(-1, 23)},
         Pair<Array<Pair<Array<size_ut>, size_ut>>, Pair<size_ut, size_ut>>{
             {// Casting statement
              Pair<Array<size_ut>, size_ut>{{STypes::PARENTHESIS}, STypes::OPEN},
@@ -45,7 +45,7 @@ namespace Classifier {
              Pair<Array<size_ut>, size_ut>{{STypes::TYPE}, STypes::NONE},
              Pair<Array<size_ut>, size_ut>{{STypes::PARENTHESIS}, STypes::CLOSE},
              Pair<Array<size_ut>, size_ut>{{STypes::NAME | STypes::LITERAL}, STypes::NONE}},
-            Pair<size_ut, size_ut>(STypes::LITERAL | STypes::NAME, 22)},
+            Pair<size_ut, size_ut>(-1, 22)},
         Pair<Array<Pair<Array<size_ut>, size_ut>>, Pair<size_ut, size_ut>>{
             {// Type-call statement
              Pair<Array<size_ut>, size_ut>{{STypes::TYPE_MODIFIER}, STypes::MULTIPLE | STypes::OPTIONAL},
@@ -53,28 +53,28 @@ namespace Classifier {
              Pair<Array<size_ut>, size_ut>{{STypes::PARENTHESIS}, STypes::OPEN},
              Pair<Array<size_ut>, size_ut>{{STypes::NAME | STypes::LITERAL}, STypes::OPTIONAL},
              Pair<Array<size_ut>, size_ut>{{STypes::PARENTHESIS}, STypes::CLOSE}},
-            Pair<size_ut, size_ut>(STypes::LITERAL | STypes::NAME, 21)},
+            Pair<size_ut, size_ut>(-1, 21)},
         Pair<Array<Pair<Array<size_ut>, size_ut>>, Pair<size_ut, size_ut>>{
             {// Operator both
              Pair<Array<size_ut>, size_ut>{{STypes::NAME | STypes::LITERAL}, STypes::NONE},
              Pair<Array<size_ut>, size_ut>{{STypes::OPERATOR}, STypes::BOTH},
              Pair<Array<size_ut>, size_ut>{{STypes::NAME | STypes::LITERAL}, STypes::NONE}},
-            Pair<size_ut, size_ut>(STypes::LITERAL | STypes::NAME, 20)},
+            Pair<size_ut, size_ut>(-1, 20)},
         Pair<Array<Pair<Array<size_ut>, size_ut>>, Pair<size_ut, size_ut>>{
             {// Operator prefix
              Pair<Array<size_ut>, size_ut>{{STypes::OPERATOR}, STypes::PREFIX},
              Pair<Array<size_ut>, size_ut>{{STypes::NAME | STypes::LITERAL}, STypes::NONE}},
-            Pair<size_ut, size_ut>(STypes::LITERAL | STypes::NAME, 19)},
+            Pair<size_ut, size_ut>(-1, 19)},
         Pair<Array<Pair<Array<size_ut>, size_ut>>, Pair<size_ut, size_ut>>{
             {// Operator postfix
              Pair<Array<size_ut>, size_ut>{{STypes::NAME | STypes::LITERAL}, STypes::NONE},
              Pair<Array<size_ut>, size_ut>{{STypes::OPERATOR}, STypes::PREFIX}},
-            Pair<size_ut, size_ut>(STypes::LITERAL | STypes::NAME, 18)},
+            Pair<size_ut, size_ut>(-1, 18)},
         Pair<Array<Pair<Array<size_ut>, size_ut>>, Pair<size_ut, size_ut>>{
             {// Reference/Pointer prefix
              Pair<Array<size_ut>, size_ut>{{STypes::ASTERISK | STypes::AMPERSAND}, STypes::NONE},
              Pair<Array<size_ut>, size_ut>{{STypes::NAME}, STypes::NONE}},
-            Pair<size_ut, size_ut>(STypes::LITERAL | STypes::NAME, 17)},
+            Pair<size_ut, size_ut>(-1, 17)},
         Pair<Array<Pair<Array<size_ut>, size_ut>>, Pair<size_ut, size_ut>>{
             {
                 // Initializer list
@@ -95,7 +95,7 @@ namespace Classifier {
                  {STypes::COMMA, STypes::TYPE, STypes::NAME}, STypes::MULTIPLE | STypes::OPTIONAL},
              Pair<Array<size_ut>, size_ut>{{STypes::PARENTHESIS}, STypes::CLOSE},
              Pair<Array<size_ut>, size_ut>{{STypes::SEMICOLON}, STypes::NONE}},
-            Pair<size_ut, size_ut>(STypes::STATEMENT, 7)},
+            Pair<size_ut, size_ut>(STypes::NONE, 7)},
         Pair<Array<Pair<Array<size_ut>, size_ut>>, Pair<size_ut, size_ut>>{
             {// Function Definition
              Pair<Array<size_ut>, size_ut>{{STypes::TYPE}, STypes::NONE},
@@ -108,13 +108,13 @@ namespace Classifier {
              Pair<Array<size_ut>, size_ut>{{STypes::CURLY_BRACE}, STypes::OPEN},
              Pair<Array<size_ut>, size_ut>{{STypes::STATEMENT}, STypes::OPTIONAL | STypes::MULTIPLE},
              Pair<Array<size_ut>, size_ut>{{STypes::CURLY_BRACE}, STypes::CLOSE}},
-            Pair<size_ut, size_ut>(STypes::STATEMENT, 6)},
+            Pair<size_ut, size_ut>(STypes::NONE, 6)},
         Pair<Array<Pair<Array<size_ut>, size_ut>>, Pair<size_ut, size_ut>>{
             {// Parentheses
              Pair<Array<size_ut>, size_ut>{{STypes::PARENTHESIS}, STypes::OPEN},
              Pair<Array<size_ut>, size_ut>{{STypes::LITERAL | STypes::NAME}, STypes::NONE},
              Pair<Array<size_ut>, size_ut>{{STypes::PARENTHESIS}, STypes::CLOSE}},
-            Pair<size_ut, size_ut>(STypes::LITERAL | STypes::NAME, 5)},
+            Pair<size_ut, size_ut>(-1, 5)},
         Pair<Array<Pair<Array<size_ut>, size_ut>>, Pair<size_ut, size_ut>>{
             {// Variable Declaration array
              Pair<Array<size_ut>, size_ut>{{STypes::TYPE}, STypes::NONE},
@@ -123,7 +123,7 @@ namespace Classifier {
              Pair<Array<size_ut>, size_ut>{{STypes::LITERAL | STypes::NAME}, STypes::NONE},
              Pair<Array<size_ut>, size_ut>{{STypes::BRACE}, STypes::CLOSE},
              Pair<Array<size_ut>, size_ut>{{STypes::SEMICOLON}, STypes::NONE}},
-            Pair<size_ut, size_ut>(STypes::STATEMENT, 4)},
+            Pair<size_ut, size_ut>(STypes::NONE, 4)},
         Pair<Array<Pair<Array<size_ut>, size_ut>>, Pair<size_ut, size_ut>>{
             {// Variable Declaration array with initialization
              Pair<Array<size_ut>, size_ut>{{STypes::TYPE}, STypes::NONE},
@@ -134,14 +134,14 @@ namespace Classifier {
              Pair<Array<size_ut>, size_ut>{{STypes::ASSIGNMENT}, STypes::NONE},
              Pair<Array<size_ut>, size_ut>{{STypes::LITERAL | STypes::NAME}, STypes::NONE},
              Pair<Array<size_ut>, size_ut>{{STypes::SEMICOLON}, STypes::NONE}},
-            Pair<size_ut, size_ut>(STypes::STATEMENT, 3)},
+            Pair<size_ut, size_ut>(STypes::NONE, 3)},
         Pair<Array<Pair<Array<size_ut>, size_ut>>, Pair<size_ut, size_ut>>{
             {// Variable Declaration
              Pair<Array<size_ut>, size_ut>{{STypes::TYPE}, STypes::NONE},
              Pair<Array<size_ut>, size_ut>{{STypes::NAME}, STypes::NONE},
              Pair<Array<size_ut>, size_ut>{{STypes::COMMA, STypes::NAME}, STypes::NONE},
              Pair<Array<size_ut>, size_ut>{{STypes::SEMICOLON}, STypes::NONE}},
-            Pair<size_ut, size_ut>(STypes::STATEMENT, 2)},
+            Pair<size_ut, size_ut>(STypes::NONE, 2)},
         Pair<Array<Pair<Array<size_ut>, size_ut>>, Pair<size_ut, size_ut>>{
             {// Variable Declaration with initialization
              Pair<Array<size_ut>, size_ut>{{STypes::TYPE}, STypes::NONE},
@@ -149,13 +149,12 @@ namespace Classifier {
              Pair<Array<size_ut>, size_ut>{{STypes::ASSIGNMENT}, STypes::NONE},
              Pair<Array<size_ut>, size_ut>{{STypes::LITERAL | STypes::NAME}, STypes::NONE},
              Pair<Array<size_ut>, size_ut>{{STypes::SEMICOLON}, STypes::NONE}},
-            Pair<size_ut, size_ut>(STypes::STATEMENT, 1)},
+            Pair<size_ut, size_ut>(STypes::NONE, 1)},
         Pair<Array<Pair<Array<size_ut>, size_ut>>, Pair<size_ut, size_ut>>{
             {// Blank statement
-             //  Pair<Array<size_ut>, size_ut>{{STypes::NAME | STypes::LITERAL}, STypes::NONE},
-             Pair<Array<size_ut>, size_ut>{{STypes::NAME | STypes::LITERAL}, STypes::OPTIONAL},
+             Pair<Array<size_ut>, size_ut>{{STypes::NAME | STypes::LITERAL}, STypes::NONE},
              Pair<Array<size_ut>, size_ut>{{STypes::SEMICOLON}, STypes::NONE}},
-            Pair<size_ut, size_ut>(STypes::STATEMENT, 0)}};
+            Pair<size_ut, size_ut>(STypes::NONE, 0)}};
 
     Array<Pair<Array<size_ut>, Pair<size_ut, size_ut>>> statement_types{
         Pair<Array<size_ut>, Pair<size_ut, size_ut>>{
@@ -441,139 +440,86 @@ namespace Classifier {
 
     std::tuple<short int, size_ut> matchExact(
         const Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut precedence, size_ut index1,
-        /* size_ut index2,  */ CFile& cfile) {
+        size_ut index2, CFile& cfile) {
         bool    success{false};
         size_ut index_of_failure{0};
         // Note: this is to count the amount of STypes::MULTIPLE used, specifically for when making functions.
         std::size_t   multiple_count{0};
         Array<String> param_names{};
-        String        name;
-        size_ut       index2{0};
 #define sta(param) statement_types_arrays[index1].first[index2].first[param]
 #define sts statement_types_arrays[index1].first[index2].first.size()
 #define stt statement_types_arrays[index1].second
 #define foptions statement_types_arrays[index1].first[index2].second
 #define ainfof(i, i0) a[i].second[i0].first
 #define ainfos(i, i0) a[i].second[i0].second
-        // for (size_ut i{0}; (i < a.size());) {
-        {
-            size_ut i{0};
+        for (size_ut i{0}, i1{0}; (i < sts) && (i < a.size()); ++i, ++i1) {
         retry:
             success = false;
-
-            // for (size_ut k{0}; k < statement_types_arrays[index1].first.size(); ++k) {
-            for (index2 = 0; index2 < statement_types_arrays[index1].first.size(); ++index2) {
-                // i1 keeps track of the innermost STypes array.
-                for (size_ut i1{0}; (i1 < sts) && (i < a.size()); ++i1, ++i) {
-                    // i0 keeps track of which option from the corresponding identifier is being used
-                    for (size_ut i0{0}; i0 < a[i].second.size(); ++i0) {
-                        if (sta(i1) & ainfof(i, i0)) {
-                            if ((ainfof(i, i0) & STypes::PARENTHESIS) || (ainfof(i, i0) & STypes::BRACE) ||
-                                (ainfof(i, i0) & STypes::CURLY_BRACE) || (ainfof(i, i0) & STypes::OPERATOR)) {
-                                if ((foptions & ainfof(i, i0))) {
-                                    if (ainfof(i, i0) & STypes::OPERATOR) {
-                                        if (ainfos(i, i0) == precedence) {
-                                            success = true;
-                                            goto successful;
-                                            // continue;
-                                        }
-                                        // index_of_failure = i;
-                                        success = false;
-                                        continue;
-                                        // goto unsuccessful;
-                                        // return std::make_tuple<short int, size_ut>(0, (size_ut)(foptions));
-                                    }
+            for (size_ut i0{0}; i0 < a[i].second.size(); ++i0) {
+                if (sta(i1) & ainfof(i, i0)) {
+                    if ((ainfof(i, i0) & STypes::PARENTHESIS) || (ainfof(i, i0) & STypes::BRACE) ||
+                        (ainfof(i, i0) & STypes::CURLY_BRACE) || (ainfof(i, i0) & STypes::OPERATOR)) {
+                        if ((foptions & ainfof(i, i0))) {
+                            if (ainfof(i, i0) & STypes::OPERATOR) {
+                                if (ainfos(i, i0) == precedence) {
                                     success = true;
                                     goto successful;
                                     // continue;
                                 }
-                                // goto unsuccessful;
                                 // index_of_failure = i;
                                 success = false;
                                 continue;
+                                // goto unsuccessful;
                                 // return std::make_tuple<short int, size_ut>(0, (size_ut)(foptions));
-                            }
-                            if (stt.second == 7) {
-                                if (index2 == 4) {
-                                    if (i1 == 2) {
-                                        param_names.push_back(a[i].first);
-                                    }
-                                }
-                                else if (index2 == 3) {
-                                    if (i1 == 1) {
-                                        // para
-                                        param_names.push_back(a[i].first);
-                                    }
-                                }
-                                else if (index2 == 1) {
-                                    name = a[i].first;
-                                }
-                            }
-                            else if (stt.second == 6) {
-                                if (index2 == 4) {
-                                    if (i1 == 2) {
-                                        param_names.push_back(a[i].first);
-                                    }
-                                }
-                                else if (index2 == 3) {
-                                    if (i1 == 1) {
-                                        // para
-                                        param_names.push_back(a[i].first);
-                                    }
-                                }
-                                else if (index2 == 1) {
-                                    name = a[i].first;
-                                }
-                                // if (index2 == 4) {
-                                // ;
-                                // }
                             }
                             success = true;
                             goto successful;
                             // continue;
                         }
+                        // goto unsuccessful;
+                        // index_of_failure = i;
+                        success = false;
+                        continue;
+                        // return std::make_tuple<short int, size_ut>(0, (size_ut)(foptions));
                     }
-                    if (!success) {
-                        // unsuccessful:
-                        if (foptions | STypes::MULTIPLE) {
-                            for (size_ut i0{0}; i0 < a[i].second.size(); ++i0) {
-                                if (sta(0) & ainfof(i, i0)) {
-                                    --index2;
-                                    goto retry;
-                                    // goto matched;
-                                }
-                            }
-
-                            // matched:
-                            // if (--index2)
-                        }
-                        if (foptions | STypes::OPTIONAL) {
-                            ++index2;
+                    success = true;
+                    goto successful;
+                    // continue;
+                }
+            }
+            if (!success) {
+                // unsuccessful:
+                if (foptions | STypes::MULTIPLE) {
+                    for (size_ut i0{0}; i0 < a[i].second.size(); ++i0) {
+                        if (sta(i1 - 1) & ainfof(i, i0)) {
+                            --i1;
                             goto retry;
-                            // for(size_ut i0)
+                            // goto matched;
                         }
-                        return std::make_tuple<short int, size_ut>(0, 0LL);
                     }
-                successful:;
+
+                    // matched:
+                    // if (--i1)
                 }
+                if (foptions | STypes::OPTIONAL) {
+                    ++i1;
+                    goto retry;
+                    // for(size_ut i0)
+                }
+                return std::make_tuple<short int, size_ut>(0, 0LL);
             }
-            // return 1;
-            // Note: in this case, the second return value is the amount of excess things in the a.
-            size_ut counter{0};
-            while (cfile.all[counter].first != name)
-                ++counter;
-            if (statement_types_arrays[index1].first.size() == index2 + 1) {
+        successful:
+            if (sts == i1 + 1)
+                // return 1;
+                // Note: in this case, the second return value is the amount of excess things in the a.
                 if (stt.second == 7 || stt.second == 6) {
-                    cfile.functions.push_back(cfile.all[counter]);
-                    // for (std::size_t k{0}; k < multiple_count; ++k) {
-                    for (String& k : param_names) {
-                        cfile.functions[-1].second.push_back(Pair<String, size_ut>(k, 0));
+                    cfile.functions.push_back(cfile.all[-1]);
+                    for (std::size_t k{0}; k < multiple_count; ++k) {
+                        cfile.functions[-1].second.push_back(Pair<String, size_ut>("TEMPHOLDERHERE", 0x000000))
                     }
-                    // }
-                    // cfile.functions[-1].second.
+                    cfile.functions[-1].second.
                 }
-                return std::make_tuple<short int, size_ut>(1, (a.size() - 1) - i);
-            }
+            return std::make_tuple<short int, size_ut>(1, (a.size() - 1) - i);
         }
         // return -1;
         return std::make_tuple<short int, size_ut>(-1, 0LL);
@@ -610,58 +556,18 @@ namespace Classifier {
         size_ut                                                 start{0}, end{1};
         std::tuple<short int, size_ut>                          tup_current, tup_previous;
 
-
-        // arr_view.setViewEnd(0);
+        arr_view.setViewEnd(0);
 
         // for (size_ut i{0}; ((end <= arr[i].first.size()) && (i < arr.size())); ++end, ++i, offset = 0) {
         // for (size_ut i{0}; (i < arr.size()); ++i, offset = 0) {
-
-        // for (size_ut end{1}, j{0}; (end < a.size()) && (j < arr[index].first.size()); ++end) {
-        //     // no_increment:
-        //     // for(size_ut )
-        //     arr_view.setViewStart(start);
-        //     arr_view.setViewEnd(end);
-        //     // for (size_ut j{0}; j <= arr[index].first.size(); ++j) {
-        //     // tmp = matchExact(arr_view, operator_precedence_level, index, index);
-        //     // }
-        //     tup_current = matchExact(arr_view, operator_precedence_level, index, j);
-        //     tmp         = std::get<0>(tup_current);
-        //     if (tmp > 0) {
-        //         // if(std::get<1>(tup_current)) {
-        //         //     arr_view.truncBack(st)
-        //         // }
-        //         // arr_view.truncBack(std::get<1>(tup_current));
-        //         end -= std::get<1>(tup_current);
-        //         arr_view.setViewEnd(end);
-        //         start = arr_view.end();
-        //         arr_view.setViewStart(start);
-        //         ++j;
-        //         goto next_loop;
-        //         // continue;
-        //     }
-        //     else if (tmp) {
-        //         goto next_loop;
-
-        //         // goto no_increment;
-        //         // --index;
-        //         // continue;
-        //     }
-        //     // else {
-        //     //     return -1;
-        //     // }
-        //     return -1;
-        // next_loop:;
-        // }
-
-        for (size_ut end{a.size()}; end <= a.size(); /*  ++end */) {
+        for (size_ut end{1}, j{0}; (end < a.size()) && (j < arr[index].first.size()); ++end) {
             // no_increment:
             // for(size_ut )
-            // arr_view.setViewStart(start);
-            // arr_view.setViewEnd(end);
+            arr_view.setViewStart(start);
+            arr_view.setViewEnd(end);
             // for (size_ut j{0}; j <= arr[index].first.size(); ++j) {
             // tmp = matchExact(arr_view, operator_precedence_level, index, index);
-            // }
-            tup_current = matchExact(arr_view, operator_precedence_level, index /* , j */, cfile);
+            tup_current = matchExact(arr_view, operator_precedence_level, index, j);
             tmp         = std::get<0>(tup_current);
             if (tmp > 0) {
                 // if(std::get<1>(tup_current)) {
@@ -672,26 +578,23 @@ namespace Classifier {
                 arr_view.setViewEnd(end);
                 start = arr_view.end();
                 arr_view.setViewStart(start);
-                // ++j;
-                // goto next_loop;
-                return end;
+                ++j;
+                goto next_loop;
                 // continue;
             }
-            // else if (tmp) {
-            //     goto next_loop;
+            else if (tmp) {
+                goto next_loop;
 
-            //     // goto no_increment;
-            //     // --index;
-            //     // continue;
-            // }
-
+                // goto no_increment;
+                // --index;
+                // continue;
+            }
             // else {
             //     return -1;
             // }
             return -1;
         next_loop:;
         }
-
         return end;
         // #undef arr
         // }

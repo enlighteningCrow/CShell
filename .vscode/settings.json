@@ -46,6 +46,13 @@
         "initializer_list": "cpp",
         "numeric": "cpp",
         "span": "cpp",
-        "system_error": "cpp"
+        "system_error": "cpp",
+        "algorithm": "cpp"
+    },
+    "qtForPython.designer.path": "/opt/Qt/Tools/QtDesignStudio/qt6_design_studio_reduced_version/bin/designer",
+    "cmake.debugConfig": {
+        "args": [
+            "/home/twistingcamel/programs/kmitl/c++/cshell/main/CShell/testfile1.c"
+        ]
     }
 }

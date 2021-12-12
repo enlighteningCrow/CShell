@@ -194,6 +194,7 @@ void CFile::parse(std::fstream& file) {
             else {
                 parsed_results.push_back(Pair<String, Array<Pair<size_ut, size_ut>>>{
                     String(sv), {Pair<size_ut, size_ut>(Classifier::STypes::NAME, 0)}});
+                all.push_back(Pair<String, Array<Pair<String, size_ut>>>(String(sv), Classifier::STypes::NAME));
             }
             sv.truncFront(sv.size());
             isAn      = true;
@@ -369,7 +370,7 @@ void CFile::parse(std::fstream& file) {
     }
     std::cout << parsed_results;
     std::cout.flush();
-    Classifier::check(parsed_results, statements);
+    Classifier::check(parsed_results, statements, *this);
 
 #undef indFB
 }

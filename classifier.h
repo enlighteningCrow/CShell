@@ -4,9 +4,11 @@
 #include "stdc++.h"
 
 #include "array_view.h"
+// #include "cfile.h"
 #include "dynamic_bitset.h"
 #include "utils.h"
 
+class CFile;
 
 typedef Array<Pair<size_ut, size_ut>> ExpressionType;
 typedef long long int                 size_ut;
@@ -417,16 +419,17 @@ namespace Classifier {
     //     const Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut index,
     //     size_ut operator_precedence_level = 0LL);
     short int parseArray(
-        Array<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut index, size_ut operator_precedence_level = 0LL);
+        Array<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut index,
+        size_ut operator_precedence_level /*  = 0LL */, CFile& cfile);
     std::tuple<short int, size_ut> matchExact(
         const Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut precedence, size_ut index1,
-        size_ut index2);
+        /* size_ut index2,  */ CFile& cfile);
     /**
      * @brief
      * the parameter a is the list of the things in the parsed statement.
      */
 
-    bool check(Array<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, Array<Statement>& arr_statements);
+    bool check(Array<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, Array<Statement>& arr_statements, CFile& cfile);
 
 #undef set
 };// namespace Classifier

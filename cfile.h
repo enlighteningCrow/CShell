@@ -9,12 +9,18 @@
 
 extern const char* staticMap(char c);
 
+typedef Array<Pair<String, Array<Pair<String, size_ut>>>> InfoType;
+
 String escape(const String& input);
 
 class CFile {
-protected:
+    // protected:
+public:
     Array<Classifier::Statement> statements;
     Array<String>                names;
+    InfoType                     variables;
+    InfoType                     functions;
+    InfoType                     all;
     // Classifier::Statement                    statement;
     // Array <
 
