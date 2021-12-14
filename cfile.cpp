@@ -380,7 +380,8 @@ void CFile::parse(std::fstream& file) {
         "/home/twistingcamel/programs/kmitl/c++/cshell/main/CShell/testoutputfile.c", std::ofstream::trunc};
     // write(ff);
     std::cout << "\n\n\n";
-    write(std::cout);
+    write(ff);
+
 }
 
 // void CFile::parse(FILE* file) {

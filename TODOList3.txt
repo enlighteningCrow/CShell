@@ -13,3 +13,5 @@ Check if the [] works in parameters and variable declaration.
 Eg. int main(int argc, char* argv[]) {;}
 
 component.h
+
+display.h line 223

@@ -139,14 +139,9 @@ class Ui_Display(object):
         self.saVariables.setWidgetResizable(True)
         self.saVariablesC = QWidget()
         self.saVariablesC.setObjectName(u"saVariablesC")
-        self.saVariablesC.setGeometry(QRect(0, 0, 180, 238))
-        self.verticalLayout_15 = QVBoxLayout(self.saVariablesC)
-        self.verticalLayout_15.setObjectName(u"verticalLayout_15")
-        self.label_7 = QLabel(self.saVariablesC)
-        self.label_7.setObjectName(u"label_7")
-
-        self.verticalLayout_15.addWidget(self.label_7)
-
+        self.saVariablesC.setGeometry(QRect(0, 0, 180, 236))
+        self.saVariablesCL = QVBoxLayout(self.saVariablesC)
+        self.saVariablesCL.setObjectName(u"saVariablesCL")
         self.saVariables.setWidget(self.saVariablesC)
 
         self.verticalLayout_14.addWidget(self.saVariables)
@@ -161,14 +156,9 @@ class Ui_Display(object):
         self.saFunctions.setWidgetResizable(True)
         self.saFunctionsC = QWidget()
         self.saFunctionsC.setObjectName(u"saFunctionsC")
-        self.saFunctionsC.setGeometry(QRect(0, 0, 180, 238))
-        self.verticalLayout_16 = QVBoxLayout(self.saFunctionsC)
-        self.verticalLayout_16.setObjectName(u"verticalLayout_16")
-        self.label_8 = QLabel(self.saFunctionsC)
-        self.label_8.setObjectName(u"label_8")
-
-        self.verticalLayout_16.addWidget(self.label_8)
-
+        self.saFunctionsC.setGeometry(QRect(0, 0, 180, 236))
+        self.saFunctionsCL = QVBoxLayout(self.saFunctionsC)
+        self.saFunctionsCL.setObjectName(u"saFunctionsCL")
         self.saFunctions.setWidget(self.saFunctionsC)
 
         self.verticalLayout_17.addWidget(self.saFunctions)
@@ -183,14 +173,9 @@ class Ui_Display(object):
         self.saTypes.setWidgetResizable(True)
         self.saTypesC = QWidget()
         self.saTypesC.setObjectName(u"saTypesC")
-        self.saTypesC.setGeometry(QRect(0, 0, 180, 238))
-        self.verticalLayout_20 = QVBoxLayout(self.saTypesC)
-        self.verticalLayout_20.setObjectName(u"verticalLayout_20")
-        self.label_14 = QLabel(self.saTypesC)
-        self.label_14.setObjectName(u"label_14")
-
-        self.verticalLayout_20.addWidget(self.label_14)
-
+        self.saTypesC.setGeometry(QRect(0, 0, 180, 236))
+        self.saTypesCL = QVBoxLayout(self.saTypesC)
+        self.saTypesCL.setObjectName(u"saTypesCL")
         self.saTypes.setWidget(self.saTypesC)
 
         self.verticalLayout_21.addWidget(self.saTypes)
@@ -205,14 +190,9 @@ class Ui_Display(object):
         self.saOperators.setWidgetResizable(True)
         self.saOperatorsC = QWidget()
         self.saOperatorsC.setObjectName(u"saOperatorsC")
-        self.saOperatorsC.setGeometry(QRect(0, 0, 180, 238))
-        self.verticalLayout_22 = QVBoxLayout(self.saOperatorsC)
-        self.verticalLayout_22.setObjectName(u"verticalLayout_22")
-        self.label_15 = QLabel(self.saOperatorsC)
-        self.label_15.setObjectName(u"label_15")
-
-        self.verticalLayout_22.addWidget(self.label_15)
-
+        self.saOperatorsC.setGeometry(QRect(0, 0, 180, 236))
+        self.saOperatorsCL = QVBoxLayout(self.saOperatorsC)
+        self.saOperatorsCL.setObjectName(u"saOperatorsCL")
         self.saOperators.setWidget(self.saOperatorsC)
 
         self.verticalLayout_23.addWidget(self.saOperators)
@@ -227,14 +207,9 @@ class Ui_Display(object):
         self.saMisc.setWidgetResizable(True)
         self.saMiscC = QWidget()
         self.saMiscC.setObjectName(u"saMiscC")
-        self.saMiscC.setGeometry(QRect(0, 0, 180, 238))
-        self.verticalLayout_24 = QVBoxLayout(self.saMiscC)
-        self.verticalLayout_24.setObjectName(u"verticalLayout_24")
-        self.label_16 = QLabel(self.saMiscC)
-        self.label_16.setObjectName(u"label_16")
-
-        self.verticalLayout_24.addWidget(self.label_16)
-
+        self.saMiscC.setGeometry(QRect(0, 0, 180, 236))
+        self.saMiscCL = QVBoxLayout(self.saMiscC)
+        self.saMiscCL.setObjectName(u"saMiscCL")
         self.saMisc.setWidget(self.saMiscC)
 
         self.verticalLayout_25.addWidget(self.saMisc)
@@ -254,7 +229,7 @@ class Ui_Display(object):
         self.scrollArea_3.setWidgetResizable(True)
         self.scrollAreaWidgetContents_3 = QWidget()
         self.scrollAreaWidgetContents_3.setObjectName(u"scrollAreaWidgetContents_3")
-        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 82, 102))
+        self.scrollAreaWidgetContents_3.setGeometry(QRect(0, 0, 82, 106))
         self.verticalLayout = QVBoxLayout(self.scrollAreaWidgetContents_3)
         self.verticalLayout.setObjectName(u"verticalLayout")
         self.verticalLayout_10 = QVBoxLayout()
@@ -321,7 +296,7 @@ class Ui_Display(object):
         self.scrollAreaWidgetContents_5.setGeometry(QRect(0, 0, 191, 284))
         self.layoutWidget_4 = QWidget(self.scrollAreaWidgetContents_5)
         self.layoutWidget_4.setObjectName(u"layoutWidget_4")
-        self.layoutWidget_4.setGeometry(QRect(0, 0, 201, 121))
+        self.layoutWidget_4.setGeometry(QRect(0, 0, 201, 127))
         self.verticalLayout_18 = QVBoxLayout(self.layoutWidget_4)
         self.verticalLayout_18.setObjectName(u"verticalLayout_18")
         self.verticalLayout_18.setContentsMargins(0, 0, 0, 0)
@@ -377,7 +352,7 @@ class Ui_Display(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 177, 978))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 177, 1022))
         self.verticalLayout_6 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
         self.verticalLayout_9 = QVBoxLayout()
@@ -617,7 +592,7 @@ class Ui_Display(object):
         Display.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(Display)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 777, 19))
+        self.menubar.setGeometry(QRect(0, 0, 777, 20))
         Display.setMenuBar(self.menubar)
         self.statusbar = QStatusBar(Display)
         self.statusbar.setObjectName(u"statusbar")
@@ -625,7 +600,7 @@ class Ui_Display(object):
 
         self.retranslateUi(Display)
 
-        self.Objects.setCurrentIndex(4)
+        self.Objects.setCurrentIndex(2)
 
 
         QMetaObject.connectSlotsByName(Display)
@@ -655,15 +630,10 @@ class Ui_Display(object):
 #if QT_CONFIG(whatsthis)
         self.Objects.setWhatsThis(QCoreApplication.translate("Display", u"<html><head/><body><p><br/></p></body></html>", None))
 #endif // QT_CONFIG(whatsthis)
-        self.label_7.setText(QCoreApplication.translate("Display", u"TextLabel", None))
         self.Objects.setTabText(self.Objects.indexOf(self.Variables), QCoreApplication.translate("Display", u"Variables", None))
-        self.label_8.setText(QCoreApplication.translate("Display", u"TextLabel", None))
         self.Objects.setTabText(self.Objects.indexOf(self.Functions), QCoreApplication.translate("Display", u"Functions", None))
-        self.label_14.setText(QCoreApplication.translate("Display", u"TextLabel", None))
         self.Objects.setTabText(self.Objects.indexOf(self.Types), QCoreApplication.translate("Display", u"Types", None))
-        self.label_15.setText(QCoreApplication.translate("Display", u"TextLabel", None))
         self.Objects.setTabText(self.Objects.indexOf(self.Operators), QCoreApplication.translate("Display", u"Operators", None))
-        self.label_16.setText(QCoreApplication.translate("Display", u"TextLabel", None))
         self.Objects.setTabText(self.Objects.indexOf(self.Misc), QCoreApplication.translate("Display", u"Misc", None))
         self.label_10.setText(QCoreApplication.translate("Display", u"Variables", None))
         self.label_11.setText(QCoreApplication.translate("Display", u"Functions", None))

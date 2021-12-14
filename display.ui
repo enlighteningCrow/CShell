@@ -178,7 +178,7 @@
           <string notr="true"/>
          </property>
          <property name="currentIndex">
-          <number>4</number>
+          <number>2</number>
          </property>
          <widget class="QWidget" name="Variables">
           <attribute name="title">
@@ -196,18 +196,10 @@
                 <x>0</x>
                 <y>0</y>
                 <width>180</width>
-                <height>238</height>
+                <height>236</height>
                </rect>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_15">
-               <item>
-                <widget class="QLabel" name="label_7">
-                 <property name="text">
-                  <string>TextLabel</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+              <layout class="QVBoxLayout" name="saVariablesCL"/>
              </widget>
             </widget>
            </item>
@@ -229,18 +221,10 @@
                 <x>0</x>
                 <y>0</y>
                 <width>180</width>
-                <height>238</height>
+                <height>236</height>
                </rect>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_16">
-               <item>
-                <widget class="QLabel" name="label_8">
-                 <property name="text">
-                  <string>TextLabel</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+              <layout class="QVBoxLayout" name="saFunctionsCL"/>
              </widget>
             </widget>
            </item>
@@ -262,18 +246,10 @@
                 <x>0</x>
                 <y>0</y>
                 <width>180</width>
-                <height>238</height>
+                <height>236</height>
                </rect>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_20">
-               <item>
-                <widget class="QLabel" name="label_14">
-                 <property name="text">
-                  <string>TextLabel</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+              <layout class="QVBoxLayout" name="saTypesCL"/>
              </widget>
             </widget>
            </item>
@@ -295,18 +271,10 @@
                 <x>0</x>
                 <y>0</y>
                 <width>180</width>
-                <height>238</height>
+                <height>236</height>
                </rect>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_22">
-               <item>
-                <widget class="QLabel" name="label_15">
-                 <property name="text">
-                  <string>TextLabel</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+              <layout class="QVBoxLayout" name="saOperatorsCL"/>
              </widget>
             </widget>
            </item>
@@ -328,18 +296,10 @@
                 <x>0</x>
                 <y>0</y>
                 <width>180</width>
-                <height>238</height>
+                <height>236</height>
                </rect>
               </property>
-              <layout class="QVBoxLayout" name="verticalLayout_24">
-               <item>
-                <widget class="QLabel" name="label_16">
-                 <property name="text">
-                  <string>TextLabel</string>
-                 </property>
-                </widget>
-               </item>
-              </layout>
+              <layout class="QVBoxLayout" name="saMiscCL"/>
              </widget>
             </widget>
            </item>
@@ -375,7 +335,7 @@
        <x>0</x>
        <y>0</y>
        <width>82</width>
-       <height>102</height>
+       <height>106</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
@@ -469,7 +429,7 @@
         <x>0</x>
         <y>0</y>
         <width>201</width>
-        <height>121</height>
+        <height>127</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_18">
@@ -546,7 +506,7 @@
        <x>0</x>
        <y>0</y>
        <width>177</width>
-       <height>978</height>
+       <height>1022</height>
       </rect>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -880,7 +840,7 @@
      <x>0</x>
      <y>0</y>
      <width>777</width>
-     <height>19</height>
+     <height>20</height>
     </rect>
    </property>
   </widget>
