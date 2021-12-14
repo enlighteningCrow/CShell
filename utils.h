@@ -206,7 +206,7 @@ public:
         m_is_sorted = true;
         return *this;
     }
-    static void swap(Array<T>& a, Array<T> b) {
+    static void swap(Array<T>& a, Array<T>& b) {
         a.std::vector<T>::swap(b);
         std::swap(a.m_is_sorted, b.m_is_sorted);
         // std::swap(a.m_allocated, b.m_allocated);
@@ -649,8 +649,8 @@ public:
                    [](const Pair<T1, T2>& pair, const T1& target) -> bool { return target < pair.first; }) -
             begin();
     }
-    void swap(Map<T1, T2>& map) {
-    }
+    // void swap(Map<T1, T2>& map) {
+    // }
     // virtual size_ut findLesser(const T1& target) {
     //     if (!this->size()) {
     //         return 0UL;
@@ -670,7 +670,7 @@ public:
     //     return _findle(target, 0, this->size() - 1);
     // }
 
-    static void swap(Map<T1, T2>& a, Map<T1, T2> b) {
+    static void swap(Map<T1, T2>& a, Map<T1, T2>& b) {
         Array<Pair<T1, T2>>::swap(a, b);
         std::swap(a.index, b.index);
 

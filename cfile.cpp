@@ -269,6 +269,7 @@ void CFile::parse(std::fstream& file) {
             if (inNothing) {
                 switch (sv[-1]) {
                 case '#':
+                case '/':
                     inComment = true;
                     continue;
                 case '\'':
@@ -371,8 +372,13 @@ void CFile::parse(std::fstream& file) {
     std::cout << parsed_results;
     std::cout.flush();
     Classifier::check(parsed_results, statements, *this);
+    std::cout << '\n' << statements << std::endl;
+    std::cout << "it is done DEBUG";
 
 #undef indFB
+    std::ofstream ff{
+        "/home/twistingcamel/programs/kmitl/c++/cshell/main/CShell/testoutputfile.c", std::ofstream::trunc};
+    write(ff);
 }
 
 // void CFile::parse(FILE* file) {
@@ -524,5 +530,11 @@ void CFile::parse(std::fstream& file) {
 void CFile::write(FILE* file) {
     for (Classifier::Statement& i : statements) {
         *file << i;
+    }
+}
+void CFile::write(std::ostream& file) {
+    for (Classifier::Statement& i : statements) {
+        i.write(file);
+        // file << i;
     }
 }

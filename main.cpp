@@ -42,6 +42,13 @@ int main(int argc, char* argv[]) {
     return a.exec();
 }
 
+// int main(int argc, char** argv[]) {
+//     Array<int> a{1, 2, 3, 4, 5}, b{6, 7};
+//     std::cout << a << '\n' << b << "\n\n";
+//     Array<int>::swap(a, b);
+//     std::cout << a << '\n' << b << "\n\n";
+// }
+
 
 /**TODO:
  *

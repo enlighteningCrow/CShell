@@ -298,17 +298,18 @@ public:
         for (auto& i : Classifier::key_expressions_const) {
             if ((i.second[0].first & Classifier::STypes::TYPE) ||
                 (i.second[0].first & Classifier::STypes::TYPE_MODIFIER)) {
-                types.push_back(Pair<String, Array<Pair<String, size_ut>>>(i.first, i.second[0].first));
+                types.push_back(Pair<String, Array<Pair<String, size_ut>>>(i.first, 0 /* i.second[0].first */));
             }
             else if (
                 // (i.second[j].first & Classifier::STypes::TYPE) ||
                 (i.second[0].first & Classifier::STypes::OPERATOR)) {
                 for (std::size_t j{0}; j < i.second.size(); ++j) {
-                    operators.push_back(Pair<String, Array<Pair<String, size_ut>>>(i.first, i.second[j].first));
+                    operators.push_back(Pair<String, Array<Pair<String, size_ut>>>(
+                        i.first, 2 /* i.second[0].first */ /* i.second[j].first */));
                 }
             }
             else {
-                misc.push_back(Pair<String, Array<Pair<String, size_ut>>>(i.first, i.second[0].first));
+                misc.push_back(Pair<String, Array<Pair<String, size_ut>>>(i.first, 0 /* i.second[0].first */));
             }
             // if()
             // for (std::size_t j{0}; j < i.second.size(); ++j) {

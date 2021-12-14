@@ -11,3 +11,5 @@ Lines 1210, 1267 need working
 
 Check if the [] works in parameters and variable declaration. 
 Eg. int main(int argc, char* argv[]) {;}
+
+component.h

@@ -37,6 +37,7 @@ public:
      *      2 : in preprocessor directive
      */
     void write(FILE* file);
+    void write(std::ostream& file);
 };
 
 #endif

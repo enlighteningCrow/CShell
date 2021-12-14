@@ -71,6 +71,22 @@ public:
         setViewEnd(m_end - size);
         return *this;
     }
+    Array_view<T>& extendFront() {
+        // if (size <= m_start)
+        //     setViewStart(m_start - size);
+        // else
+        //     *stderr << "Out of range";
+        setViewStart(0);
+        return *this;
+    }
+    Array_view<T>& extendBack() {
+        // if ((size + m_end) <= m_arr.size())
+        //     setViewEnd(m_end + size);
+        // else
+        //     *stderr << "Out of range";
+        setViewEnd(m_arr.size());
+        return *this;
+    }
     Array_view<T>& extendFront(std::size_t size) {
         if (size <= m_start)
             setViewStart(m_start - size);

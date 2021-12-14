@@ -24,15 +24,15 @@
 
 #include "utils.h"
 
-#include "utils.c"
+#include "utils.cpp"
 
-// char a[10]  = "nooooooo";
-char b[330] = "abcdefghi";
+char a[10]  = "nooooooo";
+char b[330] = "d";
 
 
-// int main() {
-//     Array<int> a{1, 2, 3, 4, 5};
-//     Array<int> b{5, 6, 7};
-//     Array<int>::swap(a, b);
-//     return 0;
-// }
+int main() {
+    Array<int> a{1, 2, 3, 4, 5};
+    Array<int> b{5, 6, 7};
+    Array<int>::swap(a, b);
+    return 0;
+}

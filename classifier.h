@@ -322,6 +322,22 @@ namespace Classifier {
                 out << ')';
             return out;
         }
+        std::ostream& write(std::ostream& out /* , const Expression& exp */, bool in_paren = false) const {
+            if (m_in_paren)
+                out << '(';
+            for (size_ut i{0}; i < subs.size(); ++i) {
+                if (isExpression(i)) {
+                    // out << *(indexAsExp(i));
+                    indexAsExp(i)->write(out, true);
+                }
+                else {
+                    out << indexAsStr(i);
+                }
+            }
+            if (m_in_paren)
+                out << ')';
+            return out;
+        }
     };
 
 
@@ -361,6 +377,9 @@ namespace Classifier {
         }
         bool operator>=(const Statement& st) const {
             return node >= st.node;
+        }
+        void write(std::ostream& out) const {
+            node.write(out);
         }
     };
 
@@ -421,6 +440,9 @@ namespace Classifier {
     short int parseArray(
         Array<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut index,
         size_ut operator_precedence_level /*  = 0LL */, CFile& cfile);
+    std::tuple<short int, size_ut> parseArray(
+        Array<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut operator_precedence_level /*  = 0LL */,
+        CFile& cfile);
     std::tuple<short int, size_ut> matchExact(
         const Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut precedence, size_ut index1,
         /* size_ut index2,  */ CFile& cfile);

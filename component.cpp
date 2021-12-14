@@ -31,3 +31,7 @@ Component::Component(
     }
     this->move(location);
 }
+
+// TODO: finish this;
+// Make a starting point, which is not used at all: (void); only used to mark
+// std::list<Component*> coponentList{new Component()};

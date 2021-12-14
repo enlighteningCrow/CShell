@@ -620,57 +620,100 @@ namespace Classifier {
         CFile& cfile) {
 
         // #define arr statement_types_arrays[index].first
-        // Array<Pair<Array<size_ut>, size_ut>>&                   arr{statement_types_arrays[index].first};
+        Array<Pair<Array<size_ut>, size_ut>>&                   arr{statement_types_arrays[index].first};
         short int                                               tmp{0};
         Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>> arr_view{a};
         size_ut                                                 offset{0};
         size_ut                                                 start{0}, end{1};
         std::tuple<short int, size_ut>                          tup_current, tup_previous;
+
+
+        // arr_view.setViewEnd(0);
+
+        // for (size_ut i{0}; ((end <= arr[i].first.size()) && (i < arr.size())); ++end, ++i, offset = 0) {
+        // for (size_ut i{0}; (i < arr.size()); ++i, offset = 0) {
+
+        // for (size_ut end{1}, j{0}; (end < a.size()) && (j < arr[index].first.size()); ++end) {
+        //     // no_increment:
+        //     // for(size_ut )
+        //     arr_view.setViewStart(start);
+        //     arr_view.setViewEnd(end);
+        //     // for (size_ut j{0}; j <= arr[index].first.size(); ++j) {
+        //     // tmp = matchExact(arr_view, operator_precedence_level, index, index);
+        //     // }
+        //     tup_current = matchExact(arr_view, operator_precedence_level, index, j);
+        //     tmp         = std::get<0>(tup_current);
+        //     if (tmp > 0) {
+        //         // if(std::get<1>(tup_current)) {
+        //         //     arr_view.truncBack(st)
+        //         // }
+        //         // arr_view.truncBack(std::get<1>(tup_current));
+        //         end -= std::get<1>(tup_current);
+        //         arr_view.setViewEnd(end);
+        //         start = arr_view.end();
+        //         arr_view.setViewStart(start);
+        //         ++j;
+        //         goto next_loop;
+        //         // continue;
+        //     }
+        //     else if (tmp) {
+        //         goto next_loop;
+
+        //         // goto no_increment;
+        //         // --index;
+        //         // continue;
+        //     }
+        //     // else {
+        //     //     return -1;
+        //     // }
+        //     return -1;
+        // next_loop:;
+        // }
+
         for (size_ut end{a.size()}; end <= a.size(); /*  ++end */) {
+            // no_increment:
+            // for(size_ut )
+            // arr_view.setViewStart(start);
+            // arr_view.setViewEnd(end);
+            // for (size_ut j{0}; j <= arr[index].first.size(); ++j) {
+            // tmp = matchExact(arr_view, operator_precedence_level, index, index);
+            // }
             tup_current = matchExact(arr_view, operator_precedence_level, index /* , j */, cfile);
             tmp         = std::get<0>(tup_current);
             if (tmp > 0) {
+                // if(std::get<1>(tup_current)) {
+                //     arr_view.truncBack(st)
+                // }
+                // arr_view.truncBack(std::get<1>(tup_current));
+
                 end -= std::get<1>(tup_current);
                 arr_view.setViewEnd(end);
                 start = arr_view.end();
                 arr_view.setViewStart(start);
+
+                // ++j;
+                // goto next_loop;
                 return end;
+                // continue;
             }
+            // else if (tmp) {
+            //     goto next_loop;
+
+            //     // goto no_increment;
+            //     // --index;
+            //     // continue;
+            // }
+
+            // else {
+            //     return -1;
+            // }
             return -1;
         next_loop:;
         }
 
         return end;
-    }
-    std::tuple<short int, size_ut> parseArray(
-        Array<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut operator_precedence_level, CFile& cfile) {
-
-        // #define arr statement_types_arrays[index].first
-        // Array<Pair<Array<size_ut>, size_ut>>&                   arr{statement_types_arrays[index].first};
-        short int                                               tmp{0};
-        Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>> arr_view{a};
-        size_ut                                                 offset{0};
-        size_ut                                                 start{0}, end{1};
-        std::tuple<short int, size_ut>                          tup_current, tup_previous;
-        for (std::size_t index{0}; index < statement_types_arrays.size(); ++index) {
-            // for (/* size_ut end{a.size()} */ end = a.size(); end <= a.size(); /*  ++end */) {
-            end         = a.size();
-            tup_current = matchExact(arr_view, operator_precedence_level, index /* , j */, cfile);
-            tmp         = std::get<0>(tup_current);
-            if (tmp > 0) {
-                end -= std::get<1>(tup_current);
-                arr_view.setViewEnd(end);
-                start = arr_view.end();
-                arr_view.setViewStart(start);
-                return std::make_tuple(end, index);
-            }
-            // return -1;
-            // }
-        next_loop:;
-        }
-        // std::shared_ptr<Expression> expr{std::make_shared<Expression>()};
-        // expr->subs.push_back(Pair<)
-        return std::make_tuple(-1, 0);
+        // #undef arr
+        // }
     }
 
     // TODO: Everything is remade, but not yet debugged for the final iteration; test the whole process for more complex
@@ -682,18 +725,9 @@ namespace Classifier {
 
         // Statement statement1{};
         Statement& statement1{arr_statements[-1]};
-        // Note: mapc: map_current, mapb: map_before
-        /**
-         * @brief
-         * The contents inside the mapc are:
-         *      Pairs of:
-         *          The index at which the Expression can be resolved into
-         *          The resulting Expression from matching it to the statement type
-         *
-         */
+        // Note: mapc: map_current, mapb: mar_before
         Map<size_ut, std::shared_ptr<Expression>> mapc{}, mapb{};
 
-        size_ut                      statement_type_no;
         Pair<String, ExpressionType> fill_value("", ExpressionType{Pair<size_ut, size_ut>(0LL, 0LL)});
         for (bool changed{true}, just_changed{false}, changed_back{false}; changed; changed = false) {
             /**
@@ -724,9 +758,8 @@ namespace Classifier {
                         Array<Pair<String, ExpressionType>> ignored_cut{arr_view.cutIgnored(fill_value)};
                         // Array_view<Pair<String, ExpressionType>>(ignored_cut)
 
-
-                        std::tie(increment, statement_type_no) = parseArray(ignored_cut, precedence_level, cfile);
-
+                        // Note: i here is the type of statement that will be tried masking.
+                        increment = parseArray(ignored_cut, statement_type_no, precedence_level, cfile);
 
                         if (increment < 0) {
                             increment = 1;
@@ -787,7 +820,6 @@ namespace Classifier {
                                 Pair<size_ut, std::shared_ptr<Expression>> value{i, std::make_shared<Expression>()};
                                 found_indexes.sort();
                                 std::size_t index_at{0};
-                                // Note: iter is the current value inside the found_indexes Array.
 #define iter found_indexes[index_at]
                                 for (size_ut i0{i}; i0 < i + increment; ++i0) {
                                     if (i0 == iter) {
@@ -812,20 +844,9 @@ namespace Classifier {
                             }
                             else {
                                 // TODO: The errors seem to lead here. Fix this.
-                                // mapc.insert(Pair<size_ut, std::shared_ptr<Expression>>{
-                                //     statement_type_no, std::make_shared<Expression>()});
-
-                                // mapc.insert(
-                                //     Pair<size_ut, std::shared_ptr<Expression>>{i, std::make_shared<Expression>()});
-                                Pair<size_ut, std::shared_ptr<Expression>> value{i, std::make_shared<Expression>()};
-                                for (size_ut i0{i}; i0 < i + increment; ++i0) {
-                                    if (arr_view[i0] != fill_value) {
-                                        value.second->push_back(Pair<Expression::ExpressionStr, bool>(arr_view[i0], 0));
-                                        ::transformPrecedences((*(value.second)));
-                                    }
-                                }
-                                mapc.insert(value);
-                                // *(mapc[(size_ut)(i)].second) = arr;
+                                mapc.insert(Pair<size_ut, std::shared_ptr<Expression>>{
+                                    statement_type_no, std::make_shared<Expression>()});
+                                *(mapc[(size_ut)(statement_type_no)].second) = arr;
                             }
 
                             Pair<String, Array<Pair<size_ut, size_ut>>> temp(
@@ -834,25 +855,6 @@ namespace Classifier {
                                     statement_types_arrays[statement_type_no].second.first, (size_ut)0LL)});
                             a.fill(fill_value, i, i + increment);
                             a[i] = temp;
-                            bool foundOnlyStatements{false};
-                            for (std::size_t counterEnd{0}; counterEnd < a.size(); ++counterEnd) {
-                                if (a[counterEnd] != fill_value) {
-                                    for (std::size_t counter{0}; counter < a[counterEnd].second.size(); ++counter) {
-                                        if (a[counterEnd].second[counter].first == STypes::STATEMENT) {
-                                            foundOnlyStatements = true;
-                                            break;
-                                        }
-                                        else {
-                                            foundOnlyStatements = false;
-                                        }
-                                    }
-                                    if (!foundOnlyStatements)
-                                        break;
-                                }
-                            }
-                            if (foundOnlyStatements) {
-                                goto theEnd;
-                            }
                         }
 
                         just_changed = true;
@@ -891,11 +893,6 @@ namespace Classifier {
                 changed_back = just_changed;
                 just_changed = false;
             }
-        }
-    theEnd:
-        mapc.sort();
-        for (std::size_t i{0}; i < mapc.size(); ++i) {
-            statement1.node.push_back(Pair<Classifier::Expression::ExpressionStr, bool>(mapc(0).second, 1));
         }
         return true;
     }
