@@ -26,7 +26,7 @@
 
 #include "utils.c"
 
-// char a[10]  = "nooooooo";
+char a[10]  = "nooooooo";
 char b[330] = "abcdefghi";
 
 

@@ -378,7 +378,9 @@ void CFile::parse(std::fstream& file) {
 #undef indFB
     std::ofstream ff{
         "/home/twistingcamel/programs/kmitl/c++/cshell/main/CShell/testoutputfile.c", std::ofstream::trunc};
-    write(ff);
+    // write(ff);
+    std::cout << "\n\n\n";
+    write(std::cout);
 }
 
 // void CFile::parse(FILE* file) {
@@ -537,4 +539,5 @@ void CFile::write(std::ostream& file) {
         i.write(file);
         // file << i;
     }
+    file.flush();
 }

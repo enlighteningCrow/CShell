@@ -331,8 +331,9 @@ namespace Classifier {
                     indexAsExp(i)->write(out, true);
                 }
                 else {
-                    out << indexAsStr(i);
+                    out << indexAsStr(i).first;
                 }
+                out << ' ';
             }
             if (m_in_paren)
                 out << ')';

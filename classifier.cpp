@@ -701,188 +701,191 @@ namespace Classifier {
              * same i, and then make it start from i = 0 onwards.
              */
             // Note: i here is the indexes covered by arr_view
-            for (size_ut i{0}, increment{0}, inc{0}; i < statement_types_arrays.size();
+            for (size_ut i{0}, increment{0}, inc{0}, precedence_level{0}; i < statement_types_arrays.size();
                  i += inc, arr_view.extendFront(), arr_view.extendBack()) {
                 goto start_of_loop;
             restart_loop:
                 i = 0;
             start_of_loop:
                 inc = 1;
-                for (size_ut j{0}, precedence_level{0}; j < a.size();
-                     ++j, arr_view.truncFrontIgnore(increment, fill_value), precedence_level = 0) {
-                    // arr_view;
-                    // arr_view.arr();
-                    auto arr_version_of_arr_view = arr_view.getArray();
-                    // auto s = arr_view.
+                // for (size_ut j{0}, precedence_level{0}; j < a.size();
+                //      ++j, arr_view.truncFrontIgnore(increment, fill_value), precedence_level = 0) {
+                arr_view.truncFrontIgnore(increment, fill_value);
+                precedence_level = 0;
+                // arr_view;
+                // arr_view.arr();
+                auto arr_version_of_arr_view = arr_view.getArray();
+                // auto s = arr_view.
 
-                    for (precedence_level = 0; precedence_level < 15; ++precedence_level) {
+                for (precedence_level = 0; precedence_level < 15; ++precedence_level) {
 
-                        // Note: Updated this parseArray, so it receives Array<Pair<String, Array<Pair<size_ut,
-                        // size_ut>>>> instead, but ignores the String part (param[i].first) in the checking
-                        // process. But instead with precedences.
+                    // Note: Updated this parseArray, so it receives Array<Pair<String, Array<Pair<size_ut,
+                    // size_ut>>>> instead, but ignores the String part (param[i].first) in the checking
+                    // process. But instead with precedences.
 
-                        Array<Pair<String, ExpressionType>> ignored_cut{arr_view.cutIgnored(fill_value)};
-                        // Array_view<Pair<String, ExpressionType>>(ignored_cut)
-
-
-                        std::tie(increment, statement_type_no) = parseArray(ignored_cut, precedence_level, cfile);
+                    Array<Pair<String, ExpressionType>> ignored_cut{arr_view.cutIgnored(fill_value)};
+                    // Array_view<Pair<String, ExpressionType>>(ignored_cut)
 
 
-                        if (increment < 0) {
-                            increment = 1;
-                            goto next_sub;
+                    std::tie(increment, statement_type_no) = parseArray(ignored_cut, precedence_level, cfile);
+
+
+                    if (increment < 0) {
+                        increment = 1;
+                        goto next_sub;
+                    }
+
+                    // TODO: Not sure if this thing below works or not.
+                    // increment += (decltype(arr_view)(arr_view, 0, increment.size() - ignored_cut.size());
+                    // std::size_t counter{0};
+
+                    {
+
+                        // Note: This for loop checks for the real number of increment, including blanks ignored
+                        // by the parseArray.
+                        std::size_t counter{0};
+                        for (std::size_t cnt{0}; cnt < increment; ++counter) {
+                            if (ignored_cut[counter] != fill_value) {
+                                ++cnt;
+                                // continue;
+
+                                // decltype(ignored_cut[0])& a = ignored_cut[0];
+                            }
                         }
 
-                        // TODO: Not sure if this thing below works or not.
-                        // increment += (decltype(arr_view)(arr_view, 0, increment.size() - ignored_cut.size());
-                        // std::size_t counter{0};
+                        increment = counter;
+                        // }
 
-                        {
+                        // Note: the mapb and mapc contain the things that are already parsed, waiting to be
+                        // turned into an Expression.
+                        // {
+                        Map<size_ut, std::shared_ptr<Classifier::Expression>>::swap(mapc, mapb);
+                        mapc.clear();
+                        Array<Pair<Expression::ExpressionStr, bool>> arr{};
 
-                            // Note: This for loop checks for the real number of increment, including blanks ignored
-                            // by the parseArray.
-                            std::size_t counter{0};
-                            for (std::size_t cnt{0}; cnt < increment; ++counter) {
-                                if (ignored_cut[counter] != fill_value) {
+                        size_ut        found_index{0};
+                        Array<size_ut> found_indexes;
+                        // Note: cnt stands for counter
+                        // Note: this for loop puts all the indexes of things between the range parsed by the
+                        // most recent parseArray to check if the mapb contains anything between the range
+                        // parsed by the parseArray function.
+                        for (size_ut cnt{i}; cnt < i + increment;) {
+                            if ((found_index = mapb.find(cnt)) < i + increment) {
+                                if (found_index == mapb.size()) {
                                     ++cnt;
-                                    // continue;
-
-                                    // decltype(ignored_cut[0])& a = ignored_cut[0];
-                                }
-                            }
-
-                            increment = counter;
-                            // }
-
-                            // Note: the mapb and mapc contain the things that are already parsed, waiting to be
-                            // turned into an Expression.
-                            // {
-                            for (size_ut j{0}; j < mapb.size(); ++j) {
-                                mapc.insert(mapb(j));
-                            }
-                            Map<size_ut, std::shared_ptr<Classifier::Expression>>::swap(mapc, mapb);
-                            mapc.clear();
-                            Array<Pair<Expression::ExpressionStr, bool>> arr{};
-
-                            size_ut        found_index{0};
-                            Array<size_ut> found_indexes;
-                            // Note: cnt stands for counter
-                            // Note: this for loop puts all the indexes of things between the range parsed by the
-                            // most recent parseArray to check if the mapb contains anything between the range
-                            // parsed by the parseArray function.
-                            for (size_ut cnt{i}; cnt < i + increment;) {
-                                if ((found_index = mapb.find(cnt)) < i + increment) {
-                                    if (found_index == mapb.size()) {
-                                        ++cnt;
-                                        continue;
-                                    }
-                                    found_indexes.push_back(found_index);
-                                    cnt = found_index + 1;
                                     continue;
                                 }
+                                found_indexes.push_back(found_index);
+                                cnt = found_index + 1;
+                                continue;
                             }
+                        }
 
-                            if (found_indexes.size()) {
-                                // TODO: Check how this identifier "value" is used
-                                Pair<size_ut, std::shared_ptr<Expression>> value{i, std::make_shared<Expression>()};
-                                found_indexes.sort();
-                                std::size_t index_at{0};
-                                // Note: iter is the current value inside the found_indexes Array.
+                        if (found_indexes.size()) {
+                            // TODO: Check how this identifier "value" is used
+                            Pair<size_ut, std::shared_ptr<Expression>> value{i, std::make_shared<Expression>()};
+                            found_indexes.sort();
+                            std::size_t index_at{0};
+                            // Note: iter is the current value inside the found_indexes Array.
 #define iter found_indexes[index_at]
-                                for (size_ut i0{i}; i0 < i + increment; ++i0) {
-                                    if (i0 == iter) {
-                                        mapb(iter);
-                                        mapb(iter).second;
-                                        Expression::ExpressionStr(mapb(iter).second);
-                                        Pair<Expression::ExpressionStr, bool>(
-                                            Expression::ExpressionStr(mapb(iter).second), 1);
-                                        value.second->push_back(
-                                            Pair<Expression::ExpressionStr, bool>(mapb(iter).second, 1));
-                                        ++index_at;
-                                        ::transformPrecedences((*(value.second)));
-                                    }
-                                    else if (arr_view[i0] != fill_value) {
-                                        value.second->push_back(Pair<Expression::ExpressionStr, bool>(arr_view[i0], 0));
-                                        ::transformPrecedences((*(value.second)));
-                                    }
+                            for (size_ut i0{i}; i0 < i + increment; ++i0) {
+                                if (i0 == iter) {
+                                    mapb(iter);
+                                    mapb(iter).second;
+                                    Expression::ExpressionStr(mapb(iter).second);
+                                    Pair<Expression::ExpressionStr, bool>(
+                                        Expression::ExpressionStr(mapb(iter).second), 1);
+                                    value.second->push_back(
+                                        Pair<Expression::ExpressionStr, bool>(mapb(iter).second, 1));
+                                    ++index_at;
+                                    ::transformPrecedences((*(value.second)));
                                 }
+                                else if (arr_view[i0] != fill_value) {
+                                    value.second->push_back(Pair<Expression::ExpressionStr, bool>(arr_view[i0], 0));
+                                    ::transformPrecedences((*(value.second)));
+                                }
+                            }
 #undef iter
 
-                                mapb.replace(value, found_indexes[0], found_indexes[-1] + 1);
-                            }
-                            else {
-                                // TODO: The errors seem to lead here. Fix this.
-                                // mapc.insert(Pair<size_ut, std::shared_ptr<Expression>>{
-                                //     statement_type_no, std::make_shared<Expression>()});
+                            mapb.replace(value, found_indexes[0], found_indexes[-1] + 1);
+                        }
+                        else {
+                            // TODO: The errors seem to lead here. Fix this.
+                            // mapc.insert(Pair<size_ut, std::shared_ptr<Expression>>{
+                            //     statement_type_no, std::make_shared<Expression>()});
 
-                                // mapc.insert(
-                                //     Pair<size_ut, std::shared_ptr<Expression>>{i, std::make_shared<Expression>()});
-                                Pair<size_ut, std::shared_ptr<Expression>> value{i, std::make_shared<Expression>()};
-                                for (size_ut i0{i}; i0 < i + increment; ++i0) {
-                                    if (arr_view[i0] != fill_value) {
-                                        value.second->push_back(Pair<Expression::ExpressionStr, bool>(arr_view[i0], 0));
-                                        ::transformPrecedences((*(value.second)));
-                                    }
-                                }
-                                mapc.insert(value);
-                                // *(mapc[(size_ut)(i)].second) = arr;
-                            }
-
-                            Pair<String, Array<Pair<size_ut, size_ut>>> temp(
-                                String(""),
-                                {Pair<size_ut, size_ut>(
-                                    statement_types_arrays[statement_type_no].second.first, (size_ut)0LL)});
-                            a.fill(fill_value, i, i + increment);
-                            a[i] = temp;
-                            bool foundOnlyStatements{false};
-                            for (std::size_t counterEnd{0}; counterEnd < a.size(); ++counterEnd) {
-                                if (a[counterEnd] != fill_value) {
-                                    for (std::size_t counter{0}; counter < a[counterEnd].second.size(); ++counter) {
-                                        if (a[counterEnd].second[counter].first == STypes::STATEMENT) {
-                                            foundOnlyStatements = true;
-                                            break;
-                                        }
-                                        else {
-                                            foundOnlyStatements = false;
-                                        }
-                                    }
-                                    if (!foundOnlyStatements)
-                                        break;
+                            // mapc.insert(
+                            //     Pair<size_ut, std::shared_ptr<Expression>>{i, std::make_shared<Expression>()});
+                            Pair<size_ut, std::shared_ptr<Expression>> value{i, std::make_shared<Expression>()};
+                            for (size_ut i0{i}; i0 < i + increment; ++i0) {
+                                if (arr_view[i0] != fill_value) {
+                                    value.second->push_back(Pair<Expression::ExpressionStr, bool>(arr_view[i0], 0));
+                                    ::transformPrecedences((*(value.second)));
                                 }
                             }
-                            if (foundOnlyStatements) {
-                                goto theEnd;
-                            }
+                            mapc.insert(value);
+                            // *(mapc[(size_ut)(i)].second) = arr;
                         }
 
-                        just_changed = true;
-                        inc          = 0;
+                        for (size_ut j{0}; j < mapb.size(); ++j) {
+                            mapc.insert(mapb(j));
+                        }
 
-                    next_sub:
-
-                        /**
-                         * @brief
-                         * if precedence_level is 0 (so that this is only looped once) and none of the things in the
-                         * current statement type selected has operators, break from this loop.
-                         *
-                         */
-                        // std::cout << mapc << std::endl;
-                        if (!precedence_level) {
-                            size_ut sum{0};
-                            for (size_ut k{0}; k < statement_types_arrays[statement_type_no].first.size(); ++k) {
-                                for (size_ut l{0}; l < statement_types_arrays[statement_type_no].first[k].first.size();
-                                     ++l) {
-                                    if (statement_types_arrays[statement_type_no].first[k].first[l] &
-                                        STypes::OPERATOR) {
-                                        ++sum;
+                        Pair<String, Array<Pair<size_ut, size_ut>>> temp(
+                            String(""),
+                            {Pair<size_ut, size_ut>(
+                                statement_types_arrays[statement_type_no].second.first, (size_ut)0LL)});
+                        a.fill(fill_value, i, i + increment);
+                        a[i] = temp;
+                        bool foundOnlyStatements{false};
+                        for (std::size_t counterEnd{0}; counterEnd < a.size(); ++counterEnd) {
+                            if (a[counterEnd] != fill_value) {
+                                for (std::size_t counter{0}; counter < a[counterEnd].second.size(); ++counter) {
+                                    if (a[counterEnd].second[counter].first == STypes::STATEMENT) {
+                                        foundOnlyStatements = true;
+                                        break;
+                                    }
+                                    else {
+                                        foundOnlyStatements = false;
                                     }
                                 }
+                                if (!foundOnlyStatements)
+                                    break;
                             }
-                            if (!sum)
-                                break;
+                        }
+                        if (foundOnlyStatements) {
+                            goto theEnd;
                         }
                     }
+
+                    just_changed = true;
+                    // inc          = 0;
+                    inc = increment;
+
+                next_sub:
+
+                    /**
+                     * @brief
+                     * if precedence_level is 0 (so that this is only looped once) and none of the things in the
+                     * current statement type selected has operators, break from this loop.
+                     *
+                     */
+                    // std::cout << mapc << std::endl;
+                    if (!precedence_level) {
+                        size_ut sum{0};
+                        for (size_ut k{0}; k < statement_types_arrays[statement_type_no].first.size(); ++k) {
+                            for (size_ut l{0}; l < statement_types_arrays[statement_type_no].first[k].first.size();
+                                 ++l) {
+                                if (statement_types_arrays[statement_type_no].first[k].first[l] & STypes::OPERATOR) {
+                                    ++sum;
+                                }
+                            }
+                        }
+                        if (!sum)
+                            break;
+                    }
                 }
+                // }
                 if (changed_back && !just_changed) {
                     changed_back = just_changed;
                     just_changed = false;
