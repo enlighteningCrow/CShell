@@ -1,29 +1,8 @@
-// #ifndef DISPLAY_H
-// #define DISPLAY_H
-
-// #include <QMainWindow>
-
-// QT_BEGIN_NAMESPACE
-// namespace Ui { class Display; }
-// QT_END_NAMESPACE
-
-// class Display : public QMainWindow
-// {
-//     Q_OBJECT
-
-// public:
-//     Display(QWidget *parent = nullptr);
-//     ~Display();
-
-// private:
-//     Ui::Display *ui;
-// };
-// #endif // DISPLAY_H
-
 #ifndef DISPLAY_H
 #define DISPLAY_H
 
 #include <QEvent>
+#include <QFrame>
 #include <QGroupBox>
 #include <QLabel>
 #include <QMainWindow>
@@ -37,6 +16,7 @@
 #include <QVBoxLayout>
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "./ui_display.h"
 #include "cfile.h"
 #include "classifier.h"
@@ -55,94 +35,6 @@ struct Color {
     short int rgb_g;
     short int rgb_b;
 };
-
-// class Display : public QMainWindow {
-//     Q_OBJECT
-
-// public:
-//     Display(QWidget *parent = nullptr);
-//     ~Display();
-
-//     // void buttons(const Array<variable>& a, const Array<functions>& b, const Array<operators>& c, const
-//     Array<types>&
-//     // d)   {
-// #define TMP_HOLDER int
-//     void buttons(
-//         const Array<TMP_HOLDER> &a, const Array<TMP_HOLDER> &b, const Array<TMP_HOLDER> &c,
-//         const Array<TMP_HOLDER> &d) {
-// #undef TMP_HOLDER
-//         QPushButton **functions = (QPushButton **)malloc(0);
-//         QPushButton **varables  = (QPushButton **)malloc(0);
-//         QPushButton **types     = (QPushButton **)malloc(0);
-//         QPushButton **operators = (QPushButton **)malloc(0);
-
-//         // if (a.size() != 0) { varables = (QPushButton **)realloc(varables, sizeof(a[0]) * (a.size())); }
-
-//         // if (b.size() != 0) { functions = (QPushButton **)realloc(functions, sizeof(b[0]) * (b.size())); }
-
-//         // if (c.size() != 0) { types = (QPushButton **)realloc(types, sizeof(c[0]) * (c.size())); }
-
-//         // if (d.size() != 0) { operators = (QPushButton **)realloc(operators, sizeof(d[0]) * (d.size())); }
-
-
-//         // for (int i = 0; i < a.size(); ++i) {
-//         //     varables[i] = addNewButton(0);
-//         //     QObject::connect(*(varables + i), &QPushButton::clicked, nullptr, [this]() -> void {
-//         //         spawn(/*TODO*/ "PUT THE CORRECT STRING HERE", 0ULL, 0);
-//         //     });
-//         // }
-
-//         // for (int i = 0; i < b.size(); ++i) {
-//         //     functions[i] = addNewButton(0);
-//         //     QObject::connect(*(functions + i), &QPushButton::clicked, nullptr, [this]() -> void {
-//         //         spawn(/*TODO*/ "PUT THE CORRECT STRING HERE", 0ULL, 0);
-//         //     });
-//         // }
-
-//         // for (int i = 0; i < c.size(); ++i) {
-//         //     types[i] = addNewButton(0);
-//         //     QObject::connect(*(types + i), &QPushButton::clicked, nullptr, [this]() -> void {
-//         //         spawn(/*TODO*/ "PUT THE CORRECT STRING HERE", 0ULL, 0);
-//         //     });
-//         // }
-
-//         // for (int i = 0; i < d.size(); ++i) {
-//         //     operators[i] = addNewButton(0);
-//         //     QObject::connect(*(operators + i), &QPushButton::clicked, nullptr, [this]() -> void {
-//         //         spawn(/*TODO*/ "PUT THE CORRECT STRING HERE", 0ULL, 0);
-//         //     });
-//         // }
-
-
-//         // for (int i = 0;){
-//     }
-
-//     // void spawn(String name, std::size_t id, int type) {
-//     //     // TODO: Continue this thing down here:
-//     //     // paintEvent()
-//     // }
-
-//     bool eventFilter(QObject *obj, QEvent *event);
-
-//     // QPushButton *addNewButton(short int num) {
-//     //     QVBoxLayout *lay = new QVBoxLayout(this);
-//     //     QPushButton *boton;
-//     //     // for (int i = 0; i < num; ++i){
-//     //     boton = new QPushButton("this is a button");
-//     //     lay->addWidget(boton);
-//     //     //}
-//     //     ui->scrollAreaWidgetContents_2->setLayout(lay);
-//     //     // return *boton
-//     //     return boton;
-//     // }
-
-//     // private:
-//     Ui::Display *ui;
-//     // void         Display::paintEvent(QPaintEvent *event);
-
-//     // void paintEvent(QPaintEvent *event);
-//     // void paintEvent(Color color, double x, double y, double width, double height);
-// };
 
 class CFile;
 
@@ -163,15 +55,13 @@ protected:
     QPoint       m_previous_mouse_click_pos;
 
 public:
-    ScrollAreaHandler(QScrollArea& scr) :
-        m_currently_pressed{false}, m_current_button_is_right{false}, m_scr{&scr}, m_selected{},
+    ScrollAreaHandler() :
+        m_currently_pressed{false}, m_current_button_is_right{false}, m_ui{nullptr}, m_scr{nullptr}, m_selected{},
         m_previous_mouse_pos{0, 0}, m_previous_mouse_click_pos{0, 0}, m_passed_threshold{false}, threshold{15},
         is_in_select_mode{false}, is_in_move_mode{false} {
     }
-    ScrollAreaHandler(Ui::Display* ui) :
-        m_currently_pressed{false}, m_current_button_is_right{false}, m_ui{ui}, m_scr{nullptr}, m_selected{},
-        m_previous_mouse_pos{0, 0}, m_previous_mouse_click_pos{0, 0}, m_passed_threshold{false}, threshold{15},
-        is_in_select_mode{false}, is_in_move_mode{false} {
+    void setUi(Ui::Display* ui) {
+        m_ui = ui;
     }
     void setShiftPressed() {
         is_in_shift = true;
@@ -220,8 +110,8 @@ public:
         }
     }
     void handleUserInputs(QMouseEvent& event) {
-        // TODO: Look out for when the m_ui (for not only this class) is not yet initialized.
-        m_scr = ui->mainEditor;
+        // // TODO: Look out for when the m_ui (for not only this class) is not yet initialized.
+        m_scr = m_ui->mainEditor;
         if (is_in_shift) {
             if ((!(m_scr->rect().contains(event.pos()))) && (!m_currently_pressed)) {
                 m_currently_pressed = (event.type() == QEvent::MouseButtonPress);
@@ -277,33 +167,12 @@ public:
                         if ((event.pos() - m_previous_mouse_click_pos).manhattanLength() > threshold) {
                             if (overlapsAny(m_selected, QRect(m_previous_mouse_click_pos, event.pos()))) {
                                 is_in_select_mode = true;
-                                // selectArea(QRect(m_previous_mouse_click_pos, event.pos()));
                             }
                             else {
                                 is_in_move_mode = true;
-                                // move(event.pos() - m_previous_mouse_click_pos);
                             }
                         }
                     }
-                    // QGroupBox* ptr{nullptr};
-                    // for (auto* i : m_scr->children()) {
-                    //     // QGroupBox* ptr = static_cast<QGroupBox*>(i);
-                    //     // ptr = static_cast<QGroupBox*>(i);
-                    //     if ((static_cast<QGroupBox*>(i))->rect().contains(QPoint(0, 0))) {
-                    //         ptr = static_cast<QGroupBox*>(i);
-                    //         break;
-                    //     }
-                    //     // ptr = nullptr;
-                    // }
-                    // if (ptr) {
-                    // }
-                    // if (overlapsAny())
-
-
-                    //     if (m_selected.size()) {
-                    //     }
-
-                    // handleUserInputs(*(ui->scrollArea), static_cast<QMouseEvent*>(event), 1);
                 }
             }
             else if (mode == 0) {
@@ -320,28 +189,33 @@ public:
 
 class ObjectInfo;
 
-class SpawningLabel : public QLabel {
+class SpawningLabel : public QFrame {
 protected:
-    // Pair < String, Array<Pair<String, size_ut>> m_data
+    QLabel*                                    m_label;
     Pair<String, Array<Pair<String, size_ut>>> m_data;
 
 public:
-    SpawningLabel(const decltype(m_data)& info) : QLabel(), m_data{info} {
+    SpawningLabel(String str, QWidget* wid) :
+        QFrame(wid), m_label{new QLabel(QString(str.cStr().get()), this)}, m_data{} {
+        auto* i = new QVBoxLayout{this};
+        i->addWidget(m_label);
     }
-    SpawningLabel(const decltype(m_data)& info, QString str) : QLabel(str), m_data{info} {
+    SpawningLabel(QString str, QWidget* wid) : QFrame(wid), m_label(new QLabel(str, this)), m_data{} {
+        auto* i = new QVBoxLayout{this};
+        i->addWidget(m_label);
     }
-    SpawningLabel(String str, QWidget* wid) : QLabel(QString(str.cStr().get()), wid), m_data{} {
+    SpawningLabel(String str) : QFrame(), m_label(new QLabel(QString(str.cStr().get()), this)), m_data{} {
+        auto* i = new QVBoxLayout{this};
+        i->addWidget(m_label);
     }
-    SpawningLabel(QString str, QWidget* wid) : QLabel(str, wid), m_data{} {
-    }
-    SpawningLabel(String str) : QLabel(QString(str.cStr().get())), m_data{} {
-    }
-    SpawningLabel(QString str) : QLabel(str), m_data{} {
+    SpawningLabel(QString str) : QFrame(), m_label(new QLabel(str, this)), m_data{} {
+        auto* i = new QVBoxLayout{this};
+        i->addWidget(m_label);
     }
     friend class ObjectInfo;
 };
 
-class ObjectInfo /* : public QTabWidget */ {
+class ObjectInfo {
 protected:
     /**
      * @brief
@@ -355,8 +229,7 @@ protected:
      *
      */
     typedef Array<Pair<String, Array<Pair<String, size_ut>>>> InfoType;
-    // std::tuple<InfoType, InfoType, InfoType, InfoType>
-    Ui::Display* m_ui;
+    Ui::Display*                                              m_ui;
 
     InfoType variables;
     InfoType functions;
@@ -364,150 +237,88 @@ protected:
     InfoType operators;
     InfoType misc;
 
-    QTabWidget& tabs;
-
-    // QWidget Variables;
-    // QWidget Functions;
-    // QWidget Types;
-    // QWidget Operators;
-    // QWidget Misc;
-
-    // Array<Pair<QWidget*, QVBoxLayout*>> tabs;
+    QTabWidget* tabs;
 
     bool           is_pressed;
     SpawningLabel* currently_pressed;
 
 public:
-    ObjectInfo(CFile& cfile, Ui::Display* ui) :
-        /* QTabWidget{ui->layoutWidget},  */ is_pressed{false}, m_ui{ui}, tabs{*(ui->Objects)}, currently_pressed{
+    ObjectInfo(CFile& cfile) :
+        is_pressed{false}, m_ui{nullptr}, tabs{nullptr}, currently_pressed{
 
-                                                                                                    nullptr} {
-        // this->setObjectName(QString("Objects"));
+                                                             nullptr} {
         for (auto& i : Classifier::key_expressions_const) {
             if ((i.second[0].first & Classifier::STypes::TYPE) ||
                 (i.second[0].first & Classifier::STypes::TYPE_MODIFIER)) {
                 types.push_back(Pair<String, Array<Pair<String, size_ut>>>(i.first, 0 /* i.second[0].first */));
             }
-            else if (
-                // (i.second[j].first & Classifier::STypes::TYPE) ||
-                (i.second[0].first & Classifier::STypes::OPERATOR)) {
+            else if ((i.second[0].first & Classifier::STypes::OPERATOR)) {
                 for (std::size_t j{0}; j < i.second.size(); ++j) {
-                    operators.push_back(Pair<String, Array<Pair<String, size_ut>>>(
-                        i.first, 2 /* i.second[0].first */ /* i.second[j].first */));
+                    operators.push_back(Pair<String, Array<Pair<String, size_ut>>>(i.first, 2));
                 }
             }
             else {
-                misc.push_back(Pair<String, Array<Pair<String, size_ut>>>(i.first, 0 /* i.second[0].first */));
+                misc.push_back(Pair<String, Array<Pair<String, size_ut>>>(i.first, 0));
             }
-            // if()
-            // for (std::size_t j{0}; j < i.second.size(); ++j) {
-            //     if ((i.second[j].first & Classifier::STypes::TYPE) ||
-            //         (i.second[j].first & Classifier::STypes::TYPE_MODIFIER)) {
-            //         // i.second[j].first;
-            //     }
-            // }
         }
         variables = cfile.all;
         functions = cfile.functions;
-
-        // Pair<QWidget*, QVBoxLayout*> pairs;
-        // QWidget*     tabname;
-        // QVBoxLayout* layout;
-        // QScrollArea* scrollArea;
-        // QVBoxLayout* layout2;
-
-
-        // for (short int i{0}; i < 5; ++i) {
-        //     tabname    = new QWidget();
-        //     layout     = new QVBoxLayout(pairs.first);
-        //     scrollArea = new QScrollArea(tabname);
-
-
-        //     tabs.emplace_back();
-        // }
-        // ui->
-        // populateSpawningLabels();
+    }
+    void setUi(Ui::Display* ui) {
+        m_ui = ui;
+        tabs = ui->Objects;
     }
     void spawnComponent(SpawningLabel& label, const QPoint& pos) {
-        auto* a = new Component(m_ui->mainEditor, label.m_data.first.toStdString(), label.m_data.second, pos);
-
-
-        // if (ui->Objects->currentWidget()->children()) {
-        // }
+        QLabel* label_9;
+        label_9 = new QLabel(m_ui->mainEditorW);
+        label_9->setObjectName(QString("label_9"));
+        label_9->setGeometry(QRect(30, -30, 861, 101));
+        label_9->setText(QCoreApplication::translate("Display", "Hellos, Hellos, Hellos, Hellos", nullptr));
     }
-    void handleInput(QMouseEvent& event) {
+    void handleInput(QEvent& event) {
         if (!is_pressed) {
             if (event.type() == QEvent::MouseButtonPress) {
-                // tabs.currentWidget()
-
-                // for (auto& i : tabs.currentWidget()->children()) {
-                for (auto& i : static_cast<QScrollArea*>(tabs.currentWidget()->children()[1])->layout()->children()) {
-
-                    // std::cout << static_cast<QScrollArea*>(tabs.currentWidget()->children()[1])->layout();
-                    // ->objectName().toStdString()
-                    // << std::endl;
-                    // auto* lab{new QLabel()};
-                    // static_cast<QVBoxLayout*>(tabs.currentWidget()->children()[1])->addWidget(lab);
-                    // std::cout << static_cast<QLabel*>(
-                    //                  static_cast<QVBoxLayout*>(tabs.currentWidget()->children()[0])->children()[0])
-                    //                  ->objectName()
-                    //                  .toStdString()
-                    //           << std::endl;
+                for (auto& i :
+                     static_cast<QScrollArea*>(m_ui->Objects->currentWidget()->children()[1])->widget()->children()) {
+                    std::cout << i->objectName().toStdString() << std::endl;
+                    std::string name = i->objectName().toStdString();
+                    if (name[name.size() - 1] == 'L')
+                        continue;
                     SpawningLabel& wid = *(static_cast<SpawningLabel*>(i));
-                    // TODO: Make a class inheriting from QLabel and make it contain all the information inside
-                    // it.
-                    if (wid.rect().contains(event.pos())) {
+
+                    if (wid.frameRect().contains(static_cast<QMouseEvent*>(&event)->pos())) {
                         is_pressed        = true;
                         currently_pressed = &wid;
+                        break;
                     }
                 }
-                // std::cout << std::endl;
             }
         }
         else {
             if (event.type() == QEvent::MouseButtonRelease) {
                 if (is_pressed && currently_pressed) {
                     is_pressed = false;
-                    spawnComponent(*currently_pressed, event.pos());
+                    if (m_ui->mainEditor->rect().contains(static_cast<QMouseEvent*>(&event)->pos())) {
+                        spawnComponent(*currently_pressed, static_cast<QMouseEvent*>(&event)->pos());
+                    }
+                    currently_pressed = nullptr;
                 }
-                // spawnComponent(*currently_pressed, event.pos());
             }
         }
     }
 
     void populateSpawningLabels() {
         std::size_t counter{0};
-        // QString     temp("hellos");
-        // // QLabel      label1{};
-        // QLabel& label1 = *(new QLabel());
-        // label1.setText(temp);
-        // label1.;
-        // label1.
-        // SpawningLabel lab2(QString("hellos"));
-        // variables, functions, types, operators, misc;
         {
             InfoType& i{variables};
             for (Pair<String, Array<Pair<String, size_ut>>>& j : i) {
-                // static_cast<QScrollArea*>(tabs.widget(counter)->children()[1])->widget()->layout();
-                // std::cout << tabs.widget(counter) /* ->children()[1] */->objectName().toStdString() << std::endl;
-                // std::cout << m_ui->Objects->widget(counter) /* ->children()[1] */->objectName().toStdString()
-                //           << std::endl;
-
-                std::cout << static_cast<QScrollArea*>(m_ui->Objects->widget(counter)->children()[1])
-                                 ->widget()
-                                 ->layout()
-                                 ->objectName()
-                                 .toStdString()
-                          << std::endl;
-                SpawningLabel* spl = new SpawningLabel(j.first, nullptr);
+                SpawningLabel* spl = new SpawningLabel(
+                    j.first, static_cast<QScrollArea*>(m_ui->Objects->widget(counter)->children()[1])->widget());
+                spl->setObjectName(QString(j.first.cStr().get()));
                 static_cast<QScrollArea*>(m_ui->Objects->widget(counter)->children()[1])
                     ->widget()
                     ->layout()
                     ->addWidget(spl);
-                // m_ui->saVariablesCL->addWidget(spl);
-
-                // static_cast<QScrollArea*>(m_ui->Objects->currentWidget()->children()[1])->layout()->addWidget(spl);
-                // ui->mainEditor->layout()->addWidget(spl);
             }
             ++counter;
         }
@@ -516,12 +327,11 @@ public:
             for (Pair<String, Array<Pair<String, size_ut>>>& j : i) {
                 SpawningLabel* spl = new SpawningLabel(
                     j.first, static_cast<QScrollArea*>(m_ui->Objects->widget(counter)->children()[1])->widget());
+                spl->setObjectName(QString(j.first.cStr().get()));
                 static_cast<QScrollArea*>(m_ui->Objects->widget(counter)->children()[1])
                     ->widget()
                     ->layout()
                     ->addWidget(spl);
-                // static_cast<QScrollArea*>(m_ui->Objects->currentWidget()->children()[1])->layout()->addWidget(spl);
-                // ui->mainEditor->layout()->addWidget(spl);
             }
             ++counter;
         }
@@ -530,12 +340,11 @@ public:
             for (Pair<String, Array<Pair<String, size_ut>>>& j : i) {
                 SpawningLabel* spl = new SpawningLabel(
                     j.first, static_cast<QScrollArea*>(m_ui->Objects->widget(counter)->children()[1])->widget());
+                spl->setObjectName(QString(j.first.cStr().get()));
                 static_cast<QScrollArea*>(m_ui->Objects->widget(counter)->children()[1])
                     ->widget()
                     ->layout()
                     ->addWidget(spl);
-                // static_cast<QScrollArea*>(m_ui->Objects->currentWidget()->children()[1])->layout()->addWidget(spl);
-                // ui->mainEditor->layout()->addWidget(spl);
             }
             ++counter;
         }
@@ -544,12 +353,11 @@ public:
             for (Pair<String, Array<Pair<String, size_ut>>>& j : i) {
                 SpawningLabel* spl = new SpawningLabel(
                     j.first, static_cast<QScrollArea*>(m_ui->Objects->widget(counter)->children()[1])->widget());
+                spl->setObjectName(QString(j.first.cStr().get()));
                 static_cast<QScrollArea*>(m_ui->Objects->widget(counter)->children()[1])
                     ->widget()
                     ->layout()
                     ->addWidget(spl);
-                // static_cast<QScrollArea*>(m_ui->Objects->currentWidget()->children()[1])->layout()->addWidget(spl);
-                // ui->mainEditor->layout()->addWidget(spl);
             }
             ++counter;
         }
@@ -558,12 +366,11 @@ public:
             for (Pair<String, Array<Pair<String, size_ut>>>& j : i) {
                 SpawningLabel* spl = new SpawningLabel(
                     j.first, static_cast<QScrollArea*>(m_ui->Objects->widget(counter)->children()[1])->widget());
+                spl->setObjectName(QString(j.first.cStr().get()));
                 static_cast<QScrollArea*>(m_ui->Objects->widget(counter)->children()[1])
                     ->widget()
                     ->layout()
                     ->addWidget(spl);
-                // static_cast<QScrollArea*>(m_ui->Objects->currentWidget()->children()[1])->layout()->addWidget(spl);
-                // ui->mainEditor->layout()->addWidget(spl);
             }
             ++counter;
         }
@@ -575,7 +382,6 @@ class ConnectionHandler {
     bool         shift_pressed;
     Component*   first;
     bool         clicked_in;
-    // QPainter     painter;
 
 public:
     void handleConnection(QEvent* event) {
@@ -615,20 +421,10 @@ public:
                                 first      = comp;
                                 break;
                             }
-                            // if (first == nullptr) {
-                            //     first = comp;
-                            //     clicked_in = true;
-                            // }
-                            // else {
-                            //     first->connect(comp);
-                            //     first = nullptr;
-                            //     clicked_in = false;
-                            // }
                         }
                     }
                 }
             }
-            // if (mouseEvent->)
         }
         else if (event->type() == QEvent::MouseButtonRelease) {
             if (first) {
@@ -649,8 +445,6 @@ public:
                                         first      = nullptr;
                                         break;
                                     }
-                                    // clicked_in = true;
-                                    // first      = comp;
                                 }
                                 else if (static_cast<QLabel*>(
                                              static_cast<QHBoxLayout*>(comp->layout->children()[1])->children()[1])
@@ -663,43 +457,17 @@ public:
                                         break;
                                     }
                                 }
-                                // if (first == nullptr) {
-                                //     first = comp;
-                                //     clicked_in = true;
-                                // }
-                                // else {
-                                //     first->connect(comp);
-                                //     first = nullptr;
-                                //     clicked_in = false;
-                                // }
                             }
                         }
                     }
                 }
             }
-            // if (mouseEvent->)
         }
-        // QPoint point()
-        // m_ui->mainEditor->paintEngine()->drawLines()
-        // painter.eraseRect(m_ui->mainEditor->rect());
-        // m_ui->mainEditor->repaint();
-        // painter.setPen(QPen(Qt::green, 2));
-        // for (QObject* i : m_ui->mainEditor->children()) {
-        //     Component* comp = static_cast<Component*>(i);
-        //     if (comp->next) {
-        //         painter.drawLine(
-        //             (static_cast<QLabel*>(static_cast<QHBoxLayout*>(comp->layout->children()[0])->children()[0])
-        //                  ->pos()),
-        //             (static_cast<QLabel*>(static_cast<QHBoxLayout*>(comp->next->layout->children()[1])->children()[1])
-        //                  ->pos()));
-        //         //
-        //         (static_cast<QLabel*>(static_cast<QHBoxLayout*>(comp->layout->children()[0])->children()[0])->pos())
-        //         // ->pos();
-        //     }
-        // }
     }
-    ConnectionHandler(Ui::Display* ui) :
-        m_ui{ui}, shift_pressed{false}, first{nullptr}, clicked_in{false} /* , painter(ui->mainEditor) */ {
+    ConnectionHandler() : m_ui{nullptr}, shift_pressed{false}, first{nullptr}, clicked_in{false} {
+    }
+    void setUi(Ui::Display* ui) {
+        m_ui = ui;
     }
 };
 

@@ -4,7 +4,6 @@
 #include "stdc++.h"
 
 #include "array_view.h"
-// #include "cfile.h"
 #include "dynamic_bitset.h"
 #include "utils.h"
 
@@ -102,13 +101,6 @@ namespace Classifier {
             ~ExpressionStr() {
             }
 
-            // friend FILE& operator<<(FILE& out, const ExpressionStr& exp) {
-            //     if (exp.ex.get() == nullptr) {
-            //         out << exp.str;
-            //     }
-            // }
-
-
             friend FILE& operator<<(FILE& out, const ExpressionStr& exp) {
                 if (exp.ex.get() == nullptr) {
                     out << exp.str;
@@ -163,13 +155,6 @@ namespace Classifier {
         Expression(const Expression* exp) :
             m_has_parent{exp->m_has_parent}, m_in_paren{exp->m_in_paren}, subs(exp->subs) {
         }
-        // Expression(const Array<Pair<ExpressionStr, bool>>& ex) : subs(ex) {
-        //     for (size_ut i{0}; i < ex.size(); ++i) {
-        //         if (ex[i].second) {
-        //             ((Expression*)(&(ex[i].first)))->m_has_parent = true;
-        //         }
-        //     }
-        // }
         std::size_t size() const {
             return subs.size();
         }
@@ -257,7 +242,6 @@ namespace Classifier {
         friend void _print(FILE& out, const Expression& exp) {
             for (size_ut i{0}; i < exp.subs.size(); ++i) {
                 if (exp.isExpression(i)) {
-                    // operator<<(out, exp.indexAsExp(i).operator*());
                     out << *(exp.indexAsExp(i));
                 }
                 else {
@@ -268,33 +252,20 @@ namespace Classifier {
         friend void _print(std::ostream& out, const Expression& exp) {
             for (size_ut i{0}; i < exp.subs.size(); ++i) {
                 if (exp.isExpression(i)) {
-                    // operator<<(out, exp.indexAsExp(i).operator*());
                     out << *(exp.indexAsExp(i));
                 }
                 else {
                     out << exp.indexAsStr(i) << ' ';
-                    // out << "\" " << exp.indexAsStr(i) << " \"" << ' ';
                 }
             }
         }
 
     public:
         friend FILE& operator<<(FILE& out, const Expression& exp) {
-            // for (size_ut i{0}; i < exp.subs.size(); ++i) {
-            //     if (exp.isExpression(i)) {
-            //         // operator<<(out, exp.indexAsExp(i).operator*());
-            //         // out << *exp.indexAsExp(i);
-            //     }
-            //     else {
-            //         out << exp.indexAsStr(i);
-            //     }
-            // }
-
             _print(out, exp);
             return out;
         }
         friend std::ostream& operator<<(std::ostream& out, const Expression& exp) {
-            // for (size_ut i{0}; i < exp.subs.size(); ++i) {
             _print(out, exp);
             return out;
         }
@@ -307,7 +278,7 @@ namespace Classifier {
         }
 
 
-        FILE& write(FILE& out, const Expression& exp /* , bool in_paren = false */) {
+        FILE& write(FILE& out, const Expression& exp) {
             if (m_in_paren)
                 out << '(';
             for (size_ut i{0}; i < exp.subs.size(); ++i) {
@@ -322,12 +293,11 @@ namespace Classifier {
                 out << ')';
             return out;
         }
-        std::ostream& write(std::ostream& out /* , const Expression& exp */, bool in_paren = false) const {
+        std::ostream& write(std::ostream& out, bool in_paren = false) const {
             if (m_in_paren)
                 out << '(';
             for (size_ut i{0}; i < subs.size(); ++i) {
                 if (isExpression(i)) {
-                    // out << *(indexAsExp(i));
                     indexAsExp(i)->write(out, true);
                 }
                 else {
@@ -432,21 +402,14 @@ namespace Classifier {
             1: matched and completed
      */
 
-    // short int matchExact(
-    //     const Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut precedence, size_ut index1,
-    //     size_ut index2);
-    // short int parseArray(
-    //     const Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut index,
-    //     size_ut operator_precedence_level = 0LL);
     short int parseArray(
-        Array<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut index,
-        size_ut operator_precedence_level /*  = 0LL */, CFile& cfile);
-    std::tuple<short int, size_ut> parseArray(
-        Array<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut operator_precedence_level /*  = 0LL */,
+        Array<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut index, size_ut operator_precedence_level,
         CFile& cfile);
+    std::tuple<short int, size_ut> parseArray(
+        Array<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut operator_precedence_level, CFile& cfile);
     std::tuple<short int, size_ut> matchExact(
         const Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut precedence, size_ut index1,
-        /* size_ut index2,  */ CFile& cfile);
+        CFile& cfile);
     /**
      * @brief
      * the parameter a is the list of the things in the parsed statement.

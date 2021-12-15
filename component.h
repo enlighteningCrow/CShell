@@ -11,20 +11,20 @@
 
 typedef long long int size_ut;
 
-// This class emulates a linked list
+// This class emulates a linked list; the struct Iter provides capabilities for this to act as a linked list of
+// Expressions
 class Component : public QGroupBox {
 public:
     QVBoxLayout*                            layout;
     QPalette                                colours{Qt::white};
     std::shared_ptr<Classifier::Expression> expr;
-    // Component
     Component(
         QWidget* parent, const std::string& name, const Array<Pair<String, size_ut>>& cols, const QPoint& location);
     Component*                    next;
     Component&                    setNext(Component& next);
     Array<Classifier::Expression> makeArray() const;
 
-    // TODO: It points to shared_ptrs, not Expressions
+    // Note: It points to shared_ptrs, not Expressions
     struct Iter {
     public:
         using value_type        = Classifier::Expression;
@@ -67,7 +67,5 @@ public:
         }
     };
 };
-
-// extern std::list<Component> coponentList;
 
 #endif// COMPONENT_H

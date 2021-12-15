@@ -75,7 +75,6 @@ public:
         std::size_t awayCeilE = (end / BPB) / sizeof(T);
         std::size_t inB       = (begin / BPB) % sizeof(T);
         std::size_t inE       = (end / BPB) % sizeof(T);
-        // std::size_t until(m_data.size() - static_cast<bool>(awayCeilE));
         if (val) {
             if (awayCeilB == awayCeilE) {
                 for (size_t i(inB); i < inE; ++i) {
@@ -146,10 +145,7 @@ public:
                 return i;
         return i;
     }
-    // TODO: Work on the rest of the operators needed.
-    // operator|
 };
 
-// class Bitset
 
 #endif// BITSET_H

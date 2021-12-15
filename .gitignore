@@ -101,3 +101,6 @@ clion*
 # .vscode/targets.log
 .vscode/dryrun.log
 .vscode/targets.log
+
+*_backup*
+*_with_comments*

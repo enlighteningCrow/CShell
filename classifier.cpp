@@ -4,11 +4,6 @@
 #include "expression.h"
 
 
-// int main_process() {
-//     Scope global{};
-//     global.
-// }
-
 namespace Classifier {
 
     Array<Pair<Array<Pair<Array<size_ut>, size_ut>>, Pair<size_ut, size_ut>>> statement_types_arrays{
@@ -446,11 +441,10 @@ namespace Classifier {
 
     std::tuple<short int, size_ut> matchExact(
         const Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut precedence, size_ut index1,
-        /* size_ut index2,  */ CFile& cfile) {
+        CFile& cfile) {
         static size_ut last_index{0};
         last_index = index1;
-        bool success{false};
-        // statement_types_arrays[index1].second.second == 3;
+        bool    success{false};
         size_ut index_of_failure{0};
         // Note: this is to count the amount of STypes::MULTIPLE used, specifically for when making functions.
         std::size_t   multiple_count{0};
@@ -464,11 +458,9 @@ namespace Classifier {
 #define foptions statement_types_arrays[index1].first[index2].second
 #define ainfof(i, i0) a[i].second[i0].first
 #define ainfos(i, i0) a[i].second[i0].second
-        // for (size_ut i{0}; (i < a.size());) {
         {
             size_ut i{0};
 
-            // for (size_ut k{0}; k < statement_types_arrays[index1].first.size(); ++k) {
             for (index2 = 0; (index2 < statement_types_arrays[index1].first.size()) && (i < a.size()); ++index2) {
             retry:
                 success = false;
@@ -484,23 +476,15 @@ namespace Classifier {
                                         if (ainfos(i, i0) == precedence) {
                                             success = true;
                                             goto successful;
-                                            // continue;
                                         }
-                                        // index_of_failure = i;
                                         success = false;
                                         continue;
-                                        // goto unsuccessful;
-                                        // return std::make_tuple<short int, size_ut>(0, (size_ut)(foptions));
                                     }
                                     success = true;
                                     goto successful;
-                                    // continue;
                                 }
-                                // goto unsuccessful;
-                                // index_of_failure = i;
                                 success = false;
                                 continue;
-                                // return std::make_tuple<short int, size_ut>(0, (size_ut)(foptions));
                             }
                             if (stt.second == 7) {
                                 if (index2 == 4) {
@@ -533,42 +517,31 @@ namespace Classifier {
                                 else if (index2 == 1) {
                                     name = a[i].first;
                                 }
-                                // if (index2 == 4) {
-                                // ;
-                                // }
                             }
                             success = true;
                             goto successful;
-                            // continue;
                         }
                     }
                     if (!success) {
-                        // unsuccessful:
                         if (index2) {
                             if (statement_types_arrays[index1].first[index2 - 1].second & STypes::MULTIPLE) {
                                 for (size_ut i0{0}; i0 < a[i].second.size(); ++i0) {
                                     if (sta(0) & ainfof(i, i0)) {
                                         --index2;
                                         goto retry;
-                                        // goto matched;
                                     }
                                 }
-
-                                // matched:
-                                // if (--index2)
                             }
                         }
                         if (foptions & STypes::OPTIONAL) {
                             ++index2;
                             goto retry;
-                            // for(size_ut i0)
                         }
                         return std::make_tuple<short int, size_ut>(0, 0LL);
                     }
                 successful:;
                 }
             }
-            // return 1;
             // Note: in this case, the second return value is the amount of excess things in the a.
             if (statement_types_arrays[index1].first.size() == index2) {
                 size_ut counter{0};
@@ -582,17 +555,13 @@ namespace Classifier {
                 }
                 if (stt.second == 7 || stt.second == 6) {
                     cfile.functions.push_back(cfile.all[counter]);
-                    // for (std::size_t k{0}; k < multiple_count; ++k) {
                     for (String& k : param_names) {
                         cfile.functions[-1].second.push_back(Pair<String, size_ut>(k, 0));
                     }
-                    // }
-                    // cfile.functions[-1].second.
                 }
                 return std::make_tuple<short int, size_ut>(1, a.size() - i);
             }
         }
-        // return -1;
         return std::make_tuple<short int, size_ut>(-1, 0LL);
 #undef ainfos
 #undef ainfof
@@ -619,14 +588,12 @@ namespace Classifier {
         Array<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut index, size_ut operator_precedence_level,
         CFile& cfile) {
 
-        // #define arr statement_types_arrays[index].first
-        // Array<Pair<Array<size_ut>, size_ut>>&                   arr{statement_types_arrays[index].first};
         short int                                               tmp{0};
         Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>> arr_view{a};
         size_ut                                                 offset{0};
         size_ut                                                 start{0}, end{1};
         std::tuple<short int, size_ut>                          tup_current, tup_previous;
-        for (size_ut end{a.size()}; end <= a.size(); /*  ++end */) {
+        for (size_ut end{a.size()}; end <= a.size();) {
             tup_current = matchExact(arr_view, operator_precedence_level, index /* , j */, cfile);
             tmp         = std::get<0>(tup_current);
             if (tmp > 0) {
@@ -645,15 +612,12 @@ namespace Classifier {
     std::tuple<short int, size_ut> parseArray(
         Array<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, size_ut operator_precedence_level, CFile& cfile) {
 
-        // #define arr statement_types_arrays[index].first
-        // Array<Pair<Array<size_ut>, size_ut>>&                   arr{statement_types_arrays[index].first};
         short int                                               tmp{0};
         Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>> arr_view{a};
         size_ut                                                 offset{0};
         size_ut                                                 start{0}, end{1};
         std::tuple<short int, size_ut>                          tup_current, tup_previous;
         for (std::size_t index{0}; index < statement_types_arrays.size(); ++index) {
-            // for (/* size_ut end{a.size()} */ end = a.size(); end <= a.size(); /*  ++end */) {
             end         = a.size();
             tup_current = matchExact(arr_view, operator_precedence_level, index /* , j */, cfile);
             tmp         = std::get<0>(tup_current);
@@ -664,23 +628,15 @@ namespace Classifier {
                 arr_view.setViewStart(start);
                 return std::make_tuple(end, index);
             }
-            // return -1;
-            // }
         next_loop:;
         }
-        // std::shared_ptr<Expression> expr{std::make_shared<Expression>()};
-        // expr->subs.push_back(Pair<)
         return std::make_tuple(-1, 0);
     }
-
-    // TODO: Everything is remade, but not yet debugged for the final iteration; test the whole process for more complex
-    // c source codes.
 
     bool check(Array<Pair<String, Array<Pair<size_ut, size_ut>>>>& a, Array<Statement>& arr_statements, CFile& cfile) {
         Array_view<Pair<String, Array<Pair<size_ut, size_ut>>>> arr_view{a};
         arr_statements.push_back(Statement{});
 
-        // Statement statement1{};
         Statement& statement1{arr_statements[-1]};
         // Note: mapc: map_current, mapb: map_before
         /**
@@ -708,14 +664,9 @@ namespace Classifier {
                 i = 0;
             start_of_loop:
                 inc = 1;
-                // for (size_ut j{0}, precedence_level{0}; j < a.size();
-                //      ++j, arr_view.truncFrontIgnore(increment, fill_value), precedence_level = 0) {
                 arr_view.truncFrontIgnore(increment, fill_value);
-                precedence_level = 0;
-                // arr_view;
-                // arr_view.arr();
+                precedence_level             = 0;
                 auto arr_version_of_arr_view = arr_view.getArray();
-                // auto s = arr_view.
 
                 for (precedence_level = 0; precedence_level < 15; ++precedence_level) {
 
@@ -724,41 +675,28 @@ namespace Classifier {
                     // process. But instead with precedences.
 
                     Array<Pair<String, ExpressionType>> ignored_cut{arr_view.cutIgnored(fill_value)};
-                    // Array_view<Pair<String, ExpressionType>>(ignored_cut)
-
 
                     std::tie(increment, statement_type_no) = parseArray(ignored_cut, precedence_level, cfile);
-
 
                     if (increment < 0) {
                         increment = 1;
                         goto next_sub;
                     }
 
-                    // TODO: Not sure if this thing below works or not.
-                    // increment += (decltype(arr_view)(arr_view, 0, increment.size() - ignored_cut.size());
-                    // std::size_t counter{0};
-
                     {
-
                         // Note: This for loop checks for the real number of increment, including blanks ignored
                         // by the parseArray.
                         std::size_t counter{0};
                         for (std::size_t cnt{0}; cnt < increment; ++counter) {
                             if (ignored_cut[counter] != fill_value) {
                                 ++cnt;
-                                // continue;
-
-                                // decltype(ignored_cut[0])& a = ignored_cut[0];
                             }
                         }
 
                         increment = counter;
-                        // }
 
                         // Note: the mapb and mapc contain the things that are already parsed, waiting to be
                         // turned into an Expression.
-                        // {
                         Map<size_ut, std::shared_ptr<Classifier::Expression>>::swap(mapc, mapb);
                         mapc.clear();
                         Array<Pair<Expression::ExpressionStr, bool>> arr{};
@@ -810,12 +748,6 @@ namespace Classifier {
                             mapb.replace(value, found_indexes[0], found_indexes[-1] + 1);
                         }
                         else {
-                            // TODO: The errors seem to lead here. Fix this.
-                            // mapc.insert(Pair<size_ut, std::shared_ptr<Expression>>{
-                            //     statement_type_no, std::make_shared<Expression>()});
-
-                            // mapc.insert(
-                            //     Pair<size_ut, std::shared_ptr<Expression>>{i, std::make_shared<Expression>()});
                             Pair<size_ut, std::shared_ptr<Expression>> value{i, std::make_shared<Expression>()};
                             for (size_ut i0{i}; i0 < i + increment; ++i0) {
                                 if (arr_view[i0] != fill_value) {
@@ -824,7 +756,6 @@ namespace Classifier {
                                 }
                             }
                             mapc.insert(value);
-                            // *(mapc[(size_ut)(i)].second) = arr;
                         }
 
                         for (size_ut j{0}; j < mapb.size(); ++j) {
@@ -859,8 +790,7 @@ namespace Classifier {
                     }
 
                     just_changed = true;
-                    // inc          = 0;
-                    inc = increment;
+                    inc          = increment;
 
                 next_sub:
 

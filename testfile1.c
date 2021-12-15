@@ -26,8 +26,20 @@
 
 #include "utils.c"
 
-char a[10] = "nooooooo";
-// char b[330] = "abcdefghi";
+// typedef char b;
+// typedef char c;
+// typedef char d;
+
+char a[100] = "nooooooo";
+// char b[100] = "asbdfioasdf";
+// char c[100] = "xrgs";
+// char d[100] = "nooooooo";
+// char e[100] = "zsdfge";
+// char f[100] = "nre";
+// char g[100] = "nooooooo";
+// int  l[3]   = {1, 3};
+
+// char k[330] = "abcdefghi";
 
 
 // int main() {

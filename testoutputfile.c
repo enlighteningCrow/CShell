@@ -1,1 +1,1 @@
-char a [ 10 ] = "nooooooo" ;  
+char a [ 100 ] = "nooooooo" ;  

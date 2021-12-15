@@ -43,6 +43,8 @@ set(PROJECT_SOURCES
         classifier.cpp
         expression.cpp
         cfile.cpp
+        contactor.h
+        contactor.cpp
         # TEST123.cpp
 )
 
